@@ -4,6 +4,8 @@
 
 SyntheticCorrelationVAE is a research project exploring the application of Variational Auto-Encoders (VAEs) to generate synthetic financial correlation matrices, with a specific focus on correlations among equity indices. The project incorporates a unique simulation approach for generating correlation matrices, allowing for a deeper understanding of the latent space and providing insights into how correlation structures evolve over time.
 
+![VAE_diagram](https://github.com/rcrupiISP/SyntheticCorrelationVAE/assets/92302358/eade0514-3993-4665-9996-3107dc073f5d)
+
 ## VAE Training
 
 The project begins with the training of a Variational Auto-Encoder (VAE) designed to capture the underlying structure of financial correlation matrices. The VAE architecture comprises an encoder and a decoder. The encoder transforms input correlation matrices into a latent space, and the decoder reconstructs correlation matrices from points sampled in this latent space.
@@ -14,6 +16,9 @@ The project begins with the training of a Variational Auto-Encoder (VAE) designe
 
 - **Training Process:** The VAE is trained on historical financial data, specifically equity indices returns. The training process involves optimizing the model parameters to minimize the reconstruction error while regularizing the latent space. The training progress can be monitored through visualizations, ensuring convergence and effective learning.
 
+![scatter_explanation_](https://github.com/rcrupiISP/SyntheticCorrelationVAE/assets/92302358/c4fb7c18-75d3-4050-8472-eaa78b2be6ca)
+
+
 ## Simulation of Correlation Matrices
 
 The simulation notebook, "Synthetic correlations with VAEs - Simulation," provides a detailed exploration of the correlation matrix generation process using the trained VAE model. The simulation involves sampling points from the latent space to generate synthetic correlation matrices.
@@ -21,6 +26,9 @@ The simulation notebook, "Synthetic correlations with VAEs - Simulation," provid
 - **Latent Space Sampling:** The notebook demonstrates the sampling of points in circles of increasing radius within the latent space. This approach allows for the exploration of different correlation structures, providing insights into how correlations may vary.
 
 - **Risk Estimation:** Synthetic correlation matrices generated through the VAE are subjected to risk estimation analysis. This involves computing eigenvalues, eigenvectors, and assessing the overlap of dominant directions across different samples. These analyses contribute to understanding the risk implications of the synthetic correlation matrices.
+
+![var_surface_2](https://github.com/rcrupiISP/SyntheticCorrelationVAE/assets/92302358/d853fc7f-8eff-494c-bc4b-491a67aa8695)
+
 
 ## Data Source
 

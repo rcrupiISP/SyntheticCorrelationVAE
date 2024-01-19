@@ -14,7 +14,7 @@ The project begins with the training of a Variational Auto-Encoder (VAE) designe
 
 - **Loss Function:** The Mean Squared Error (MSE) loss is employed during training, guiding the VAE to reconstruct correlation matrices faithfully. A regularization term is included for promoting the learning of a structured and interpretable latent space.
 
-- **Training Process:** The VAE is trained on historical financial data, specifically equity indices returns. The training process involves optimizing the model parameters to minimize the reconstruction error while regularizing the latent space. The training progress can be monitored through visualizations, ensuring convergence and effective learning.
+- **Training Process:** The VAE is trained on historical financial data, specifically equity indices returns. The training process involves optimizing the model parameters to minimize the reconstruction error while regularizing the latent space. The training progress can be monitored through visualizations, ensuring convergence and effective learning. At the end of the process a matrix can be represented in a 2D embedding space, as in the figure below.
 
 ![scatter_explanation_](https://github.com/rcrupiISP/SyntheticCorrelationVAE/assets/92302358/c4fb7c18-75d3-4050-8472-eaa78b2be6ca)
 

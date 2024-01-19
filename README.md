@@ -36,7 +36,7 @@ The example in the notebook utilizes freely available data on Italian default ra
 
 ## Key Features
 
-- **Linear VAE Model:** A linear VAE model is implemented, offering an interpretable latent space representation.
+- **VAE Model:** A VAE model is implemented, offering an interpretable latent space representation.
 - **Data Loading and Processing:** The project provides functionalities for loading and processing financial data, such as equity indices returns, into suitable formats for correlation matrix generation.
 - **Training and Validation:** The code includes functions for training and validating the VAE model, with visualizations for assessing convergence and performance.
 - **Simulation Notebook:** A comprehensive notebook guides users through the simulation process, enabling experimentation with different datasets and latent space configurations.

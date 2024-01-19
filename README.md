@@ -8,7 +8,7 @@ SyntheticCorrelationVAE is a research project exploring the application of Varia
 
 ## VAE Training
 
-The project begins with the training of a Variational Auto-Encoder (VAE) designed to capture the underlying structure of financial correlation matrices. The VAE architecture comprises an encoder and a decoder. The encoder transforms input correlation matrices into a latent space, and the decoder reconstructs correlation matrices from points sampled in this latent space.
+The project begins with the training of a Variational Auto-Encoder (VAE) designed to capture the underlying structure of financial correlation matrices, see the notebook "Github_VAE_2d_training.ipynb". The VAE architecture comprises an encoder and a decoder. The encoder transforms input correlation matrices into a latent space, and the decoder reconstructs correlation matrices from points sampled in this latent space.
 
 - **VAE Architecture:** Three linear layers in the encoder and decoder, with appropriate activation functions. The latent space is two-dimensional, providing a compact representation of the correlation structures.
 

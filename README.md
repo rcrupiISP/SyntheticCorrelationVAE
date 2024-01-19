@@ -6,6 +6,7 @@ SyntheticCorrelationVAE is a research project exploring the application of Varia
 More details can be found in the paper:
 
 [**Quantifying Credit Portfolio sensitivity to asset correlations with interpretable generative neural networks**](https://arxiv.org/abs/2309.08652)
+
 *Sergio Caprioli, Emanuele Cagliero, Riccardo Crupi*  
 
 

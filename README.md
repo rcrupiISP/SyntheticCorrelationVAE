@@ -3,6 +3,12 @@
 ## Overview
 
 SyntheticCorrelationVAE is a research project exploring the application of Variational Auto-Encoders (VAEs) to generate synthetic financial correlation matrices, with a specific focus on correlations among equity indices. The project incorporates a unique simulation approach for generating correlation matrices, allowing for a deeper understanding of the latent space and providing insights into how correlation structures evolve over time.
+More details can be found in the paper:
+
+**Quantifying Credit Portfolio sensitivity to asset correlations with interpretable generative neural networks**  
+*Sergio Caprioli, Emanuele Cagliero, Riccardo Crupi*  
+[ArXiv Paper](https://arxiv.org/abs/2309.08652)
+
 
 ![VAE_diagram](https://github.com/rcrupiISP/SyntheticCorrelationVAE/assets/92302358/eade0514-3993-4665-9996-3107dc073f5d)
 

@@ -40,6 +40,7 @@ The simulation notebook, "Github_Simulation_VAE.ipynb", provides a detailed expl
 ## Data Source
 
 Within this repository, you'll find an illustrative example using publicly available data obtained from [Banca d'Italia](https://infostat.bancaditalia.it/), specifically focusing on Italian default rates. Our approach involves the application of a spline method for data processing. Feel free to explore and customize our methodology for your individual research and applications.
+
 In the paper were employed 44 indexes listed in the file **DATASTREAM_ IT_EU_US_EMERGING.txt** (that needs a paid subscription to Datastream).
 
 ## Key Features

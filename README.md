@@ -39,7 +39,7 @@ The simulation notebook, "Github_Simulation_VAE.ipynb", provides a detailed expl
 
 ## Data Source
 
-The example in the notebook utilizes freely available data on Italian default rates sourced from [Banco d'Italia](https://infostat.bancaditalia.it/). However, the methodology is adaptable for various financial datasets. The list of the 44 indexes employed are listed in the file **DATASTREAM_ IT_EU_US_EMERGING.txt**.
+The example in the notebook utilizes freely available data on Italian default rates sourced from [Banca d'Italia](https://infostat.bancaditalia.it/). However, the methodology is adaptable for various financial datasets. The list of the 44 indexes employed are listed in the file **DATASTREAM_ IT_EU_US_EMERGING.txt**.
 
 ## Key Features
 

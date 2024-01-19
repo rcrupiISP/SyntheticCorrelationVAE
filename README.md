@@ -24,7 +24,7 @@ The simulation notebook, "Synthetic correlations with VAEs - Simulation," provid
 
 ## Data Source
 
-The example in the notebook utilizes freely available data on Italian default rates sourced from [Banco d'Italia](https://infostat.bancaditalia.it/). However, the methodology is adaptable for various financial datasets.
+The example in the notebook utilizes freely available data on Italian default rates sourced from [Banco d'Italia](https://infostat.bancaditalia.it/). However, the methodology is adaptable for various financial datasets. The list of the 44 indexes employed are listed in the file **DATASTREAM_ IT_EU_US_EMERGING.txt**.
 
 ## Key Features
 

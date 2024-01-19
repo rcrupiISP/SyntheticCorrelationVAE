@@ -21,7 +21,7 @@ The project begins with the training of a Variational Auto-Encoder (VAE) designe
 
 ## Simulation of Correlation Matrices
 
-The simulation notebook, "Synthetic correlations with VAEs - Simulation," provides a detailed exploration of the correlation matrix generation process using the trained VAE model. The simulation involves sampling points from the latent space to generate synthetic correlation matrices.
+The simulation notebook, "Github_Simulation_VAE.ipynb", provides a detailed exploration of the correlation matrix generation process using the trained VAE model. The simulation involves sampling points from the latent space to generate synthetic correlation matrices.
 
 - **Latent Space Sampling:** The notebook demonstrates the sampling of points in circles of increasing radius within the latent space. This approach allows for the exploration of different correlation structures, providing insights into how correlations may vary.
 

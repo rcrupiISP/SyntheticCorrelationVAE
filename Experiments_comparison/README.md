@@ -7,6 +7,7 @@ This project utilizes VAEs and probabilistic PCA to generate synthetic correlati
 ## Experiments
 
 Explore stylized facts of correlation matrices and their properties, including pairwise correlations, Marchenko-Pastur eigenvalues, Perron-Frobenius property, hierarchical structure, and MST degrees distribution.
+See the document `Stylized_facts_VAE.pdf`.
 
 ## Data
 

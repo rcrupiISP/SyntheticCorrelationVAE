@@ -1,0 +1,15 @@
+# Core Data Science Libraries
+numpy==2.4.3
+pandas==3.0.1
+scipy==1.17.1
+scikit-learn==1.8.0
+
+# Visualization
+matplotlib==3.10.8
+seaborn==0.13.2
+
+# Jupyter & IPython
+ipykernel==7.2.0
+jupyter_client==8.8.0
+jupyter_core==5.9.1
+jupyterlab_widgets==3.0.16

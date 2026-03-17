@@ -75,6 +75,8 @@ ipython_config.py
 Thumbs.db
 
 # Data files (if needed, adjust as per your project)
+data/processed/*.pt
+data/processed/*.csv
 
 # Model outputs (if needed)
 results/*

@@ -75,8 +75,6 @@ ipython_config.py
 Thumbs.db
 
 # Data files (if needed, adjust as per your project)
-data/raw/*
-!data/raw/.gitkeep
 
 # Model outputs (if needed)
 results/*

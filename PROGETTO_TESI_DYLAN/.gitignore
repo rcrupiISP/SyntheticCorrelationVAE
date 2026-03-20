@@ -78,9 +78,6 @@ Thumbs.db
 data/processed/*.pt
 data/processed/*.csv
 
-# Model outputs (if needed)
-results/*
-!results/.gitkeep
 
 # Logs
 *.log

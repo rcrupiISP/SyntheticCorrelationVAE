@@ -77,7 +77,9 @@ Thumbs.db
 # Data files (if needed, adjust as per your project)
 data/processed/*.pt
 data/processed/*.csv
+data/processed/*.xlsx
 
+notebooks/verifica_sovrapposizione.ipynb
 
 # Logs
 *.log

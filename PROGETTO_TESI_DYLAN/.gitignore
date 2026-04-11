@@ -3,7 +3,8 @@ venv/
 env/
 ENV/
 .venv
-
+notebooks/04_VAE_training-ELIMINARE.ipynb
+notebooks/04_VAE_v1_training-ELIMINARE.ipynb
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -79,7 +80,9 @@ data/processed/*.pt
 data/processed/*.csv
 data/processed/*.xlsx
 
-notebooks/verifica_sovrapposizione.ipynb
+notebooks/04_VAE_training-ELIMINARE.ipynb
+notebooks/04_VAE_v1_training-ELIMINARE.ipynb
+notebooks/04_VAE_v2_training-ELIMINARE.ipynb
 
 # Logs
 *.log

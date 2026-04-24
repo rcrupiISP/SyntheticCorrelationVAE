@@ -75,10 +75,8 @@ ipython_config.py
 .DS_Store
 Thumbs.db
 
-# Data files (if needed, adjust as per your project)
-data/processed/*.pt
-data/processed/*.csv
-data/processed/*.xlsx
+# Data files
+data/
 
 notebooks/04_VAE_training-ELIMINARE.ipynb
 notebooks/04_VAE_v1_training-ELIMINARE.ipynb

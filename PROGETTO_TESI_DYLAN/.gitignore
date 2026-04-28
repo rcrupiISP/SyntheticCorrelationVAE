@@ -78,8 +78,8 @@ Thumbs.db
 # Data files
 data/
 
-notebooks/04_VAE_training-ELIMINARE.ipynb
-notebooks/04_VAE_v1_training-ELIMINARE.ipynb
+notebooks/08_VAE_training-ELIMINARE.ipynb
+notebooks/08_VAE_v1_training-ELIMINARE.ipynb
 
 # Logs
 *.log

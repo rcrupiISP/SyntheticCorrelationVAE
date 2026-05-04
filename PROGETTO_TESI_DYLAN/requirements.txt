@@ -6,6 +6,7 @@ networkx==3.2
 
 # Visualization
 matplotlib==3.10.8
+pyvis==0.3.2
 
 # Jupyter & IPython
 ipykernel==7.2.0

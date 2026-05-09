@@ -80,7 +80,7 @@ data/
 
 notebooks/08_VAE_training-ELIMINARE.ipynb
 notebooks/08_VAE_v1_training-ELIMINARE.ipynb
-notebooks/06_linearAE copy.ipynb
+notebooks/06_linearAE.ipynb
 
 # Logs
 *.log

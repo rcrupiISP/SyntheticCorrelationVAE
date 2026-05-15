@@ -1,0 +1,37 @@
+[
+  {
+    "n_components": 3,
+    "mean_explained_variance": 0.4545993973024008,
+    "MSE_mean": 0.002389769352482806,
+    "MAE_mean": 0.02887836456814064,
+    "Frobenius_mean": 17.531011263622393
+  },
+  {
+    "n_components": 12,
+    "mean_explained_variance": 0.5538684723035591,
+    "MSE_mean": 0.0011277759238111499,
+    "MAE_mean": 0.017682234409186086,
+    "Frobenius_mean": 12.054793272886359
+  },
+  {
+    "n_components": 15,
+    "mean_explained_variance": 0.5717431450966836,
+    "MSE_mean": 0.0010193403055395425,
+    "MAE_mean": 0.01673424696290659,
+    "Frobenius_mean": 11.455089385961536
+  },
+  {
+    "n_components": 20,
+    "mean_explained_variance": 0.5973122797213586,
+    "MSE_mean": 0.000886344263729775,
+    "MAE_mean": 0.0156100981317909,
+    "Frobenius_mean": 10.675262636709002
+  },
+  {
+    "n_components": 70,
+    "mean_explained_variance": 0.7611785957010508,
+    "MSE_mean": 0.00032074628289396645,
+    "MAE_mean": 0.009977301258476953,
+    "Frobenius_mean": 6.391057338626356
+  }
+]

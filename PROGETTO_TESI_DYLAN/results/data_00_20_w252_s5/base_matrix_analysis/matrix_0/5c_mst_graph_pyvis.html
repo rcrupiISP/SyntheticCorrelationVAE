@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#ffffff", "font": {"color": "black"}, "id": "ABC", "label": "ABC", "shape": "dot", "size": 16.0, "title": "ABC | Unknown | degree=1", "x": -172.31296532351513, "y": -825.4017262924712}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "ADP", "label": "ADP", "shape": "dot", "size": 16.0, "title": "ADP | Information Technology | degree=1", "x": -827.3566928726974, "y": 568.1201795628792}, {"color": "#17becf", "font": {"color": "black"}, "id": "AES", "label": "AES", "shape": "dot", "size": 22.0, "title": "AES | Utilities | degree=2", "x": -638.7271338823535, "y": 614.7161192024022}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "AIV", "label": "AIV", "shape": "dot", "size": 16.0, "title": "AIV | Real Estate | degree=1", "x": -659.4046766474984, "y": -950.0}, {"color": "#e377c2", "font": {"color": "black"}, "id": "AJG", "label": "AJG", "shape": "dot", "size": 16.0, "title": "AJG | Financials | degree=1", "x": 376.6316634764906, "y": 893.9517734353999}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "AKAM", "label": "AKAM", "shape": "dot", "size": 28.0, "title": "AKAM | Information Technology | degree=3", "x": 549.4197996282034, "y": 179.7419830086313}, {"color": "#e377c2", "font": {"color": "black"}, "id": "ALL", "label": "ALL", "shape": "dot", "size": 16.0, "title": "ALL | Financials | degree=1", "x": -858.747095752259, "y": 36.53597411514298}, {"color": "#d62728", "font": {"color": "black"}, "id": "AMZN", "label": "AMZN", "shape": "dot", "size": 16.0, "title": "AMZN | Consumer Discretionary | degree=1", "x": 119.7210194260685, "y": 726.6660442470045}, {"color": "#8c564b", "font": {"color": "black"}, "id": "BDX", "label": "BDX", "shape": "dot", "size": 16.0, "title": "BDX | Health Care | degree=1", "x": 118.83776040423122, "y": -281.0889516907762}, {"color": "#e377c2", "font": {"color": "black"}, "id": "BEN", "label": "BEN", "shape": "dot", "size": 28.0, "title": "BEN | Financials | degree=3", "x": 140.50431467419045, "y": 352.3520668971396}, {"color": "#8c564b", "font": {"color": "black"}, "id": "BIO", "label": "BIO", "shape": "dot", "size": 16.0, "title": "BIO | Health Care | degree=1", "x": 184.13943407374833, "y": -422.6290467992455}, {"color": "#e377c2", "font": {"color": "black"}, "id": "BK", "label": "BK", "shape": "dot", "size": 22.0, "title": "BK | Financials | degree=2", "x": -234.07529577380814, "y": 612.6905389715251}, {"color": "#ff7f0e", "font": {"color": "black"}, "id": "BLL", "label": "BLL", "shape": "dot", "size": 22.0, "title": "BLL | Materials | degree=2", "x": 13.21617760182814, "y": -640.0365547529374}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "BWA", "label": "BWA", "shape": "dot", "size": 22.0, "title": "BWA | Industrials | degree=2", "x": -222.83099847200182, "y": 691.8249395266473}, {"color": "#9467bd", "font": {"color": "black"}, "id": "CAG", "label": "CAG", "shape": "dot", "size": 16.0, "title": "CAG | Consumer Staples | degree=1", "x": -949.5611356861103, "y": 402.83667574814274}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "CAT", "label": "CAT", "shape": "dot", "size": 28.0, "title": "CAT | Industrials | degree=3", "x": -401.28197582256576, "y": -631.1313359573203}, {"color": "#e377c2", "font": {"color": "black"}, "id": "CB", "label": "CB", "shape": "dot", "size": 52.0, "title": "CB | Financials | degree=7", "x": -376.37577812047004, "y": 488.9223907715401}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "CCI", "label": "CCI", "shape": "dot", "size": 16.0, "title": "CCI | Real Estate | degree=1", "x": 571.558732528552, "y": 419.7407056100353}, {"color": "#9467bd", "font": {"color": "black"}, "id": "CLX", "label": "CLX", "shape": "dot", "size": 22.0, "title": "CLX | Consumer Staples | degree=2", "x": 79.65224116080316, "y": -576.4608801686359}, {"color": "#17becf", "font": {"color": "black"}, "id": "CNP", "label": "CNP", "shape": "dot", "size": 16.0, "title": "CNP | Utilities | degree=1", "x": -710.9050621940023, "y": 563.9788886257422}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "CTXS", "label": "CTXS", "shape": "dot", "size": 16.0, "title": "CTXS | Information Technology | degree=1", "x": 734.6020735388286, "y": 198.49179508266369}, {"color": "#1f77b4", "font": {"color": "black"}, "id": "CVX", "label": "CVX", "shape": "dot", "size": 16.0, "title": "CVX | Energy | degree=1", "x": -558.153466014177, "y": 950.0}, {"color": "#bcbd22", "font": {"color": "black"}, "id": "DISH", "label": "DISH", "shape": "dot", "size": 34.0, "title": "DISH | Communication Services | degree=4", "x": 285.151283647332, "y": 405.37344258720395}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "DOV", "label": "DOV", "shape": "dot", "size": 16.0, "title": "DOV | Industrials | degree=1", "x": -726.0414608575655, "y": -494.5124266896705}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "DRE", "label": "DRE", "shape": "dot", "size": 22.0, "title": "DRE | Real Estate | degree=2", "x": -627.1832658305627, "y": -863.8102856742943}, {"color": "#8c564b", "font": {"color": "black"}, "id": "DVA", "label": "DVA", "shape": "dot", "size": 16.0, "title": "DVA | Health Care | degree=1", "x": 950.0, "y": 102.34356336095485}, {"color": "#bcbd22", "font": {"color": "black"}, "id": "EA", "label": "EA", "shape": "dot", "size": 22.0, "title": "EA | Communication Services | degree=2", "x": 599.5925762197687, "y": 589.8715473962139}, {"color": "#17becf", "font": {"color": "black"}, "id": "ED", "label": "ED", "shape": "dot", "size": 22.0, "title": "ED | Utilities | degree=2", "x": -776.9958126035424, "y": 503.0251178875671}, {"color": "#ff7f0e", "font": {"color": "black"}, "id": "EMN", "label": "EMN", "shape": "dot", "size": 16.0, "title": "EMN | Materials | degree=1", "x": 141.3946374899191, "y": -195.86790340580407}, {"color": "#17becf", "font": {"color": "black"}, "id": "EXC", "label": "EXC", "shape": "dot", "size": 16.0, "title": "EXC | Utilities | degree=1", "x": -835.9390744173469, "y": 432.8327038120174}, {"color": "#ff7f0e", "font": {"color": "black"}, "id": "FCX", "label": "FCX", "shape": "dot", "size": 16.0, "title": "FCX | Materials | degree=1", "x": -356.2128062832811, "y": -767.0792194280633}, {"color": "#17becf", "font": {"color": "black"}, "id": "FE", "label": "FE", "shape": "dot", "size": 22.0, "title": "FE | Utilities | degree=2", "x": -886.7892059165513, "y": 354.5277611245954}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "FISV", "label": "FISV", "shape": "dot", "size": 22.0, "title": "FISV | Information Technology | degree=2", "x": 22.85526318345832, "y": 790.2936070962543}, {"color": "#e377c2", "font": {"color": "black"}, "id": "FITB", "label": "FITB", "shape": "dot", "size": 16.0, "title": "FITB | Financials | degree=1", "x": -320.0164416763578, "y": 621.88122255706}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "FLS", "label": "FLS", "shape": "dot", "size": 16.0, "title": "FLS | Industrials | degree=1", "x": -670.3080657394694, "y": -555.7707823819562}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "FRT", "label": "FRT", "shape": "dot", "size": 16.0, "title": "FRT | Real Estate | degree=1", "x": -544.3410616997169, "y": -899.1280405424491}, {"color": "#e377c2", "font": {"color": "black"}, "id": "GL", "label": "GL", "shape": "dot", "size": 22.0, "title": "GL | Financials | degree=2", "x": -866.8869843803724, "y": -57.52586090590395}, {"color": "#d62728", "font": {"color": "black"}, "id": "GPS", "label": "GPS", "shape": "dot", "size": 16.0, "title": "GPS | Consumer Discretionary | degree=1", "x": -907.9394139101329, "y": -252.51108670265887}, {"color": "#1f77b4", "font": {"color": "black"}, "id": "HES", "label": "HES", "shape": "dot", "size": 28.0, "title": "HES | Energy | degree=3", "x": -579.8942927819323, "y": 839.0594400538993}, {"color": "#8c564b", "font": {"color": "black"}, "id": "HOLX", "label": "HOLX", "shape": "dot", "size": 16.0, "title": "HOLX | Health Care | degree=1", "x": -130.1666168807587, "y": 665.9230566465044}, {"color": "#8c564b", "font": {"color": "black"}, "id": "HSIC", "label": "HSIC", "shape": "dot", "size": 16.0, "title": "HSIC | Health Care | degree=1", "x": 769.4074413252931, "y": 710.7395448745577}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "HST", "label": "HST", "shape": "dot", "size": 16.0, "title": "HST | Real Estate | degree=1", "x": -923.415351163861, "y": -160.9773179453935}, {"color": "#8c564b", "font": {"color": "black"}, "id": "HUM", "label": "HUM", "shape": "dot", "size": 16.0, "title": "HUM | Health Care | degree=1", "x": -928.0565169162072, "y": -55.776995877723}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "INTU", "label": "INTU", "shape": "dot", "size": 28.0, "title": "INTU | Information Technology | degree=3", "x": 493.262628273311, "y": 579.8799577424418}, {"color": "#bcbd22", "font": {"color": "black"}, "id": "IPG", "label": "IPG", "shape": "dot", "size": 22.0, "title": "IPG | Communication Services | degree=2", "x": -885.9896570432484, "y": -329.6211420851454}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "IRM", "label": "IRM", "shape": "dot", "size": 16.0, "title": "IRM | Real Estate | degree=1", "x": -950.0, "y": -359.2637999633899}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "ITW", "label": "ITW", "shape": "dot", "size": 22.0, "title": "ITW | Industrials | degree=2", "x": -96.38717240937356, "y": -566.1584253325998}, {"color": "#e377c2", "font": {"color": "black"}, "id": "IVZ", "label": "IVZ", "shape": "dot", "size": 22.0, "title": "IVZ | Financials | degree=2", "x": -673.4581172680791, "y": 692.4367360613139}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "JBHT", "label": "JBHT", "shape": "dot", "size": 16.0, "title": "JBHT | Industrials | degree=1", "x": 466.54321877011705, "y": 793.8139978942118}, {"color": "#9467bd", "font": {"color": "black"}, "id": "KMB", "label": "KMB", "shape": "dot", "size": 34.0, "title": "KMB | Consumer Staples | degree=4", "x": -71.62900009730089, "y": -618.1111597278222}, {"color": "#8c564b", "font": {"color": "black"}, "id": "LH", "label": "LH", "shape": "dot", "size": 16.0, "title": "LH | Health Care | degree=1", "x": -710.7219205342705, "y": 775.8252696997789}, {"color": "#d62728", "font": {"color": "black"}, "id": "LOW", "label": "LOW", "shape": "dot", "size": 40.0, "title": "LOW | Consumer Discretionary | degree=5", "x": -816.7125780594743, "y": -336.76964373611906}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "LRCX", "label": "LRCX", "shape": "dot", "size": 28.0, "title": "LRCX | Information Technology | degree=3", "x": 407.58853658327723, "y": 345.09090541648726}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "MAS", "label": "MAS", "shape": "dot", "size": 28.0, "title": "MAS | Industrials | degree=3", "x": -448.44805370989394, "y": -681.3771005054226}, {"color": "#8c564b", "font": {"color": "black"}, "id": "MCK", "label": "MCK", "shape": "dot", "size": 16.0, "title": "MCK | Health Care | degree=1", "x": 88.87856166573482, "y": -459.2359061883686}, {"color": "#9467bd", "font": {"color": "black"}, "id": "MKC", "label": "MKC", "shape": "dot", "size": 16.0, "title": "MKC | Consumer Staples | degree=1", "x": -95.52680058175112, "y": -797.5576592661521}, {"color": "#e377c2", "font": {"color": "black"}, "id": "MMC", "label": "MMC", "shape": "dot", "size": 22.0, "title": "MMC | Financials | degree=2", "x": -862.7216988574128, "y": -151.93950650725685}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "MMM", "label": "MMM", "shape": "dot", "size": 28.0, "title": "MMM | Industrials | degree=3", "x": 68.99502408675473, "y": -390.42231030689936}, {"color": "#9467bd", "font": {"color": "black"}, "id": "MNST", "label": "MNST", "shape": "dot", "size": 16.0, "title": "MNST | Consumer Staples | degree=1", "x": 618.4855151945441, "y": 759.7864613064622}, {"color": "#9467bd", "font": {"color": "black"}, "id": "MO", "label": "MO", "shape": "dot", "size": 16.0, "title": "MO | Consumer Staples | degree=1", "x": -275.1382252333964, "y": -692.970113636409}, {"color": "#ff7f0e", "font": {"color": "black"}, "id": "MOS", "label": "MOS", "shape": "dot", "size": 16.0, "title": "MOS | Materials | degree=1", "x": 152.1371627768786, "y": -107.57295993420013}, {"color": "#1f77b4", "font": {"color": "black"}, "id": "MRO", "label": "MRO", "shape": "dot", "size": 22.0, "title": "MRO | Energy | degree=2", "x": -555.4855104086787, "y": 749.4575660452447}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "MSI", "label": "MSI", "shape": "dot", "size": 34.0, "title": "MSI | Information Technology | degree=4", "x": 355.89931748355366, "y": 616.5577531292356}, {"color": "#8c564b", "font": {"color": "black"}, "id": "MTD", "label": "MTD", "shape": "dot", "size": 16.0, "title": "MTD | Health Care | degree=1", "x": -210.54906634568803, "y": 778.2619404691959}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "NLOK", "label": "NLOK", "shape": "dot", "size": 22.0, "title": "NLOK | Information Technology | degree=2", "x": 703.5923605480965, "y": 329.60119763265226}, {"color": "#1f77b4", "font": {"color": "black"}, "id": "NOV", "label": "NOV", "shape": "dot", "size": 16.0, "title": "NOV | Energy | degree=1", "x": -652.5785033990162, "y": 915.1262691467466}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "NTAP", "label": "NTAP", "shape": "dot", "size": 34.0, "title": "NTAP | Information Technology | degree=4", "x": 649.7754994843618, "y": 134.07841995054693}, {"color": "#d62728", "font": {"color": "black"}, "id": "NWL", "label": "NWL", "shape": "dot", "size": 16.0, "title": "NWL | Consumer Discretionary | degree=1", "x": 127.11211267583012, "y": -634.5978262457444}, {"color": "#1f77b4", "font": {"color": "black"}, "id": "OKE", "label": "OKE", "shape": "dot", "size": 22.0, "title": "OKE | Energy | degree=2", "x": -532.7357924312759, "y": 665.9459294231211}, {"color": "#d62728", "font": {"color": "black"}, "id": "ORLY", "label": "ORLY", "shape": "dot", "size": 22.0, "title": "ORLY | Consumer Discretionary | degree=2", "x": 683.012231041602, "y": 649.2466004717154}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "PAYX", "label": "PAYX", "shape": "dot", "size": 16.0, "title": "PAYX | Industrials | degree=1", "x": 59.77187765632341, "y": 880.2184128770263}, {"color": "#17becf", "font": {"color": "black"}, "id": "PEG", "label": "PEG", "shape": "dot", "size": 52.0, "title": "PEG | Utilities | degree=7", "x": -680.1666232441795, "y": 491.0570061532562}, {"color": "#e377c2", "font": {"color": "black"}, "id": "PNC", "label": "PNC", "shape": "dot", "size": 40.0, "title": "PNC | Financials | degree=5", "x": 11.567000948183082, "y": 406.0448925683313}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "PNR", "label": "PNR", "shape": "dot", "size": 16.0, "title": "PNR | Industrials | degree=1", "x": -607.6357560900626, "y": -607.1389210232836}, {"color": "#ff7f0e", "font": {"color": "black"}, "id": "PPG", "label": "PPG", "shape": "dot", "size": 58.0, "title": "PPG | Materials | degree=8", "x": -783.0813295729198, "y": -72.83333058767805}, {"color": "#17becf", "font": {"color": "black"}, "id": "PPL", "label": "PPL", "shape": "dot", "size": 22.0, "title": "PPL | Utilities | degree=2", "x": -644.4143901020672, "y": 433.2387171465486}, {"color": "#8c564b", "font": {"color": "black"}, "id": "PRGO", "label": "PRGO", "shape": "dot", "size": 22.0, "title": "PRGO | Health Care | degree=2", "x": 796.329877542788, "y": 365.65732497728476}, {"color": "#d62728", "font": {"color": "black"}, "id": "PVH", "label": "PVH", "shape": "dot", "size": 16.0, "title": "PVH | Consumer Discretionary | degree=1", "x": -929.8283010469889, "y": 266.7563380495235}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "PWR", "label": "PWR", "shape": "dot", "size": 22.0, "title": "PWR | Industrials | degree=2", "x": 397.7758305500567, "y": 719.1333241857287}, {"color": "#d62728", "font": {"color": "black"}, "id": "RCL", "label": "RCL", "shape": "dot", "size": 22.0, "title": "RCL | Consumer Discretionary | degree=2", "x": 131.27036240493118, "y": -386.76287124085775}, {"color": "#e377c2", "font": {"color": "black"}, "id": "RF", "label": "RF", "shape": "dot", "size": 16.0, "title": "RF | Financials | degree=1", "x": -406.19739407257526, "y": 616.541897166695}, {"color": "#d62728", "font": {"color": "black"}, "id": "RL", "label": "RL", "shape": "dot", "size": 16.0, "title": "RL | Consumer Discretionary | degree=1", "x": -458.4807884173174, "y": -922.7299845542732}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "ROP", "label": "ROP", "shape": "dot", "size": 16.0, "title": "ROP | Industrials | degree=1", "x": 53.00690979372402, "y": -705.512447176803}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "SNPS", "label": "SNPS", "shape": "dot", "size": 22.0, "title": "SNPS | Information Technology | degree=2", "x": 540.3717510551813, "y": 691.3219572966404}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "SPG", "label": "SPG", "shape": "dot", "size": 34.0, "title": "SPG | Real Estate | degree=4", "x": -522.7231708588515, "y": -815.209777743864}, {"color": "#8c564b", "font": {"color": "black"}, "id": "STE", "label": "STE", "shape": "dot", "size": 16.0, "title": "STE | Health Care | degree=1", "x": 892.3753155040928, "y": 402.99956417269067}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "SWK", "label": "SWK", "shape": "dot", "size": 40.0, "title": "SWK | Industrials | degree=5", "x": -716.6667079732964, "y": -415.1080540146931}, {"color": "#9467bd", "font": {"color": "black"}, "id": "SYY", "label": "SYY", "shape": "dot", "size": 34.0, "title": "SYY | Consumer Staples | degree=4", "x": -119.94579536860451, "y": -722.5560179328152}, {"color": "#d62728", "font": {"color": "black"}, "id": "TGT", "label": "TGT", "shape": "dot", "size": 16.0, "title": "TGT | Consumer Discretionary | degree=1", "x": -856.4607148819107, "y": -403.22133974305905}, {"color": "#e377c2", "font": {"color": "black"}, "id": "TROW", "label": "TROW", "shape": "dot", "size": 22.0, "title": "TROW | Financials | degree=2", "x": 222.52616072128296, "y": 356.80689462328206}, {"color": "#e377c2", "font": {"color": "black"}, "id": "TRV", "label": "TRV", "shape": "dot", "size": 28.0, "title": "TRV | Financials | degree=3", "x": -827.5586738189651, "y": 162.182776224028}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "TYL", "label": "TYL", "shape": "dot", "size": 16.0, "title": "TYL | Information Technology | degree=1", "x": 857.100088375196, "y": -35.05762376262012}, {"color": "#8c564b", "font": {"color": "black"}, "id": "VAR", "label": "VAR", "shape": "dot", "size": 28.0, "title": "VAR | Health Care | degree=3", "x": 756.938457765771, "y": 18.67089975061187}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "VNO", "label": "VNO", "shape": "dot", "size": 22.0, "title": "VNO | Real Estate | degree=2", "x": -502.9316601134128, "y": -738.3813206042288}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "WAB", "label": "WAB", "shape": "dot", "size": 16.0, "title": "WAB | Industrials | degree=1", "x": -22.185063519247763, "y": -759.134216157665}, {"color": "#9467bd", "font": {"color": "black"}, "id": "WBA", "label": "WBA", "shape": "dot", "size": 16.0, "title": "WBA | Consumer Staples | degree=1", "x": -819.7561984275105, "y": -472.3056886958579}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "WM", "label": "WM", "shape": "dot", "size": 22.0, "title": "WM | Industrials | degree=2", "x": 849.432313207854, "y": 88.59609540031221}, {"color": "#e377c2", "font": {"color": "black"}, "id": "WRB", "label": "WRB", "shape": "dot", "size": 22.0, "title": "WRB | Financials | degree=2", "x": -867.9055250037375, "y": 231.61224046682216}, {"color": "#8c564b", "font": {"color": "black"}, "id": "XRAY", "label": "XRAY", "shape": "dot", "size": 16.0, "title": "XRAY | Health Care | degree=1", "x": -898.0749169007933, "y": 145.27467175990006}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "ZBRA", "label": "ZBRA", "shape": "dot", "size": 22.0, "title": "ZBRA | Information Technology | degree=2", "x": 315.61212758670587, "y": 810.6420342520548}]);
+                  edges = new vis.DataSet([{"color": "#999999", "from": "ABC", "to": "SYY"}, {"color": "#999999", "from": "ADP", "to": "ED"}, {"color": "#999999", "from": "AES", "to": "PEG"}, {"color": "#999999", "from": "AES", "to": "IVZ"}, {"color": "#999999", "from": "AIV", "to": "DRE"}, {"color": "#999999", "from": "AJG", "to": "ZBRA"}, {"color": "#999999", "from": "AKAM", "to": "NTAP"}, {"color": "#999999", "from": "AKAM", "to": "LRCX"}, {"color": "#999999", "from": "AKAM", "to": "CCI"}, {"color": "#999999", "from": "ALL", "to": "CB"}, {"color": "#999999", "from": "AMZN", "to": "DISH"}, {"color": "#999999", "from": "BDX", "to": "PPG"}, {"color": "#999999", "from": "BEN", "to": "TROW"}, {"color": "#999999", "from": "BEN", "to": "PNC"}, {"color": "#999999", "from": "BEN", "to": "HOLX"}, {"color": "#999999", "from": "BIO", "to": "RCL"}, {"color": "#999999", "from": "BK", "to": "PNC"}, {"color": "#999999", "from": "BK", "to": "BWA"}, {"color": "#999999", "from": "BLL", "to": "KMB"}, {"color": "#999999", "from": "BLL", "to": "ROP"}, {"color": "#999999", "from": "BWA", "to": "MTD"}, {"color": "#999999", "from": "CAG", "to": "FE"}, {"color": "#999999", "from": "CAT", "to": "PPG"}, {"color": "#999999", "from": "CAT", "to": "MAS"}, {"color": "#999999", "from": "CAT", "to": "MO"}, {"color": "#999999", "from": "CB", "to": "TRV"}, {"color": "#999999", "from": "CB", "to": "MMC"}, {"color": "#999999", "from": "CB", "to": "GL"}, {"color": "#999999", "from": "CB", "to": "PNC"}, {"color": "#999999", "from": "CB", "to": "PPG"}, {"color": "#999999", "from": "CB", "to": "PPL"}, {"color": "#999999", "from": "CLX", "to": "KMB"}, {"color": "#999999", "from": "CLX", "to": "NWL"}, {"color": "#999999", "from": "CNP", "to": "PEG"}, {"color": "#999999", "from": "CTXS", "to": "NTAP"}, {"color": "#999999", "from": "CVX", "to": "HES"}, {"color": "#999999", "from": "DISH", "to": "LRCX"}, {"color": "#999999", "from": "DISH", "to": "FISV"}, {"color": "#999999", "from": "DISH", "to": "TROW"}, {"color": "#999999", "from": "DOV", "to": "SWK"}, {"color": "#999999", "from": "DRE", "to": "SPG"}, {"color": "#999999", "from": "DVA", "to": "WM"}, {"color": "#999999", "from": "EA", "to": "INTU"}, {"color": "#999999", "from": "EA", "to": "ORLY"}, {"color": "#999999", "from": "ED", "to": "PEG"}, {"color": "#999999", "from": "EMN", "to": "PPG"}, {"color": "#999999", "from": "EXC", "to": "PEG"}, {"color": "#999999", "from": "FCX", "to": "MAS"}, {"color": "#999999", "from": "FE", "to": "PEG"}, {"color": "#999999", "from": "FISV", "to": "PAYX"}, {"color": "#999999", "from": "FITB", "to": "PNC"}, {"color": "#999999", "from": "FLS", "to": "SWK"}, {"color": "#999999", "from": "FRT", "to": "SPG"}, {"color": "#999999", "from": "GL", "to": "HUM"}, {"color": "#999999", "from": "GPS", "to": "LOW"}, {"color": "#999999", "from": "HES", "to": "MRO"}, {"color": "#999999", "from": "HES", "to": "NOV"}, {"color": "#999999", "from": "HSIC", "to": "ORLY"}, {"color": "#999999", "from": "HST", "to": "MMC"}, {"color": "#999999", "from": "INTU", "to": "MSI"}, {"color": "#999999", "from": "INTU", "to": "SNPS"}, {"color": "#999999", "from": "IPG", "to": "LOW"}, {"color": "#999999", "from": "IPG", "to": "IRM"}, {"color": "#999999", "from": "ITW", "to": "PPG"}, {"color": "#999999", "from": "ITW", "to": "KMB"}, {"color": "#999999", "from": "IVZ", "to": "LH"}, {"color": "#999999", "from": "JBHT", "to": "PWR"}, {"color": "#999999", "from": "KMB", "to": "SYY"}, {"color": "#999999", "from": "LOW", "to": "TGT"}, {"color": "#999999", "from": "LOW", "to": "WBA"}, {"color": "#999999", "from": "LOW", "to": "SWK"}, {"color": "#999999", "from": "LRCX", "to": "MSI"}, {"color": "#999999", "from": "MAS", "to": "VNO"}, {"color": "#999999", "from": "MCK", "to": "MMM"}, {"color": "#999999", "from": "MKC", "to": "SYY"}, {"color": "#999999", "from": "MMM", "to": "PPG"}, {"color": "#999999", "from": "MMM", "to": "RCL"}, {"color": "#999999", "from": "MNST", "to": "SNPS"}, {"color": "#999999", "from": "MOS", "to": "PPG"}, {"color": "#999999", "from": "MRO", "to": "OKE"}, {"color": "#999999", "from": "MSI", "to": "ZBRA"}, {"color": "#999999", "from": "MSI", "to": "PWR"}, {"color": "#999999", "from": "NLOK", "to": "NTAP"}, {"color": "#999999", "from": "NLOK", "to": "PRGO"}, {"color": "#999999", "from": "NTAP", "to": "VAR"}, {"color": "#999999", "from": "OKE", "to": "PEG"}, {"color": "#999999", "from": "PEG", "to": "PPL"}, {"color": "#999999", "from": "PNC", "to": "RF"}, {"color": "#999999", "from": "PNR", "to": "SWK"}, {"color": "#999999", "from": "PPG", "to": "SWK"}, {"color": "#999999", "from": "PRGO", "to": "STE"}, {"color": "#999999", "from": "PVH", "to": "WRB"}, {"color": "#999999", "from": "RL", "to": "SPG"}, {"color": "#999999", "from": "SPG", "to": "VNO"}, {"color": "#999999", "from": "SYY", "to": "WAB"}, {"color": "#999999", "from": "TRV", "to": "WRB"}, {"color": "#999999", "from": "TRV", "to": "XRAY"}, {"color": "#999999", "from": "TYL", "to": "VAR"}, {"color": "#999999", "from": "VAR", "to": "WM"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.25,
+            "damping": 0.9,
+            "gravitationalConstant": -20000,
+            "springConstant": 0.01,
+            "springLength": 220
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

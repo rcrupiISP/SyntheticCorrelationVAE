@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#ffffff", "font": {"color": "black"}, "id": "ABC", "label": "ABC", "shape": "dot", "size": 40.0, "title": "ABC | Unknown | Degree: 5", "x": -652.5145915960672, "y": -319.252028238462}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "ADP", "label": "ADP", "shape": "dot", "size": 16.0, "title": "ADP | Information Technology | Degree: 1", "x": -97.4073142635592, "y": -950.0}, {"color": "#17becf", "font": {"color": "black"}, "id": "AES", "label": "AES", "shape": "dot", "size": 16.0, "title": "AES | Utilities | Degree: 1", "x": 527.8854625709793, "y": 273.3033354982202}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "AIV", "label": "AIV", "shape": "dot", "size": 28.0, "title": "AIV | Real Estate | Degree: 3", "x": 612.7290828258062, "y": -223.8166659457945}, {"color": "#e377c2", "font": {"color": "black"}, "id": "AJG", "label": "AJG", "shape": "dot", "size": 22.0, "title": "AJG | Financials | Degree: 2", "x": 224.09173583751362, "y": -631.512693739655}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "AKAM", "label": "AKAM", "shape": "dot", "size": 16.0, "title": "AKAM | Information Technology | Degree: 1", "x": -347.1841895554313, "y": 290.5045722966466}, {"color": "#e377c2", "font": {"color": "black"}, "id": "ALL", "label": "ALL", "shape": "dot", "size": 16.0, "title": "ALL | Financials | Degree: 1", "x": 91.91341217471982, "y": -907.9774980798156}, {"color": "#d62728", "font": {"color": "black"}, "id": "AMZN", "label": "AMZN", "shape": "dot", "size": 16.0, "title": "AMZN | Consumer Discretionary | Degree: 1", "x": 317.01380012663736, "y": 387.226133528594}, {"color": "#8c564b", "font": {"color": "black"}, "id": "BDX", "label": "BDX", "shape": "dot", "size": 16.0, "title": "BDX | Health Care | Degree: 1", "x": 150.7713737501888, "y": 395.42371644766547}, {"color": "#e377c2", "font": {"color": "black"}, "id": "BEN", "label": "BEN", "shape": "dot", "size": 16.0, "title": "BEN | Financials | Degree: 1", "x": -383.77918446526485, "y": -741.3415356034416}, {"color": "#8c564b", "font": {"color": "black"}, "id": "BIO", "label": "BIO", "shape": "dot", "size": 16.0, "title": "BIO | Health Care | Degree: 1", "x": -245.9164465780659, "y": 429.58654894539717}, {"color": "#e377c2", "font": {"color": "black"}, "id": "BK", "label": "BK", "shape": "dot", "size": 16.0, "title": "BK | Financials | Degree: 1", "x": 207.97645579848444, "y": -828.6811338913286}, {"color": "#ff7f0e", "font": {"color": "black"}, "id": "BLL", "label": "BLL", "shape": "dot", "size": 16.0, "title": "BLL | Materials | Degree: 1", "x": -721.5991984966184, "y": -304.1577671335407}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "BWA", "label": "BWA", "shape": "dot", "size": 16.0, "title": "BWA | Industrials | Degree: 1", "x": -333.04094267339025, "y": -789.5901438474261}, {"color": "#9467bd", "font": {"color": "black"}, "id": "CAG", "label": "CAG", "shape": "dot", "size": 22.0, "title": "CAG | Consumer Staples | Degree: 2", "x": -506.80812822442425, "y": -670.9844365451538}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "CAT", "label": "CAT", "shape": "dot", "size": 28.0, "title": "CAT | Industrials | Degree: 3", "x": -50.29187705927585, "y": 452.5410943482313}, {"color": "#e377c2", "font": {"color": "black"}, "id": "CB", "label": "CB", "shape": "dot", "size": 28.0, "title": "CB | Financials | Degree: 3", "x": 78.65707774404807, "y": -775.6056984488558}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "CCI", "label": "CCI", "shape": "dot", "size": 16.0, "title": "CCI | Real Estate | Degree: 1", "x": 779.5648524893926, "y": -302.3398252262859}, {"color": "#9467bd", "font": {"color": "black"}, "id": "CLX", "label": "CLX", "shape": "dot", "size": 22.0, "title": "CLX | Consumer Staples | Degree: 2", "x": -617.8126668060663, "y": -761.5185063127874}, {"color": "#17becf", "font": {"color": "black"}, "id": "CNP", "label": "CNP", "shape": "dot", "size": 22.0, "title": "CNP | Utilities | Degree: 2", "x": 439.1788395531626, "y": -88.04832469797586}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "CTXS", "label": "CTXS", "shape": "dot", "size": 22.0, "title": "CTXS | Information Technology | Degree: 2", "x": 252.82218585417192, "y": 436.9354214600467}, {"color": "#1f77b4", "font": {"color": "black"}, "id": "CVX", "label": "CVX", "shape": "dot", "size": 22.0, "title": "CVX | Energy | Degree: 2", "x": -8.596962625033623, "y": 540.5768989864462}, {"color": "#bcbd22", "font": {"color": "black"}, "id": "DISH", "label": "DISH", "shape": "dot", "size": 16.0, "title": "DISH | Communication Services | Degree: 1", "x": -719.935804349895, "y": -392.97692776388095}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "DOV", "label": "DOV", "shape": "dot", "size": 28.0, "title": "DOV | Industrials | Degree: 3", "x": -87.51088195479217, "y": 368.0289867382613}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "DRE", "label": "DRE", "shape": "dot", "size": 28.0, "title": "DRE | Real Estate | Degree: 3", "x": 694.9858161408689, "y": -262.6408575874798}, {"color": "#8c564b", "font": {"color": "black"}, "id": "DVA", "label": "DVA", "shape": "dot", "size": 16.0, "title": "DVA | Health Care | Degree: 1", "x": -564.1710197186369, "y": -523.5678851567156}, {"color": "#bcbd22", "font": {"color": "black"}, "id": "EA", "label": "EA", "shape": "dot", "size": 16.0, "title": "EA | Communication Services | Degree: 1", "x": 474.5946493212769, "y": 348.6970002747749}, {"color": "#17becf", "font": {"color": "black"}, "id": "ED", "label": "ED", "shape": "dot", "size": 46.0, "title": "ED | Utilities | Degree: 6", "x": 504.2360166827955, "y": -58.209915601225795}, {"color": "#ff7f0e", "font": {"color": "black"}, "id": "EMN", "label": "EMN", "shape": "dot", "size": 16.0, "title": "EMN | Materials | Degree: 1", "x": -277.2327162803707, "y": -828.2908823205985}, {"color": "#17becf", "font": {"color": "black"}, "id": "EXC", "label": "EXC", "shape": "dot", "size": 16.0, "title": "EXC | Utilities | Degree: 1", "x": 582.2179296100944, "y": -55.1533633404766}, {"color": "#ff7f0e", "font": {"color": "black"}, "id": "FCX", "label": "FCX", "shape": "dot", "size": 16.0, "title": "FCX | Materials | Degree: 1", "x": -107.84248159758437, "y": 545.9858045555291}, {"color": "#17becf", "font": {"color": "black"}, "id": "FE", "label": "FE", "shape": "dot", "size": 16.0, "title": "FE | Utilities | Degree: 1", "x": 551.9362800233037, "y": 39.527497215109506}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "FISV", "label": "FISV", "shape": "dot", "size": 16.0, "title": "FISV | Information Technology | Degree: 1", "x": 14.010381158686025, "y": -865.0571281633912}, {"color": "#e377c2", "font": {"color": "black"}, "id": "FITB", "label": "FITB", "shape": "dot", "size": 16.0, "title": "FITB | Financials | Degree: 1", "x": 258.63409567514964, "y": -775.4496178255627}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "FLS", "label": "FLS", "shape": "dot", "size": 28.0, "title": "FLS | Industrials | Degree: 3", "x": -531.556901418276, "y": 230.4878399034329}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "FRT", "label": "FRT", "shape": "dot", "size": 22.0, "title": "FRT | Real Estate | Degree: 2", "x": 860.44189477501, "y": -196.65146607250483}, {"color": "#e377c2", "font": {"color": "black"}, "id": "GL", "label": "GL", "shape": "dot", "size": 64.0, "title": "GL | Financials | Degree: 9", "x": -455.2626973235133, "y": -330.3898656894877}, {"color": "#d62728", "font": {"color": "black"}, "id": "GPS", "label": "GPS", "shape": "dot", "size": 16.0, "title": "GPS | Consumer Discretionary | Degree: 1", "x": -950.0, "y": -182.16452098720316}, {"color": "#1f77b4", "font": {"color": "black"}, "id": "HES", "label": "HES", "shape": "dot", "size": 28.0, "title": "HES | Energy | Degree: 3", "x": 9.855108272576851, "y": 739.9571704784454}, {"color": "#8c564b", "font": {"color": "black"}, "id": "HOLX", "label": "HOLX", "shape": "dot", "size": 22.0, "title": "HOLX | Health Care | Degree: 2", "x": -589.016225372107, "y": -320.507521254436}, {"color": "#8c564b", "font": {"color": "black"}, "id": "HSIC", "label": "HSIC", "shape": "dot", "size": 22.0, "title": "HSIC | Health Care | Degree: 2", "x": -777.1321068071491, "y": -127.2505211922328}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "HST", "label": "HST", "shape": "dot", "size": 16.0, "title": "HST | Real Estate | Degree: 1", "x": 256.9586979702301, "y": -569.9001087930756}, {"color": "#8c564b", "font": {"color": "black"}, "id": "HUM", "label": "HUM", "shape": "dot", "size": 16.0, "title": "HUM | Health Care | Degree: 1", "x": -539.0247381858086, "y": -600.6802918740152}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "INTU", "label": "INTU", "shape": "dot", "size": 34.0, "title": "INTU | Information Technology | Degree: 4", "x": 292.688233440908, "y": 295.0499924145964}, {"color": "#bcbd22", "font": {"color": "black"}, "id": "IPG", "label": "IPG", "shape": "dot", "size": 16.0, "title": "IPG | Communication Services | Degree: 1", "x": 282.0054297938739, "y": -502.8766758426777}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "IRM", "label": "IRM", "shape": "dot", "size": 16.0, "title": "IRM | Real Estate | Degree: 1", "x": 679.7908424087689, "y": -128.25112079374168}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "ITW", "label": "ITW", "shape": "dot", "size": 46.0, "title": "ITW | Industrials | Degree: 6", "x": -23.095733478906368, "y": 213.23195973285024}, {"color": "#e377c2", "font": {"color": "black"}, "id": "IVZ", "label": "IVZ", "shape": "dot", "size": 64.0, "title": "IVZ | Financials | Degree: 9", "x": -355.95783940682924, "y": 33.15034049825027}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "JBHT", "label": "JBHT", "shape": "dot", "size": 16.0, "title": "JBHT | Industrials | Degree: 1", "x": -163.51493584191635, "y": -943.1975378288253}, {"color": "#9467bd", "font": {"color": "black"}, "id": "KMB", "label": "KMB", "shape": "dot", "size": 16.0, "title": "KMB | Consumer Staples | Degree: 1", "x": -679.9890132871202, "y": -812.228844485782}, {"color": "#8c564b", "font": {"color": "black"}, "id": "LH", "label": "LH", "shape": "dot", "size": 34.0, "title": "LH | Health Care | Degree: 4", "x": -529.5677964538933, "y": -395.3152716446171}, {"color": "#d62728", "font": {"color": "black"}, "id": "LOW", "label": "LOW", "shape": "dot", "size": 16.0, "title": "LOW | Consumer Discretionary | Degree: 1", "x": -546.6596749192871, "y": 77.26727014153134}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "LRCX", "label": "LRCX", "shape": "dot", "size": 22.0, "title": "LRCX | Information Technology | Degree: 2", "x": 423.3305023436713, "y": 408.49923706783954}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "MAS", "label": "MAS", "shape": "dot", "size": 28.0, "title": "MAS | Industrials | Degree: 3", "x": -460.6875151757101, "y": 84.26085424790043}, {"color": "#8c564b", "font": {"color": "black"}, "id": "MCK", "label": "MCK", "shape": "dot", "size": 28.0, "title": "MCK | Health Care | Degree: 3", "x": -711.0476016740338, "y": -185.38302629197113}, {"color": "#9467bd", "font": {"color": "black"}, "id": "MKC", "label": "MKC", "shape": "dot", "size": 22.0, "title": "MKC | Consumer Staples | Degree: 2", "x": -559.862445214546, "y": -714.2549486992596}, {"color": "#e377c2", "font": {"color": "black"}, "id": "MMC", "label": "MMC", "shape": "dot", "size": 16.0, "title": "MMC | Financials | Degree: 1", "x": 261.26857094049336, "y": -667.2452251790179}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "MMM", "label": "MMM", "shape": "dot", "size": 28.0, "title": "MMM | Industrials | Degree: 3", "x": 300.8722845377407, "y": 57.13828947741728}, {"color": "#9467bd", "font": {"color": "black"}, "id": "MNST", "label": "MNST", "shape": "dot", "size": 16.0, "title": "MNST | Consumer Staples | Degree: 1", "x": 76.16273856852462, "y": 426.76400249173207}, {"color": "#9467bd", "font": {"color": "black"}, "id": "MO", "label": "MO", "shape": "dot", "size": 16.0, "title": "MO | Consumer Staples | Degree: 1", "x": -36.878974076376856, "y": -946.679341792451}, {"color": "#ff7f0e", "font": {"color": "black"}, "id": "MOS", "label": "MOS", "shape": "dot", "size": 16.0, "title": "MOS | Materials | Degree: 1", "x": 75.54447897181204, "y": 950.0}, {"color": "#1f77b4", "font": {"color": "black"}, "id": "MRO", "label": "MRO", "shape": "dot", "size": 22.0, "title": "MRO | Energy | Degree: 2", "x": 61.34664726869965, "y": 839.6564454421356}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "MSI", "label": "MSI", "shape": "dot", "size": 16.0, "title": "MSI | Information Technology | Degree: 1", "x": -407.9911183121101, "y": 245.46653718630563}, {"color": "#8c564b", "font": {"color": "black"}, "id": "MTD", "label": "MTD", "shape": "dot", "size": 34.0, "title": "MTD | Health Care | Degree: 4", "x": 192.3714203972291, "y": 274.5457965883003}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "NLOK", "label": "NLOK", "shape": "dot", "size": 16.0, "title": "NLOK | Information Technology | Degree: 1", "x": -555.1046619895886, "y": 329.13683981621864}, {"color": "#1f77b4", "font": {"color": "black"}, "id": "NOV", "label": "NOV", "shape": "dot", "size": 22.0, "title": "NOV | Energy | Degree: 2", "x": 0.3978186883140111, "y": 637.7682630462187}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "NTAP", "label": "NTAP", "shape": "dot", "size": 16.0, "title": "NTAP | Information Technology | Degree: 1", "x": 477.4282567211796, "y": 486.4888421574043}, {"color": "#d62728", "font": {"color": "black"}, "id": "NWL", "label": "NWL", "shape": "dot", "size": 16.0, "title": "NWL | Consumer Discretionary | Degree: 1", "x": -610.5817495509081, "y": 261.89447067703276}, {"color": "#1f77b4", "font": {"color": "black"}, "id": "OKE", "label": "OKE", "shape": "dot", "size": 16.0, "title": "OKE | Energy | Degree: 1", "x": -22.084469243736304, "y": 851.5228212608595}, {"color": "#d62728", "font": {"color": "black"}, "id": "ORLY", "label": "ORLY", "shape": "dot", "size": 16.0, "title": "ORLY | Consumer Discretionary | Degree: 1", "x": -468.7047154732658, "y": -733.7287075831092}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "PAYX", "label": "PAYX", "shape": "dot", "size": 28.0, "title": "PAYX | Industrials | Degree: 3", "x": -69.59638741522068, "y": -879.6166389186692}, {"color": "#17becf", "font": {"color": "black"}, "id": "PEG", "label": "PEG", "shape": "dot", "size": 16.0, "title": "PEG | Utilities | Degree: 1", "x": 513.0008950530676, "y": 129.21541800712677}, {"color": "#e377c2", "font": {"color": "black"}, "id": "PNC", "label": "PNC", "shape": "dot", "size": 22.0, "title": "PNC | Financials | Degree: 2", "x": 167.12792792821475, "y": -705.2793658485641}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "PNR", "label": "PNR", "shape": "dot", "size": 16.0, "title": "PNR | Industrials | Degree: 1", "x": 298.66609304978067, "y": -431.9565414388933}, {"color": "#ff7f0e", "font": {"color": "black"}, "id": "PPG", "label": "PPG", "shape": "dot", "size": 22.0, "title": "PPG | Materials | Degree: 2", "x": -483.0626842597036, "y": 169.00021589842805}, {"color": "#17becf", "font": {"color": "black"}, "id": "PPL", "label": "PPL", "shape": "dot", "size": 22.0, "title": "PPL | Utilities | Degree: 2", "x": 465.9373029695413, "y": 212.69984113551254}, {"color": "#8c564b", "font": {"color": "black"}, "id": "PRGO", "label": "PRGO", "shape": "dot", "size": 16.0, "title": "PRGO | Health Care | Degree: 1", "x": -710.181436000703, "y": -480.99322885428114}, {"color": "#d62728", "font": {"color": "black"}, "id": "PVH", "label": "PVH", "shape": "dot", "size": 22.0, "title": "PVH | Consumer Discretionary | Degree: 2", "x": 306.5643016788309, "y": -358.7418836877492}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "PWR", "label": "PWR", "shape": "dot", "size": 22.0, "title": "PWR | Industrials | Degree: 2", "x": -175.9877903379824, "y": 446.61253439833115}, {"color": "#d62728", "font": {"color": "black"}, "id": "RCL", "label": "RCL", "shape": "dot", "size": 16.0, "title": "RCL | Consumer Discretionary | Degree: 1", "x": -217.51489151218618, "y": -856.6390703018182}, {"color": "#e377c2", "font": {"color": "black"}, "id": "RF", "label": "RF", "shape": "dot", "size": 28.0, "title": "RF | Financials | Degree: 3", "x": 197.5451922932172, "y": -749.7653682465274}, {"color": "#d62728", "font": {"color": "black"}, "id": "RL", "label": "RL", "shape": "dot", "size": 16.0, "title": "RL | Consumer Discretionary | Degree: 1", "x": 353.52768657908706, "y": -362.1062562298517}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "ROP", "label": "ROP", "shape": "dot", "size": 40.0, "title": "ROP | Industrials | Degree: 5", "x": -203.70829435833681, "y": 272.8263728057301}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "SNPS", "label": "SNPS", "shape": "dot", "size": 28.0, "title": "SNPS | Information Technology | Degree: 3", "x": 395.4233231026703, "y": 308.064571746238}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "SPG", "label": "SPG", "shape": "dot", "size": 16.0, "title": "SPG | Real Estate | Degree: 1", "x": 950.0, "y": -184.03899915198997}, {"color": "#8c564b", "font": {"color": "black"}, "id": "STE", "label": "STE", "shape": "dot", "size": 28.0, "title": "STE | Health Care | Degree: 3", "x": -258.07709564703873, "y": 335.91700190488984}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "SWK", "label": "SWK", "shape": "dot", "size": 16.0, "title": "SWK | Industrials | Degree: 1", "x": -530.2243269310759, "y": -38.66159709563577}, {"color": "#9467bd", "font": {"color": "black"}, "id": "SYY", "label": "SYY", "shape": "dot", "size": 28.0, "title": "SYY | Consumer Staples | Degree: 3", "x": -443.4936565544779, "y": -661.0465476596067}, {"color": "#d62728", "font": {"color": "black"}, "id": "TGT", "label": "TGT", "shape": "dot", "size": 22.0, "title": "TGT | Consumer Discretionary | Degree: 2", "x": -867.8173433862646, "y": -196.31599290898393}, {"color": "#e377c2", "font": {"color": "black"}, "id": "TROW", "label": "TROW", "shape": "dot", "size": 22.0, "title": "TROW | Financials | Degree: 2", "x": -155.12914447619875, "y": -874.0452813034336}, {"color": "#e377c2", "font": {"color": "black"}, "id": "TRV", "label": "TRV", "shape": "dot", "size": 22.0, "title": "TRV | Financials | Degree: 2", "x": 71.47540212776971, "y": -842.7996454894391}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "TYL", "label": "TYL", "shape": "dot", "size": 16.0, "title": "TYL | Information Technology | Degree: 1", "x": 290.98878481028765, "y": 522.5614112914361}, {"color": "#8c564b", "font": {"color": "black"}, "id": "VAR", "label": "VAR", "shape": "dot", "size": 16.0, "title": "VAR | Health Care | Degree: 1", "x": -558.5644396872586, "y": -117.18934048156571}, {"color": "#aec7e8", "font": {"color": "black"}, "id": "VNO", "label": "VNO", "shape": "dot", "size": 22.0, "title": "VNO | Real Estate | Degree: 2", "x": 774.305462871756, "y": -208.78205877878997}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "WAB", "label": "WAB", "shape": "dot", "size": 16.0, "title": "WAB | Industrials | Degree: 1", "x": -186.19568288717468, "y": 538.0053363534892}, {"color": "#9467bd", "font": {"color": "black"}, "id": "WBA", "label": "WBA", "shape": "dot", "size": 22.0, "title": "WBA | Consumer Staples | Degree: 2", "x": -789.6538254560803, "y": -209.77538780899906}, {"color": "#2ca02c", "font": {"color": "black"}, "id": "WM", "label": "WM", "shape": "dot", "size": 28.0, "title": "WM | Industrials | Degree: 3", "x": -44.259343764003646, "y": -818.6684923462644}, {"color": "#e377c2", "font": {"color": "black"}, "id": "WRB", "label": "WRB", "shape": "dot", "size": 16.0, "title": "WRB | Financials | Degree: 1", "x": 124.84719603910865, "y": -811.8743211146481}, {"color": "#8c564b", "font": {"color": "black"}, "id": "XRAY", "label": "XRAY", "shape": "dot", "size": 16.0, "title": "XRAY | Health Care | Degree: 1", "x": -853.898323525369, "y": -104.58215910697899}, {"color": "#7f7f7f", "font": {"color": "black"}, "id": "ZBRA", "label": "ZBRA", "shape": "dot", "size": 16.0, "title": "ZBRA | Information Technology | Degree: 1", "x": -311.26715264162243, "y": 404.1318712953339}]);
+                  edges = new vis.DataSet([{"color": "#999999", "from": "ABC", "to": "MCK"}, {"color": "#999999", "from": "ABC", "to": "HOLX"}, {"color": "#999999", "from": "ABC", "to": "BLL"}, {"color": "#999999", "from": "ABC", "to": "PRGO"}, {"color": "#999999", "from": "ABC", "to": "DISH"}, {"color": "#999999", "from": "ADP", "to": "PAYX"}, {"color": "#999999", "from": "AES", "to": "PPL"}, {"color": "#999999", "from": "AIV", "to": "DRE"}, {"color": "#999999", "from": "AIV", "to": "ED"}, {"color": "#999999", "from": "AIV", "to": "IRM"}, {"color": "#999999", "from": "AJG", "to": "MMC"}, {"color": "#999999", "from": "AJG", "to": "GL"}, {"color": "#999999", "from": "AKAM", "to": "ROP"}, {"color": "#999999", "from": "ALL", "to": "TRV"}, {"color": "#999999", "from": "AMZN", "to": "INTU"}, {"color": "#999999", "from": "BDX", "to": "MTD"}, {"color": "#999999", "from": "BEN", "to": "IVZ"}, {"color": "#999999", "from": "BIO", "to": "STE"}, {"color": "#999999", "from": "BK", "to": "RF"}, {"color": "#999999", "from": "BWA", "to": "IVZ"}, {"color": "#999999", "from": "CAG", "to": "MKC"}, {"color": "#999999", "from": "CAG", "to": "SYY"}, {"color": "#999999", "from": "CAT", "to": "DOV"}, {"color": "#999999", "from": "CAT", "to": "FCX"}, {"color": "#999999", "from": "CAT", "to": "CVX"}, {"color": "#999999", "from": "CB", "to": "TRV"}, {"color": "#999999", "from": "CB", "to": "GL"}, {"color": "#999999", "from": "CB", "to": "WRB"}, {"color": "#999999", "from": "CCI", "to": "DRE"}, {"color": "#999999", "from": "CLX", "to": "KMB"}, {"color": "#999999", "from": "CLX", "to": "MKC"}, {"color": "#999999", "from": "CNP", "to": "ED"}, {"color": "#999999", "from": "CNP", "to": "MMM"}, {"color": "#999999", "from": "CTXS", "to": "INTU"}, {"color": "#999999", "from": "CTXS", "to": "TYL"}, {"color": "#999999", "from": "CVX", "to": "NOV"}, {"color": "#999999", "from": "DOV", "to": "ROP"}, {"color": "#999999", "from": "DOV", "to": "PWR"}, {"color": "#999999", "from": "DRE", "to": "VNO"}, {"color": "#999999", "from": "DVA", "to": "LH"}, {"color": "#999999", "from": "EA", "to": "SNPS"}, {"color": "#999999", "from": "ED", "to": "EXC"}, {"color": "#999999", "from": "ED", "to": "PEG"}, {"color": "#999999", "from": "ED", "to": "PPL"}, {"color": "#999999", "from": "ED", "to": "FE"}, {"color": "#999999", "from": "EMN", "to": "IVZ"}, {"color": "#999999", "from": "FISV", "to": "WM"}, {"color": "#999999", "from": "FITB", "to": "RF"}, {"color": "#999999", "from": "FLS", "to": "PPG"}, {"color": "#999999", "from": "FLS", "to": "NLOK"}, {"color": "#999999", "from": "FLS", "to": "NWL"}, {"color": "#999999", "from": "FRT", "to": "SPG"}, {"color": "#999999", "from": "FRT", "to": "VNO"}, {"color": "#999999", "from": "GL", "to": "PNC"}, {"color": "#999999", "from": "GL", "to": "IVZ"}, {"color": "#999999", "from": "GL", "to": "PNR"}, {"color": "#999999", "from": "GL", "to": "WM"}, {"color": "#999999", "from": "GL", "to": "HST"}, {"color": "#999999", "from": "GL", "to": "PVH"}, {"color": "#999999", "from": "GL", "to": "IPG"}, {"color": "#999999", "from": "GPS", "to": "TGT"}, {"color": "#999999", "from": "HES", "to": "MRO"}, {"color": "#999999", "from": "HES", "to": "NOV"}, {"color": "#999999", "from": "HES", "to": "OKE"}, {"color": "#999999", "from": "HOLX", "to": "LH"}, {"color": "#999999", "from": "HSIC", "to": "MCK"}, {"color": "#999999", "from": "HSIC", "to": "XRAY"}, {"color": "#999999", "from": "HUM", "to": "LH"}, {"color": "#999999", "from": "INTU", "to": "SNPS"}, {"color": "#999999", "from": "INTU", "to": "MTD"}, {"color": "#999999", "from": "ITW", "to": "MMM"}, {"color": "#999999", "from": "ITW", "to": "ROP"}, {"color": "#999999", "from": "ITW", "to": "SWK"}, {"color": "#999999", "from": "ITW", "to": "MAS"}, {"color": "#999999", "from": "ITW", "to": "IVZ"}, {"color": "#999999", "from": "ITW", "to": "VAR"}, {"color": "#999999", "from": "IVZ", "to": "TROW"}, {"color": "#999999", "from": "IVZ", "to": "LH"}, {"color": "#999999", "from": "IVZ", "to": "RCL"}, {"color": "#999999", "from": "IVZ", "to": "SYY"}, {"color": "#999999", "from": "JBHT", "to": "TROW"}, {"color": "#999999", "from": "LOW", "to": "MAS"}, {"color": "#999999", "from": "LRCX", "to": "SNPS"}, {"color": "#999999", "from": "LRCX", "to": "NTAP"}, {"color": "#999999", "from": "MAS", "to": "PPG"}, {"color": "#999999", "from": "MCK", "to": "WBA"}, {"color": "#999999", "from": "MMM", "to": "MTD"}, {"color": "#999999", "from": "MNST", "to": "MTD"}, {"color": "#999999", "from": "MO", "to": "PAYX"}, {"color": "#999999", "from": "MOS", "to": "MRO"}, {"color": "#999999", "from": "MSI", "to": "ROP"}, {"color": "#999999", "from": "ORLY", "to": "SYY"}, {"color": "#999999", "from": "PAYX", "to": "WM"}, {"color": "#999999", "from": "PNC", "to": "RF"}, {"color": "#999999", "from": "PVH", "to": "RL"}, {"color": "#999999", "from": "PWR", "to": "WAB"}, {"color": "#999999", "from": "ROP", "to": "STE"}, {"color": "#999999", "from": "STE", "to": "ZBRA"}, {"color": "#999999", "from": "TGT", "to": "WBA"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.25,
+            "damping": 0.9,
+            "gravitationalConstant": -20000,
+            "springConstant": 0.01,
+            "springLength": 220
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

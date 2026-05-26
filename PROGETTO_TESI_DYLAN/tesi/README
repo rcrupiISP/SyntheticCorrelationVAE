@@ -1,0 +1,37 @@
+Bachelor and Master thesis template based on
+TOPtesi bundle version 6.x
+(TOPtesi Copyright 2008-2018 Claudio Beccari
+LaTeX Project Public Licence LPPL v.1.3c (or later))
+
+For details and manuals on the TOPtesi package plese
+make reference to the online documentation.
+
+The frontispiece is compatible with that available on
+the Politecnico Student Guide 2017-2018.
+
+To modify the frontispiece, open title.tex 
+Comment/uncomment your degree programm (lines 7-8 and 
+10-11).
+Write your thesis title (on line 12).
+Insert your name and the name of your supervisor(s)
+(within the minipage block).
+Write the academic year (at the end of the center
+block).
+
+Save the changes.
+Open toptesi_template.tex and compile it.
+
+
+The set up is suitable to write the thesis both
+in Italian and English. 
+For the English version, just uncomment line 56
+(\english command after \begin{document}).
+No other action are required.
+
+references.bib contains the references you need.
+
+Pictures is the images folder.
+
+Part_II contains the .tex file of the second part of
+the thesis (just to show how to include different
+.tex files).

@@ -1,0 +1,96 @@
+\chapter{Matrici di Correlazione in Ambito Finanziario}
+\label{ch:matrici_finanziarie}
+
+\section{Ruolo della correlazione nella Modern Portfolio Theory (Markowitz)}
+\label{sec:markowitz}
+
+La formalizzazione moderna del concetto di diversificazione trova il suo fondamento matematico nella \emph{Modern Portfolio Theory} (MPT) introdotta da Harry Markowitz nel 1952. Il paradigma fondamentale della MPT si basa sull'ipotesi che un investitore razionale selezioni le proprie strategie di allocazione considerando esclusivamente due parametri statistici: il rendimento atteso, inteso come misura del guadagno potenziale, e la varianza (o deviazione standard) dei rendimenti, assunta come metrica del rischio complessivo del portafoglio.
+
+Si consideri un universo investibile composto da $N$ attività finanziarie rischiose. Sia $\mathbf{r} = [r_1, r_2, \dots, r_N]^T \in \mathbb{R}^N$ il vettore aleatorio dei rendimenti dei singoli asset, con vettore dei valori attesi $\mathbb{E}[\mathbf{r}] = \boldsymbol{\mu} \in \mathbb{R}^N$. Un portafoglio è univocamente definito dal vettore dei pesi $\mathbf{w} = [w_1, w_2, \dots, w_N]^T \in \mathbb{R}^N$, dove ciascuna componente $w_i$ rappresenta la frazione di capitale allocata nell'asset $i$-esimo, sotto il vincolo di piena allocazione delle risorse $\sum_{i=1}^N w_i = \mathbf{w}^T \mathbf{1} = 1$.
+
+Il rendimento atteso del portafoglio, $E(R_p)$, è una combinazione lineare dei rendimenti attesi dei singoli titoli:
+\begin{equation}
+E(R_p) = \mathbb{E}[\mathbf{w}^T \mathbf{r}] = \mathbf{w}^T \boldsymbol{\mu}
+\end{equation}
+
+Il rischio del portafoglio, espresso mediante la sua varianza $\sigma_p^2$, è invece governato da una forma quadratica definita a partire dalla matrice di covarianza $\mathbf{\Sigma} \in \mathbb{R}^{N \times N}$:
+\begin{equation}
+\sigma_p^2 = \text{Var}(\mathbf{w}^T \mathbf{r}) = \mathbf{w}^T \mathbf{\Sigma} \mathbf{w} = \sum_{i=1}^N \sum_{j=1}^N w_i w_j \sigma_{ij}
+\end{equation}
+dove $\sigma_{ij}$ rappresenta la covarianza tra i rendimenti dell'asset $i$ e dell'asset $j$. La matrice di covarianza può essere fattorizzata isolando le componenti di volatilità individuale dalla struttura di interdipendenza lineare. Sia $\mathbf{D} \in \mathbb{R}^{N \times N}$ la matrice diagonale contenente le deviazioni standard dei singoli asset, $\mathbf{D} = \text{diag}(\sigma_1, \sigma_2, \dots, \sigma_N)$. La relazione fondamentale che lega la covarianza alla matrice di correlazione lineare di Pearson $\mathbf{C} \in \mathbb{R}^{N \times N}$ è espressa da:
+\begin{equation}
+\label{eq:sigma_decomposition}
+\mathbf{\Sigma} = \mathbf{D} \mathbf{C} \mathbf{D}
+\end{equation}
+
+In virtù della decomponevolezza espressa nella \eqref{eq:sigma_decomposition}, l'elemento generico $C_{ij}$ della matrice di correlazione corrisponde al coefficiente di correlazione strutturale $\rho_{ij} = \frac{\sigma_{ij}}{\sigma_i \sigma_j}$, vincolato geometricamente nell'intervallo $[-1, 1]$. 
+
+Il principio della diversificazione risiede interamente nelle proprietà algebriche di $\mathbf{C}$. Qualora i titoli presentino una correlazione lineare perfetta e positiva ($\rho_{ij} = 1 \, \forall i,j$), il rischio di portafoglio si riduce a una semplice media ponderata delle volatilità individuali, annullando qualsiasi effetto di mitigazione del rischio. Al contrario, la presenza di coefficienti $\rho_{ij} < 1$ garantisce che la deviazione standard del portafoglio sia strettamente inferiore alla combinazione lineare delle deviazioni standard dei singoli titoli. 
+
+Nell'ambito dell'ottimizzazione di portafoglio secondo il criterio media-varianza, l'obiettivo si traduce nella determinazione della frontiera efficiente tramite la risoluzione di problemi di programmazione quadratica del tipo:
+\begin{equation}
+\min_{\mathbf{w}} \frac{1}{2} \mathbf{w}^T \mathbf{\Sigma} \mathbf{w} \quad \text{s.t.} \quad \mathbf{w}^T \mathbf{1} = 1, \quad \mathbf{w}^T \boldsymbol{\mu} = \mu_{\text{target}}
+\end{equation}
+
+In questo contesto, la matrice di correlazione opera come il nucleo geometrico che modella lo spazio delle soluzioni ammissibili. Errori di stima anche marginali nella struttura di $\mathbf{C}$ alterano drasticamente gli autovettori associati, distorcendo l'identificazione delle direzioni a varianza minima e conducendo a soluzioni di allocazione altamente instabili e inefficienti fuori campionario.
+
+\section{Il problema del rumore nelle matrici empiriche}
+\label{sec:rumore_empirico}
+
+Nella pratica finanziaria, la vera matrice di correlazione della popolazione non è osservabile direttamente. Di conseguenza, gli analisti si affidano allo stimatore campionario standard, partendo dai log-rendimenti storici degli asset. Data una serie storica di rendimenti per $N$ attività finanziarie lungo un orizzonte temporale di $T$ giorni, si definisce innanzitutto la matrice di covarianza empirica $\hat{\mathbf{\Sigma}}$, il cui elemento generico è calcolato come:
+\begin{equation}
+\hat{\Sigma}_{ij} = \frac{1}{T-1} \sum_{t=1}^T (r_{i,t} - \bar{r}_i)(r_{j,t} - \bar{r}_j)
+\end{equation}
+dove $\bar{r}_i$ rappresenta la media campionaria del log-rendimento dell'asset $i$. 
+
+La matrice di correlazione empirica $\hat{\mathbf{C}}$ viene quindi derivata normalizzando le covarianze per il prodotto delle rispettive deviazioni standard campionarie $\hat{\sigma}$:
+\begin{equation}
+\hat{C}_{ij} = \frac{\hat{\Sigma}_{ij}}{\hat{\sigma}_i \hat{\sigma}_j}
+\end{equation}
+
+Questo approccio incontra un limite strutturale severo, noto in letteratura come la ``maledizione della dimensionalità'' o problema del rumore statistico. L'accuratezza dello stimatore campionario dipende in modo critico dal parametro di spettro $q$, definito come il rapporto tra la dimensione spaziale e quella temporale del dataset:
+\begin{equation}
+q = \frac{N}{T}
+\end{equation}
+
+Nei mercati finanziari moderni, la necessità di analizzare panieri ad alta dimensionalità (come nel caso dello studio di sottoinsiemi estesi dell'indice S\&P 500, dove $N = 100$) si scontra sistematicamente con la limitatezza dei dati storici stazionari disponibili. All'aumentare del rapporto $q$, ovvero quando la lunghezza temporale $T$ non è infinitamente superiore al numero di asset $N$, la matrice empirica $\hat{\mathbf{C}}$ accumula un livello di rumore campionario così elevato da perdere consistenza statistica.
+
+Dal punto di vista dell'algebra lineare, l'instabilità si manifesta macroscopicamente attraverso lo spettro degli autovalori della matrice. Quando $q \to 1$, gli autovalori più piccoli di $\hat{\mathbf{C}}$ tendono artificialmente verso lo zero, mentre gli autovalori più grandi vengono sistematicamente sovrastimati rispetto ai loro controvalori teorici reali. Questo fenomeno distorce pesantemente l'inversione della matrice richiesta dagli algoritmi di ottimizzazione, poiché l'operazione di inversione $\hat{\mathbf{C}}^{-1}$ amplifica l'effetto degli autovalori artificialmente prossimi allo zero.
+
+L'impatto operativo di tale distorsione è dirompente e viene definito in finanza quantitativa come il paradosso del \emph{noise maximizer}. Gli algoritmi di ottimizzazione basati sul framework di Markowitz cercano intrinsecamente le combinazioni di asset in grado di minimizzare il rischio complessivo del sistema. Nel farlo, l'ottimizzatore seleziona preferenzialmente i pesi associati agli autovettori corrispondenti agli autovalori più piccoli della matrice empirica. Tuttavia, poiché in regime di $q$ elevato tali autovalori minuscoli non descrivono reali relazioni di diversificazione economica ma sono meri artefatti statistici generati dal rumore di campionamento, l'algoritmo finisce per allocare la maggior parte del capitale all'interno del rumore stesso. Il risultato pratico è un collasso generalizzato delle performance del portafoglio non appena questo viene testato su dati reali fuori campionario (\emph{out-of-sample breakdown}).
+
+\section{Utilizzo delle matrici per la generazione di scenari stocastici e stima del rischio (VaR)}
+\label{sec:scenari_var}
+
+Oltre all'allocazione ottimale delle risorse, la matrice di correlazione costituisce l'elemento cardine per i sistemi di gestione del rischio deputati alla simulazione di scenari futuri e al calcolo dei requisiti patrimoniali. Tra le metodologie standard impiegate dai risk manager quantitativi, la simulazione Monte Carlo rappresenta l'approccio più flessibile per modellare l'evoluzione congiunta di asset finanziari complessi.
+
+Il motore di una simulazione Monte Carlo multivariata si basa sulla capacità di generare vettori di rendimenti sintetici che preservino rigorosamente la struttura delle dipendenze lineari osservata nel mercato reale. Supponendo di voler simulare un vettore di rendimenti futuri $\mathbf{r}_{\text{sim}} \in \mathbb{R}^N$ caratterizzato da un vettore di medie attese $\boldsymbol{\mu}$ e da una determinata matrice di covarianza target $\mathbf{\Sigma} = \mathbf{D}\mathbf{C}\mathbf{D}$, il processo matematico richiede l'estrazione di un vettore di variabili casuali indipendenti e identicamente distribuite $\mathbf{z} \sim \mathcal{N}(\mathbf{0}, \mathbf{I}_N)$.
+
+Per proiettare la struttura di correlazione sul vettore stocastico indipendente $\mathbf{z}$, si applica una decomposizione lineare basata sulla fattorizzazione della matrice di correlazione $\mathbf{C}$. Assumendo che $\mathbf{C}$ sia simmetrica e definita positiva, è possibile calcolare la sua decomposizione di Cholesky, che individua una matrice triangolare inferiore $\mathbf{L} \in \mathbb{R}^{N \times N}$ tale per cui:
+\begin{equation}
+\mathbf{C} = \mathbf{L} \mathbf{L}^T
+\end{equation}
+
+Il vettore dei rendimenti simulati viene quindi sintetizzato applicando la trasformazione lineare:
+\begin{equation}
+\mathbf{r}_{\text{sim}} = \boldsymbol{\mu} + \mathbf{D} \mathbf{L} \mathbf{z}
+\end{equation}
+
+Attraverso questa operazione, la matrice di covarianza dei rendimenti generati rispecchia esattamente la struttura desiderata, poiché:
+\begin{equation}
+\text{Var}(\mathbf{r}_{\text{sim}}) = \text{Var}(\mathbf{D} \mathbf{L} \mathbf{z}) = \mathbf{D} \mathbf{L} \text{Var}(\mathbf{z}) \mathbf{L}^T \mathbf{D} = \mathbf{D} \mathbf{L} \mathbf{I}_N \mathbf{L}^T \mathbf{D} = \mathbf{D} \mathbf{C} \mathbf{D} = \mathbf{\Sigma}
+\end{equation}
+
+La generazione ripetuta di decine di migliaia di questi vettori stocastici permette di mappare la distribuzione di probabilità empirica delle perdite e dei guadagni futuri del portafoglio complessivo. Su questa distribuzione aggregata vengono calcolate le principali metriche di rischio di coda. 
+
+La prima metrica è il \emph{Value at Risk} ($\text{VaR}_\alpha$), definito come la perdita massima potenziale che il portafoglio può subire entro un determinato orizzonte temporale, dato un livello di confidenza statistica $\alpha \in (0, 1)$. Matematicamente, l'identificazione del VaR corrisponde al calcolo del quantile della distribuzione delle perdite del portafoglio $L$:
+\begin{equation}
+\inf \{ L \in \mathbb{R} : \mathbb{P}(L > \text{VaR}_\alpha) \le 1 - \alpha \}
+\end{equation}
+
+Poiché il VaR non fornisce informazioni sull'entità delle perdite che superano la soglia del quantile, ad esso viene sistematicamente affiancato l'\emph{Expected Shortfall} ($\text{ES}_\alpha$), o \emph{Conditional VaR}, che quantifica il valore atteso delle perdite condizionato al superamento del VaR stesso:
+\begin{equation}
+\text{ES}_\alpha = \mathbb{E}[L \mid L > \text{VaR}_\alpha]
+\end{equation}
+
+Se la matrice di correlazione $\mathbf{C}$ utilizzata per alimentare la decomposizione di Cholesky è contaminata da rumore statistico o basata su assunzioni storiche eccessivamente rigide, l'intero motore Monte Carlo produce scenari distorti. Da un lato, le matrici empiriche rumorose possono perdere la proprietà algebrica di semidefinita positività a causa di arrotondamenti numerici o dati mancanti, rendendo impossibile il calcolo di $\mathbf{L}$. Dall'altro, i modelli deterministici tradizionali non sono in grado di catturare le variazioni strutturali e le interdipendenze asimmetriche che si attivano tipicamente durante le fasi di stress finanziario. Ciò porta a una grave sottostima dei co-movimenti sistemici in caso di crolli di mercato, generando scenari Monte Carlo artificialmente ottimistici che espongono le imprese a rischi di coda non coperti da adeguati buffer patrimoniali.

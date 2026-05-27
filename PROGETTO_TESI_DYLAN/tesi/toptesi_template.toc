@@ -1,15 +1,22 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
-\contentsline {chapter}{Elenco delle tabelle}{7}{section*.1}%
-\contentsline {chapter}{Elenco delle figure}{8}{section*.2}%
-\contentsline {part}{\EnsureStandardFontEncoding {I}\hspace {1em}Prima Parte}{11}{part.1}%
-\contentsline {chapter}{\numberline {1}Introduzione generale}{13}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Principi generali}{13}{section.1.1}%
-\contentsline {chapter}{\numberline {2}Il barometro}{15}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Generalit\`a}{15}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Forma del barometro}{15}{subsection.2.1.1}%
-\contentsline {section}{\numberline {2.2}Del mercurio}{16}{section.2.2}%
-\contentsline {part}{\EnsureStandardFontEncoding {II}\hspace {1em}Seconda Parte}{19}{part.2}%
-\contentsline {chapter}{\numberline {3}Primo capitolo della seconda parte}{21}{chapter.3}%
-\contentsline {section}{\numberline {3.1}How to}{21}{section.3.1}%
+\contentsline {part}{\EnsureStandardFontEncoding {I}\hspace {1em}Fondamenti Teorici}{7}{part.1}%
+\contentsline {chapter}{\numberline {1}Introduzione}{9}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Contesto generale sull'asset allocation e la gestione del rischio}{9}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Definizione del problema di ricerca e motivazione dell'uso dei modelli generativi profondi}{10}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Obiettivi della tesi}{11}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Matrici di Correlazione in Ambito Finanziario}{13}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Ruolo della correlazione nella Modern Portfolio Theory (Markowitz)}{13}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Il problema del rumore nelle matrici empiriche}{14}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Utilizzo delle matrici per la generazione di scenari stocastici e stima del rischio (VaR)}{15}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Fatti Stilizzati delle Matrici di Correlazione}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introduzione alle proprietà strutturali dei mercati reali}{17}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Distribuzione asimmetrica delle correlazioni pairwise}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Analisi spettrale e distribuzione di Marchenko-Pastur}{18}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Proprietà di Perron-Frobenius empirica}{19}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Struttura gerarchica delle correlazioni}{20}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Il Minimum Spanning Tree (MST) e la proprietà scale-free}{20}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Benchmark test: fallimento strutturale della Random Matrix Theory}{21}{section.3.7}%
+\contentsline {part}{\EnsureStandardFontEncoding {II}\hspace {1em}Metodologia e Pipeline di Analisi}{23}{part.2}%
+\contentsline {part}{\EnsureStandardFontEncoding {III}\hspace {1em}Risultati, Validazione e Applicazioni}{25}{part.3}%

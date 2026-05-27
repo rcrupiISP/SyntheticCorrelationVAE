@@ -1,0 +1,110 @@
+\chapter{Fatti Stilizzati delle Matrici di Correlazione}
+\label{ch:stylized_facts}
+
+\section{Introduzione alle proprietà strutturali dei mercati reali}
+\label{sec:intro_proprieta}
+
+In finanza quantitativa, il termine \emph{stylized facts} (fatti stilizzati) identifica un insieme di regolarità statistiche ed empiriche ampiamente verificate nei mercati finanziari globali, le quali risultano persistenti nel tempo, invarianti rispetto alle diverse asset class e indipendenti dagli specifici orizzonti temporali di campionamento. Sebbene l'andamento individuale dei prezzi dei titoli segua dinamiche fortemente stocastiche e apparentemente caotiche, le relazioni di interdipendenza congiunta manifestano vincoli geometrici e topologici estremamente rigidi.
+
+Quando si analizza un sistema ad alta dimensionalità composto da attività finanziarie reali --- come il paniere rappresentativo di 100 asset estratti dall'indice S\&P 500 nell'orizzonte 2000-2020 --- la relativa matrice di correlazione empirica $\hat{\mathbf{C}}$ cessa di essere un mero aggregato statistico di coefficienti indipendenti. Essa assume invece la natura di un operatore strutturato che riflette l'organizzazione interna del sistema economico. 
+
+Identificare e formalizzare queste proprietà strutturali è un prerequisito fondamentale per la validazione di qualsiasi modello di compressione o generazione. Un framework generativo basato su \emph{deep learning}, come un Variational Autoencoder, non deve semplicemente minimizzare un errore di ricostruzione puntuale (come l'MSE), ma deve dimostrare la capacità matematica di preservare e sintetizzare ex-novo tali regolarità biologiche del mercato. Al fine di tracciare un confine netto tra le informazioni strutturali e il rumore statistico puramente casuale, la letteratura scientifica definisce cinque proprietà geometriche essenziali che caratterizzano univocamente i mercati reali.
+
+\section{Distribuzione asimmetrica delle correlazioni pairwise}
+\label{sec:pairwise_distribution}
+
+La prima proprietà macroscopica di una matrice di correlazione finanziaria reale risiede nella morfologia della distribuzione di probabilità dei suoi elementi fuori diagonale $C_{ij}$ con $i \neq j$, noti come coefficienti \emph{pairwise}. 
+
+In un mercato teorico puramente casuale, in cui i rendimenti dei titoli fossero ortogonali e statisticamente indipendenti, la distribuzione empirica dei coefficienti di correlazione si presenterebbe come una curva simmetrica centrata esattamente sullo zero, le cui fluttuazioni campionarie attorno al valore nullo dipenderebbero unicamente dalla limitatezza della serie storica $T$. 
+
+Al contrario, nei mercati finanziari reali si osserva un fenomeno sistematico di deviazione statistica (\emph{distribution shift}). La distribuzione delle correlazioni \emph{pairwise} è marcatamente asimmetrica e significativamente spostata verso valori positivi, con una media campionaria stabilmente superiore allo zero, tipicamente confinata nell'intervallo $[0.2, 0.5]$. Questo spostamento globale riflette l'esistenza del cosiddetto ``effetto mercato'' o fattore di rischio sistematico: in condizioni macroeconomiche ordinarie, e in modo ancora più esasperato durante i crolli finanziari, la quasi totalità degli asset tende a muoversi nella medesima direzione, spinta da shock sistemici globali che dominano sulle componenti idiosincratiche dei singoli titoli.
+
+\section{Analisi spettrale e distribuzione di Marchenko-Pastur}
+\label{sec:analisi_spettrale}
+
+L'analisi dello spettro degli autovalori fornisce la descrizione algebrica più profonda della struttura informativa contenuta in $\hat{\mathbf{C}}$. Sia $\{\lambda_1, \lambda_2, \dots, \lambda_N\}$ l'insieme degli autovalori stabili della matrice di correlazione empirica, ordinati in senso decrescente tale per cui $\lambda_1 \ge \lambda_2 \ge \dots \ge \lambda_N$.
+
+Il punto di riferimento matematico per isolare il rumore è fornito dalla \emph{Random Matrix Theory} (RMT). Sotto l'ipotesi nulla che la matrice dei dati $\mathbf{X} \in \mathbb{R}^{N \times T}$ sia composta da variabili aleatorie indipendenti e identicamente distribuite con media nulla e varianza unitaria, lo spettro degli autovalori della matrice empirica, nel limite $N \to \infty, T \to \infty$ con rapporto di spettro $q = N/T$ costante, converge rigorosamente alla densità di probabilità di Marchenko-Pastur (MP):
+\begin{equation}
+P(\lambda) = \frac{1}{2\pi q} \frac{\sqrt{(\lambda_+ - \lambda)(\lambda - \lambda_-)}}{\lambda} \cdot \mathbb{I}_{[\lambda_-, \lambda_+]}(\lambda)
+\end{equation}
+I confini teorici dello spettro di puro rumore, noti come \emph{bulk} di Marchenko-Pastur, sono definiti analiticamente dai limiti rigidi:
+\begin{equation}
+\lambda_{\pm} = \left( 1 \pm \sqrt{q} \right)^2
+\end{equation}
+
+Quando si analizza lo spettro di una matrice di correlazione reale, l'evidenza empirica mostra una violazione drammatica della legge di Marchenko-Pastur, ripartendo gli autovalori in tre componenti distinte:
+\begin{enumerate}
+    \item \textbf{Il primo autovalore dominante ($\lambda_1 \gg \lambda_+$):} Si osserva un singolo autovalore di magnitudo straordinaria che si colloca ordini di grandezza al di sopra del limite superiore del \emph{bulk} casuale. Questo autovalore cattura l'effetto mercato descritto nella sezione precedente e da solo spiega una frazione enorme (spesso superiore al 30-40\%) della varianza totale del sistema finanziario.
+    \item \textbf{Gli autovalori settoriali intermedi ($\lambda_k > \lambda_+$):} Un ristretto numero di autovalori intermedi riesce a violare il limite $\lambda_+$, posizionandosi al di fuori della densità di MP. Questi autovalori descrivono le interdipendenze stabili esistenti tra gruppi di asset appartenenti a specifici comparti industriali o economici.
+    \item \textbf{Il bulk del rumore ($\lambda \le \lambda_+$):} La stragrande maggioranza dei rimanenti autovalori (spesso oltre il 90\% del totale) rimane confinata all'interno dell'intervallo $[\lambda_-, \lambda_+]$. Questa porzione dello spettro è statisticamente indistinguibile dal puro rumore bianco, confermando che la frazione predominante delle relazioni puntuali descritte dalle matrici empiriche è priva di reale contenuto informativo stazionario.
+\end{enumerate}
+
+\section{Proprietà di Perron-Frobenius empirica}
+\label{sec:perron_frobenius}
+
+La natura dominante del primo autovalore $\lambda_1$ trova una rigorosa formalizzazione nelle proprietà dell'autovettore ad esso associato, indicato come $\mathbf{v}_1 = [v_{1,1}, v_{1,2}, \dots, v_{1,N}]^T$. In ambito puramente matematico, il teorema di Perron-Frobenius stabilisce che per matrici a elementi strettamente non negativi, l'autovettore principale possiede componenti tutte dello stesso segno.
+
+Sebbene le matrici di correlazione finanziaria empiriche non siano strettamente non negative --- poiché presentano fisiologicamente coefficienti negativi dovuti a coperture o dinamiche avverse --- la forte dominanza delle correlazioni positive medie indotta dall'effetto mercato fa sì che il sistema finanziario manifesti una sorta di ``proprietà di Perron-Frobenius empirica''.
+
+Le implicazioni di questa proprietà si traducono in due vincoli algebrici per la matrice $\hat{\mathbf{C}}$:
+\begin{enumerate}
+    \item \textbf{Unicità e non degenerazione:} L'autovalore massimo $\lambda_1$ è reale, strettamente positivo e possiede molteplicità uno. Ciò garantisce che la direzione a massima varianza dello spazio finanziario sia unica.
+    \item \textbf{Uniformità di segno:} Nonostante la presenza di correlazioni \emph{pairwise} negative all'interno della matrice, tutti gli elementi del primo autovettore associato $\mathbf{v}_1$ presentano sistematicamente il medesimo segno algebrico. Per convenzione standard di normalizzazione, possono essere assunti come strettamente positivi ($v_{1,i} > 0 \, \forall i=1,\dots,N$).
+\end{enumerate}
+
+Dal punto di vista economico-finanziario, questa proprietà è cruciale. Poiché ciascuna componente $v_{1,i}$ quantifica il livello di partecipazione del titolo $i$-esimo al primo fattore principale, l'uniformità del segno dimostra che l'effetto mercato agisce in modo cooperativo su tutti i titoli del paniere. Pur con intensità diverse, nessuno degli asset analizzati si muove strutturalmente in opposizione di fase rispetto al trend macroeconomico globale dominante.
+
+\section{Struttura gerarchica delle correlazioni}
+\label{sec:struttura_gerarchica}
+
+Un'altra proprietà fondamentale dei mercati reali è l'organizzazione sub-strutturale delle correlazioni secondo un principio gerarchico. All'interno del tessuto economico, le aziende non interagiscono in modo uniforme: imprese appartenenti alla medesima filiera o al medesimo comparto industriale (es. \emph{Information Technology} o \emph{Energy}) manifestano livelli di co-movimento mutuo significativamente più intensi rispetto a quelli registrati tra aziende operanti in settori ortogonali.
+
+Se si applica un algoritmo di ordinamento ottimale basato su metriche di clustering gerarchico sulla matrice $\hat{\mathbf{C}}$, l'organizzazione interna si palesa visivamente sotto forma di blocchi densi disposti lungo la diagonale principale. Questa struttura ad albero (esprimibile analiticamente mediante dendrogrammi) dimostra che il mercato è organizzato secondo un'architettura multi-scala: un livello globale (effetto mercato), macro-cluster stabili (i settori GICS) e micro-aggregazioni locali (le sotto-industrie). La preservazione di tale gerarchia è il test fondamentale per determinare se un modello architetturale profondo stia apprendendo la reale tassonomia economica dei dati.
+
+\section{Il Minimum Spanning Tree (MST) e la proprietà scale-free}
+\label{sec:mst_scalefree}
+
+Per estrarre l'ossatura topologica essenziale eliminando le ridondanze informative della matrice di correlazione, la finanza quantitativa utilizza strumenti derivati dalla teoria dei grafi. Il metodo d'elezione consiste nella costruzione del \emph{Minimum Spanning Tree} (Albero di Espansione Minima).
+
+Il primo passaggio richiede la trasformazione della matrice dei coefficienti di correlazione $\mathbf{C}$ in una matrice delle distanze geometriche $\mathbf{D}_{\text{graph}}$. Per ridefinire gli elementi $C_{ij}$ come distanze metriche reali che soddisfino gli assiomi di positività, simmetria e disuguaglianza triangolare, si applica la trasformazione non lineare:
+\begin{equation}
+d_{ij} = \sqrt{2(1 - C_{ij})}
+\end{equation}
+Il coefficiente $d_{ij}$ assume valore $0$ in caso di correlazione perfetta positiva ($C_{ij}=1$), valore $\sqrt{2}$ per asset indipendenti ($C_{ij}=0$) e valore $2$ per titoli perfettamente anticorrelandoli ($C_{ij}=-1$).
+
+Utilizzando la matrice delle distanze come mappa dei pesi di un grafo completo, si applicano algoritmi classici di ottimizzazione combinatoria (quali l'algoritmo di Kruskal o di Prim) per estrarre l'MST. L'MST è un sottografo connesso e privo di cicli che collega tutti gli $N$ nodi (gli asset) selezionando gli $N-1$ archi che minimizzano la somma totale delle distanze geometriche.
+
+La proprietà stilizzata che qualifica gli MST dei mercati finanziari reali è la natura \emph{scale-free} (invariante di scala) della loro topologia di rete. Sia $k_i$ il grado del nodo $i$-esimo, definito come il numero di archi incidenti sul nodo stesso nell'albero ottimizzato. Nei mercati reali, la distribuzione empirica del grado dei nodi $P(k)$ non segue una curva gaussiana o poissoniana, ma è governata da una legge di potenza:
+\begin{equation}
+P(k) \propto k^{-\gamma}
+\end{equation}
+dove $\gamma$ rappresenta l'esponente di scala strutturale, solitamente confinato nell'intervallo $2 < \gamma < 3$.
+
+La validità della legge di potenza implica la presenza di una topologia fortemente accentrata. L'MST finanziario è dominato da pochissimi nodi ad altissima connettività, definiti \emph{hubs} super-connessi, che agiscono come centri collettori dell'informazione finanziaria (tipicamente grandi aziende leader di settore o holding sistemiche), attorno ai quali si dispongono radialmente ampi cluster di nodi periferici a basso grado (nodi foglia).
+
+\section{Benchmark test: fallimento strutturale della Random Matrix Theory}
+\label{sec:benchmark_rmt}
+
+Al fine di validare rigorosamente la significatività statistica dei cinque fatti stilizzati descritti, viene definito un protocollo di \emph{benchmark test} basato sul confronto diretto tra le matrici finanziarie reali e le matrici puramente casuali generate sinteticamente tramite i teoremi della Random Matrix Theory.
+
+Generando una matrice di controllo mediante l'estrazione di $N$ serie temporali di puro rumore gaussiano bianco i.i.d., si costruisce la corrispondente matrice di correlazione casuale. Sottoponendo tale matrice al medesimo protocollo di analisi qualitativo e quantitativo, si registra un fallimento strutturale sistematico nell'adempimento delle proprietà del mercato reale:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{p{4.5cm} p{5.5cm} p{5.5cm}}
+\hline
+\textbf{Stylized Fact} & \textbf{Mercato Reale (S\&P 500)} & \textbf{Benchmark RMT (Pure Noise)} \\
+\hline
+Distribuzione \emph{Pairwise} & Fortemente asimmetrica, shifted verso valori positivi. & Perfettamente simmetrica e centrata sullo zero. \\
+Spettro degli Autovalori & Presenza di $\lambda_1 \gg \lambda_+$ (mercato) e $\lambda_k > \lambda_+$ (settori). & Interamente vincolato entro i limiti di MP: $[\lambda_-, \lambda_+]$. \\
+Proprietà di Perron-Frobenius & Valida: $\mathbf{v}_1$ ha componenti unicamente positive. & Fallita: $\mathbf{v}_1$ ha componenti a segni casuali stocastici. \\
+Organizzazione Interna & Struttura gerarchica e tassonomica a blocchi settoriali. & Assenza totale di pattern; matrice omogenea amorfa. \\
+Topologia dell'MST & Rete \emph{scale-free} retta da legge di potenza con \emph{hubs}. & Grafo casuale omogeneo privo di nodi centrali dominanti. \\
+\hline
+\end{tabular}
+\caption{Quadro comparativo strutturale tra le proprietà geometriche dei mercati reali e il benchmark probabilistico della Random Matrix Theory.}
+\label{tab:comparazione_rmt}
+\end{table}
+
+Questo fallimento radicale dimostra matematicamente che i cinque fatti stilizzati costituiscono la firma geometrica esclusiva dell'informazione finanziaria reale. Qualsiasi modello generativo profondo non può limitarsi a operare nel dominio di metriche rigide di errore quadratico medio, ma deve necessariamente superare questo \emph{benchmark test}. Il Variational Autoencoder, per essere considerato un valido motore stocastico di scenari, dovrà generare matrici sintetiche dallo spazio latente che non solo si discostino dal rumore di MP, ma che replichino fedelmente tutte le asimmetrie e le leggi di potenza che la Random Matrix Theory non è in grado di spiegare.

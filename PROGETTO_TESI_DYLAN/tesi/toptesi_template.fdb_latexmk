@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1779879842.21163 "c:/Users/dylan/Desktop/TESI/SyntheticCorrelationVAE/PROGETTO_TESI_DYLAN/tesi/toptesi_template.tex" "toptesi_template.pdf" "toptesi_template" 1779879843.37106 0
+["pdflatex"] 1779908583.51948 "c:/Users/dylan/Desktop/TESI/SyntheticCorrelationVAE/PROGETTO_TESI_DYLAN/tesi/toptesi_template.tex" "toptesi_template.pdf" "toptesi_template" 1779908584.75542 0
   "C:/Users/dylan/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1779780301 96176 40a8022d15c5925d7081b1ad66e03248 ""
   "C:/Users/dylan/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1766483210 13333512 7a22986de7320440fa03e12f099e17cb ""
   "C:/Users/dylan/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc" 1256929440 2375 baa924870cfb487815765f9094cf3728 ""
@@ -171,13 +171,15 @@
   "Parte_I/capitolo1.tex" 1779869831 7932 04d3256417e674aeae95b538209d738c ""
   "Parte_I/capitolo2.tex" 1779871613 12474 45a87f8910cb45ff90f54441424a7fc4 ""
   "Parte_I/capitolo3.tex" 1779879839 14944 147d240da6fa32795fa3f471d1eccb1b ""
+  "Parte_I/capitolo4.tex" 1779907394 10758 98d84024b9256faa82f6b6437d640337 ""
+  "Parte_II/capitolo5.tex" 1779908583 8780 8219b62fb710bd7948bf5ddf041c52b7 ""
   "Pictures/logo_polito_2021.jpg" 1779780071 1024395 534036d9fd285781e413fd1992dfceb3 ""
-  "c:/Users/dylan/Desktop/TESI/SyntheticCorrelationVAE/PROGETTO_TESI_DYLAN/tesi/toptesi_template.tex" 1779874474 5886 043028331a81d2305fc40e836f9073fc ""
+  "c:/Users/dylan/Desktop/TESI/SyntheticCorrelationVAE/PROGETTO_TESI_DYLAN/tesi/toptesi_template.tex" 1779907769 5887 fc9e0e014644dbcd8b6f2de0335cd899 ""
   "title.tex" 1779801084 997 625476798656540c947a8fc25da8198e ""
-  "toptesi_template.aux" 1779879843 5541 bafba6d4bd3c9c5d3f6e76f9e179465b "pdflatex"
-  "toptesi_template.out" 1779879843 5987 8c2e1ba601fc14c6de8a55b703f9eb0e "pdflatex"
-  "toptesi_template.tex" 1779874474 5886 043028331a81d2305fc40e836f9073fc ""
-  "toptesi_template.toc" 1779879843 2225 3b25c5500b2c616249db21c8929d6f56 "pdflatex"
+  "toptesi_template.aux" 1779908584 8322 2c7b536c2aa883dac7af2b41757be5aa "pdflatex"
+  "toptesi_template.out" 1779908584 9411 90ef84b718fa828bc672028df797c135 "pdflatex"
+  "toptesi_template.tex" 1779907769 5887 fc9e0e014644dbcd8b6f2de0335cd899 ""
+  "toptesi_template.toc" 1779908584 3367 36fdf238de6867b928dd736711e693f7 "pdflatex"
   (generated)
   "toptesi_template.aux"
   "toptesi_template.log"

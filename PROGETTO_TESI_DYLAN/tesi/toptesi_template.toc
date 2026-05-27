@@ -18,5 +18,15 @@
 \contentsline {section}{\numberline {3.5}Struttura gerarchica delle correlazioni}{20}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Il Minimum Spanning Tree (MST) e la proprietà scale-free}{20}{section.3.6}%
 \contentsline {section}{\numberline {3.7}Benchmark test: fallimento strutturale della Random Matrix Theory}{21}{section.3.7}%
-\contentsline {part}{\EnsureStandardFontEncoding {II}\hspace {1em}Metodologia e Pipeline di Analisi}{23}{part.2}%
-\contentsline {part}{\EnsureStandardFontEncoding {III}\hspace {1em}Risultati, Validazione e Applicazioni}{25}{part.3}%
+\contentsline {chapter}{\numberline {4}Riduzione della Dimensionalità e Modelli Generativi}{23}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Principal Component Analysis (PCA): teoria e limiti lineari}{23}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Autoencoder Lineari (Linear AE): ponte verso le reti neurali}{24}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Autoencoder Profondi (AE): introduzione alla non-linearità}{25}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Variational Autoencoders (VAE) e regolarizzazione dello spazio latente}{25}{section.4.4}%
+\contentsline {part}{\EnsureStandardFontEncoding {II}\hspace {1em}Metodologia e Pipeline di Analisi}{27}{part.2}%
+\contentsline {chapter}{\numberline {5}Pre-processing e Costruzione del Dataset}{29}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Descrizione del dataset}{29}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Calcolo dei rendimenti e stima delle matrici empiriche}{30}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Tecnica di campionamento: Purging parziale e overlap controllato}{30}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Estrazione e flattening delle matrici triangolari inferiori}{31}{section.5.4}%
+\contentsline {part}{\EnsureStandardFontEncoding {III}\hspace {1em}Risultati, Validazione e Applicazioni}{33}{part.3}%

@@ -1,0 +1,69 @@
+\chapter{Architetture dei Modelli e Setup Sperimentale}
+\label{ch:architetture}
+
+\section{Implementazione della PCA come baseline}
+\label{sec:setup_pca}
+
+Al fine di stabilire un \emph{benchmark} quantitativo rigoroso per valutare le performance delle reti neurali, la pipeline sperimentale prevede l'implementazione iniziale della \emph{Principal Component Analysis} (PCA). Questo modello funge da base comparativa per determinare il limite massimo di compressione lineare raggiungibile sui dati.
+
+La PCA è stata addestrata sul \emph{Training Set} linearizzato, composto dai vettori $\mathbf{x} \in \mathbb{R}^{4950}$ rappresentanti le componenti triangolari inferiori delle matrici di correlazione. Fissata una dimensione target $K$ per lo spazio compresso, l'algoritmo estrae gli autovettori corrispondenti ai $K$ autovalori dominanti della matrice di covarianza globale del set di addestramento. Le performance di ricostruzione, misurate tramite l'Errore Quadratico Medio (MSE) sulle matrici del \emph{Test Set}, costituiscono la soglia che i modelli di \emph{deep learning} devono teoricamente eguagliare (nel caso lineare) o superare (nel caso non lineare).
+
+\section{Design e iperparametri dell'Autoencoder Lineare}
+\label{sec:setup_linear_ae}
+
+L'Autoencoder Lineare (Linear AE) è stato progettato per fungere da ponte analitico tra l'apprendimento profondo e l'algebra lineare. Per garantire la perfetta replicabilità del sottospazio della PCA, l'architettura è stata sottoposta a vincoli ingegneristici stringenti:
+\begin{itemize}
+    \item \textbf{Struttura:} Un singolo \emph{layer} denso per l'Encoder ($\mathbb{R}^{4950} \to \mathbb{R}^K$) e uno speculare per il Decoder ($\mathbb{R}^K \to \mathbb{R}^{4950}$).
+    \item \textbf{Funzioni di attivazione:} Rigorosamente identità (lineari) in ogni nodo della rete.
+    \item \textbf{Assenza di Bias e Regolarizzazione:} I termini di \emph{bias} sono stati disabilitati in tutti i \emph{layer} ($\mathbf{b} = 0$) e non è stata applicata alcuna penalizzazione di tipo \emph{weight decay} (L2) per non alterare la magnitudo della scomposizione spettrale appresa.
+\end{itemize}
+
+L'ottimizzazione dei pesi è stata condotta minimizzando esclusivamente la funzione di costo spaziale MSE. Come prassi di \emph{sanity check}, gli iperparametri di addestramento (in particolare la scelta dell'ottimizzatore, come Adam, e il \emph{Learning Rate}) sono stati calibrati in modo iterativo per garantire che la \emph{loss} del Linear AE convergesse asintoticamente sull'orizzonte esatto dettato dalla PCA sul set di addestramento, validando l'assenza di minimi locali sub-ottimali.
+
+\section{Design e iperparametri dell'Autoencoder Non-Lineare}
+\label{sec:setup_deep_ae}
+
+Per superare la rigidità geometrica dei modelli precedenti e catturare le interdipendenze gerarchiche e asimmetriche del mercato reale, è stato sviluppato un Autoencoder Profondo (AE). L'inclusione di strati multipli e funzioni non lineari dota il modello della flessibilità necessaria per piegare lo spazio latente e fittare la \emph{manifold} complessa dei dati finanziari.
+
+L'architettura è strutturata con un \emph{design} a imbuto (simmetrico):
+\begin{itemize}
+    \item \textbf{Encoder e Regolarizzazione:} L'infrastruttura inizia con il \emph{layer} di ingresso ($\mathbb{R}^{4950}$), seguito da strati nascosti (\emph{hidden layers}) a dimensionalità decrescente, fino al livello di \emph{bottleneck} ($\mathbb{R}^K$). Per forzare la rete ad apprendere rappresentazioni più robuste e distribuite delle dinamiche di mercato, mitigando contestualmente il rischio di memorizzazione mnemonica (\emph{co-adaptation}), è stato interposto un \emph{layer} di \emph{Dropout} tra gli strati dell'Encoder.
+    \item \textbf{Decoder:} Struttura speculare che riceve il vettore latente $K$-dimensionale e lo proietta nuovamente alla dimensione originale attraverso un'espansione simmetrica.
+    \item \textbf{Funzioni di attivazione:} Per tutti gli strati nascosti è stata adottata la funzione di attivazione LeakyReLU (con parametro di pendenza $\alpha$ fissato a 0.01) per scongiurare il problema del \emph{vanishing gradient} e garantire un flusso di gradiente non nullo anche per valori di input negativi. Per l'ultimo \emph{layer} di output del Decoder è stata sistematicamente impiegata l'attivazione Tanh (tangente iperbolica), una scelta architetturale atta a mappare rigorosamente i valori ricostruiti nel dominio continuo $[-1, 1]$, coerente con la natura geometrica dei coefficienti di correlazione di Pearson.
+\end{itemize}
+
+Inizialmente, al fine di prevenire l'\emph{overfitting} e selezionare la configurazione ottimale, il protocollo di addestramento prevedeva l'esecuzione per un numero prefissato di epoche, monitorando costantemente il \emph{Validation Set} (isolato con un \emph{purging} di 21 giorni). La strategia di salvataggio dei pesi (\emph{Model Checkpointing}) era impostata per conservare esclusivamente il modello in corrispondenza del valore minimo assoluto della \emph{Validation Loss}. Tuttavia, le evidenze sperimentali hanno rivelato una dinamica di apprendimento altamente non banale, intrinseca alla natura delle serie storiche finanziarie.
+
+Durante l'ottimizzazione, il Deep AE ha dimostrato una capacità espressiva eccezionale sul dominio noto: la \emph{Training Loss} (MSE) è costantemente decrescente, riuscendo a scendere al di sotto del limite rigido fissato dal \emph{benchmark} della PCA per medesimi valori di $K$. Ciò conferma la corretta configurazione dell'architettura e l'assenza di minimi locali sub-ottimali. 
+
+Al contrario, la \emph{Validation Loss} ha mostrato un andamento pressoché piatto e stagnante fin dalle primissime epoche, palesando un severo fenomeno di \emph{overfitting} sul set di addestramento e un'incapacità strutturale di generalizzare \emph{out-of-sample}. In questo scenario, la strategia di salvare il modello in base al minimo della \emph{Validation Loss} genera un paradosso operativo: poiché la curva di validazione non presenta un vero e proprio minimo globale di generalizzazione ma fluttua in modo stazionario, il salvataggio avviene in corrispondenza di un'epoca essenzialmente arbitraria. Questo restituisce un modello sub-ottimale che non sfrutta appieno la propria capacità di \emph{fitting} sul passato e che, in ogni caso, fallisce nella generalizzazione sul futuro.
+
+Questo fenomeno empirico conduce a una conclusione teorica cruciale per la tesi: l'incapacità di ricostruzione sui set di validazione e test non deriva da una debolezza architetturale della rete, bensì dalla complessa fenomenologia dei dati. Le matrici di correlazione del \emph{Validation Set} (2014-2018) e del \emph{Test Set} (2017-2021) appartengono a regimi di mercato radicalmente differenti rispetto a quelli esplorati nel \emph{Training Set} (2000-2015), manifestando un fisiologico \emph{distribution shift} macroeconomico. L'Autoencoder Profondo, in quanto modello puramente deterministico, è in grado di memorizzare perfettamente la topologia del passato, ma non possiede gli strumenti probabilistici per estrapolare e generalizzare su regimi temporali futuri mai visti. 
+
+Tale limite strutturale delle architetture classiche sancisce definitivamente la necessità di transitare verso il paradigma variazionale (VAE), il cui spazio latente regolarizzato è progettato esattamente per superare il determinismo storico e abilitare la generazione stocastica di scenari inediti.
+
+\section{Design e iperparametri del VAE}
+\label{sec:setup_vae}
+
+Il Variational Autoencoder (VAE) rappresenta l'apice ingegneristico della pipeline, deputato non solo alla compressione, ma alla generazione stocastica. L'architettura espande la topologia del Deep AE trasformando lo strato di \emph{bottleneck} deterministico in un modulo di inferenza probabilistica.
+
+\begin{itemize}
+    \item \textbf{Rete di Inferenza (Encoder):} Al termine degli strati nascosti, la rete si biforca in due layer paralleli che emettono, rispettivamente, il vettore delle medie $\boldsymbol{\mu}$ e il vettore delle varianze logaritmiche $\log(\boldsymbol{\sigma}^2)$ della distribuzione latente, per garantire la stabilità numerica.
+    \item \textbf{Sampling e Reparameterization:} Lo strato latente non riceve un input fisso, ma un campione estratto dinamicamente tramite il \emph{reparameterization trick} $\mathbf{z} = \boldsymbol{\mu} + \boldsymbol{\sigma} \odot \boldsymbol{\epsilon}$, dove $\boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})$.
+    \item \textbf{Rete Generativa (Decoder):} Il Decoder speculare riceve $\mathbf{z}$ e procede alla ricostruzione.
+\end{itemize}
+
+Il bilanciamento tra l'errore di ricostruzione (MSE) e il vincolo topologico imposto dalla Divergenza di Kullback-Leibler (KL) è l'iperparametro critico del sistema. L'addestramento modella uno spazio continuo che permette, in fase di test, di estrarre nuove matrici sintetiche campionando puramente dalla normale standard $p(\mathbf{z})$ senza necessitare di input originari.
+
+\section{Metriche di valutazione e criteri di convergenza}
+\label{sec:metriche_convergenza}
+
+L'addestramento dei modelli neurali è stato governato monitorando un set di metriche oggettive e applicando precise policy di ottimizzazione per massimizzare la stabilità dell'apprendimento e la capacità di estrapolazione fuori campionario:
+
+\begin{enumerate}
+    \item \textbf{Metriche Spaziali Rigide:} La valutazione quantitativa puntuale si basa sul \emph{Mean Squared Error} (MSE), impiegato direttamente come funzione di costo e indicatore primario. A questo si affiancano il \emph{Mean Absolute Error} (MAE), più resistente agli \emph{outlier}, e la Norma di Frobenius, che quantifica l'energia complessiva residua tra la matrice empirica originale e la sua approssimazione ricostruita o generata.
+    
+    \item \textbf{Ottimizzatore e Learning Rate Policy:} È stato impiegato l'algoritmo di ottimizzazione Adam, rinomato per la gestione dinamica del momento del gradiente. Per facilitare il superamento del limite lineare sul \emph{Training Set} e agevolare la discesa verso il minimo globale, è stato implementato uno \emph{scheduler} per il \emph{Learning Rate} basato sulla tecnica del \emph{Cosine Annealing}. Questa strategia riduce il tasso di apprendimento seguendo il decadimento morbido e continuo della funzione coseno, permettendo esplorazioni ampie nelle fasi iniziali e un'ottimizzazione fine, priva dei bruschi salti tipici degli approcci \emph{step-based}, man mano che la rete si avvicina al \emph{plateau} di convergenza.
+    
+    \item \textbf{Monitoraggio della Convergenza:} La gestione a epoche (\emph{epochs}) tramite \emph{mini-batches} è stata affiancata dall'impiego del \emph{Validation Set} come arbitro indipendente per il \emph{Model Checkpointing}. Anziché interrompere anticipatamente l'addestramento, l'algoritmo valuta l'intero ciclo di epoche prefissato e salva i pesi architetturali esclusivamente in corrispondenza del valore minimo assoluto raggiunto dalla \emph{Validation Loss}. Questo protocollo garantisce che le prestazioni valutate in sede finale sul \emph{Test Set} costituiscano la stima più imparziale e robusta possibile per gli scenari futuri di \emph{asset allocation}.
+\end{enumerate}

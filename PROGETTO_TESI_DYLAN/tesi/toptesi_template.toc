@@ -36,3 +36,7 @@
 \contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{35}{section.6.4}%
 \contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{36}{section.6.5}%
 \contentsline {part}{\EnsureStandardFontEncoding {III}\hspace {1em}Risultati, Validazione e Applicazioni}{37}{part.3}%
+\contentsline {chapter}{\numberline {7}Analisi della Compressione e Ricostruzione Storica}{39}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Valutazione della PCA e dell'AE Lineare: il benchmark della linearità}{39}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Performance di ricostruzione: AE Non-Lineare e VAE}{40}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Il trade-off tra compressione esatta e flessibilità generativa}{40}{section.7.3}%

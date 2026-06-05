@@ -53,7 +53,7 @@ Questo approccio incontra un limite strutturale severo, noto in letteratura come
 q = \frac{N}{T}
 \end{equation}
 
-Nei mercati finanziari moderni, la necessità di analizzare panieri ad alta dimensionalità (come nel caso dello studio di sottoinsiemi estesi dell'indice S\&P 500, dove $N = 100$) si scontra sistematicamente con la limitatezza dei dati storici stazionari disponibili. All'aumentare del rapporto $q$, ovvero quando la lunghezza temporale $T$ non è infinitamente superiore al numero di asset $N$, la matrice empirica $\hat{\mathbf{C}}$ accumula un livello di rumore campionario così elevato da perdere consistenza statistica.
+Nei mercati finanziari moderni, la necessità di analizzare panieri ad alta dimensionalità (come nel caso dello studio di sottoinsiemi estesi dell'indice S\&P 500, dove $N = 362$) si scontra sistematicamente con la limitatezza dei dati storici stazionari disponibili. All'aumentare del rapporto $q$, ovvero quando la lunghezza temporale $T$ non è infinitamente superiore al numero di asset $N$, la matrice empirica $\hat{\mathbf{C}}$ accumula un livello di rumore campionario così elevato da perdere consistenza statistica.
 
 Dal punto di vista dell'algebra lineare, l'instabilità si manifesta macroscopicamente attraverso lo spettro degli autovalori della matrice. Quando $q \to 1$, gli autovalori più piccoli di $\hat{\mathbf{C}}$ tendono artificialmente verso lo zero, mentre gli autovalori più grandi vengono sistematicamente sovrastimati rispetto ai loro controvalori teorici reali. Questo fenomeno distorce pesantemente l'inversione della matrice richiesta dagli algoritmi di ottimizzazione, poiché l'operazione di inversione $\hat{\mathbf{C}}^{-1}$ amplifica l'effetto degli autovalori artificialmente prossimi allo zero.
 

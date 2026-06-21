@@ -78,6 +78,7 @@ Thumbs.db
 # Data files
 data/
 models/
+generated_matrices/
 notebooks/08_VAE_training-ELIMINARE.ipynb
 notebooks/08_VAE_v1_training-ELIMINARE.ipynb
 notebooks/06_linearAE.ipynb

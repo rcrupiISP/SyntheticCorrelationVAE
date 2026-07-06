@@ -153,12 +153,18 @@
 \newlabel{sec:setup_pca}{{6.1}{47}{Implementazione della PCA come baseline}{section.6.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {6.2}Design e iperparametri dell'Autoencoder Lineare}{47}{section.6.2}\protected@file@percent }
 \newlabel{sec:setup_linear_ae}{{6.2}{47}{Design e iperparametri dell'Autoencoder Lineare}{section.6.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Architettura dell'Autoencoder Lineare: un singolo layer denso lineare, privo di bias, per l'Encoder e per il Decoder, con spazio latente di dimensione $K$.}}{48}{figure.6.1}\protected@file@percent }
+\newlabel{fig:architettura_linear_ae}{{6.1}{48}{Architettura dell'Autoencoder Lineare: un singolo layer denso lineare, privo di bias, per l'Encoder e per il Decoder, con spazio latente di dimensione $K$}{figure.6.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {6.3}Design e iperparametri dell'Autoencoder Non-Lineare}{48}{section.6.3}\protected@file@percent }
 \newlabel{sec:setup_deep_ae}{{6.3}{48}{Design e iperparametri dell'Autoencoder Non-Lineare}{section.6.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{49}{section.6.4}\protected@file@percent }
-\newlabel{sec:setup_vae}{{6.4}{49}{Design e iperparametri del VAE}{section.6.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{50}{section.6.5}\protected@file@percent }
-\newlabel{sec:metriche_convergenza}{{6.5}{50}{Metriche di valutazione e criteri di convergenza}{section.6.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Architettura dell'Autoencoder Profondo (Deep AE): design a imbuto simmetrico con attivazione LeakyReLU su tutti gli strati nascosti e nessuna attivazione sull'ultimo layer del Decoder.}}{49}{figure.6.2}\protected@file@percent }
+\newlabel{fig:architettura_deep_ae}{{6.2}{49}{Architettura dell'Autoencoder Profondo (Deep AE): design a imbuto simmetrico con attivazione LeakyReLU su tutti gli strati nascosti e nessuna attivazione sull'ultimo layer del Decoder}{figure.6.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{50}{section.6.4}\protected@file@percent }
+\newlabel{sec:setup_vae}{{6.4}{50}{Design e iperparametri del VAE}{section.6.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Architettura del VAE: encoder a imbuto condiviso con il Deep AE, biforcazione in $\boldsymbol  {\mu }$ e $\log \boldsymbol  {\sigma }^2$, campionamento di $\mathbf  {z}$ tramite \emph  {reparameterization trick} e decoder speculare.}}{51}{figure.6.3}\protected@file@percent }
+\newlabel{fig:architettura_vae}{{6.3}{51}{Architettura del VAE: encoder a imbuto condiviso con il Deep AE, biforcazione in $\boldsymbol {\mu }$ e $\log \boldsymbol {\sigma }^2$, campionamento di $\mathbf {z}$ tramite \emph {reparameterization trick} e decoder speculare}{figure.6.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{51}{section.6.5}\protected@file@percent }
+\newlabel{sec:metriche_convergenza}{{6.5}{51}{Metriche di valutazione e criteri di convergenza}{section.6.5}{}}
 \@writefile{toc}{\contentsline {part}{\EnsureStandardFontEncoding {III}\hspace  {1em}Risultati, Validazione e Applicazioni}{53}{part.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {7}Analisi della Compressione e Ricostruzione Storica}{55}{chapter.7}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
@@ -184,31 +190,33 @@
 \newlabel{ch:generazione_stocastica}{{8}{59}{Il trade-off tra compressione esatta e flessibilità generativa}{chapter.8}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {8.1}Campionamento dallo spazio latente: dal prior al block-bootstrap storico}{59}{section.8.1}\protected@file@percent }
 \newlabel{sec:block_bootstrap}{{8.1}{59}{Campionamento dallo spazio latente: dal prior al block-bootstrap storico}{section.8.1}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8.1}{\ignorespaces Illustrazione della procedura di block-bootstrap per uno scenario sintetico (\emph  {Scenario 63} tra i 1000 generati): in alto, la composizione del salto latente cumulato sulle 20 dimensioni; in basso, il confronto tra lo stato attuale $\mathbf  {z}_{\text  {oggi}}$ e lo stato previsto a un mese $\mathbf  {z}_{\text  {futuro}}$.}}{60}{figure.8.1}\protected@file@percent }
-\newlabel{fig:block_bootstrap}{{8.1}{60}{Illustrazione della procedura di block-bootstrap per uno scenario sintetico (\emph {Scenario 63} tra i 1000 generati): in alto, la composizione del salto latente cumulato sulle 20 dimensioni; in basso, il confronto tra lo stato attuale $\mathbf {z}_{\text {oggi}}$ e lo stato previsto a un mese $\mathbf {z}_{\text {futuro}}$}{figure.8.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8.2}Verifica dei cinque fatti stilizzati sulle matrici generate}{61}{section.8.2}\protected@file@percent }
-\newlabel{sec:verifica_stylized_facts_generate}{{8.2}{61}{Verifica dei cinque fatti stilizzati sulle matrici generate}{section.8.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8.2}{\ignorespaces Analisi statistica della nuvola di 1000 scenari generati: distribuzione delle distanze di Mahalanobis dal centroide (sinistra) e proiezione sul primo asse principale (destra). Lo Scenario 63, oggetto dell'analisi di dettaglio, si colloca al 95\textdegree \ percentile lungo il primo asse.}}{61}{figure.8.2}\protected@file@percent }
-\newlabel{fig:analisi_statistica}{{8.2}{61}{Analisi statistica della nuvola di 1000 scenari generati: distribuzione delle distanze di Mahalanobis dal centroide (sinistra) e proiezione sul primo asse principale (destra). Lo Scenario 63, oggetto dell'analisi di dettaglio, si colloca al 95\textdegree \ percentile lungo il primo asse}{figure.8.2}{}}
-\@writefile{toc}{\contentsline {paragraph}{Distribuzione pairwise.}{61}{section*.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{61}{section*.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8.3}{\ignorespaces Confronto tra la distribuzione dei coefficienti \emph  {pairwise} della matrice odierna (sinistra) e della matrice sintetica a un mese (destra).}}{62}{figure.8.3}\protected@file@percent }
-\newlabel{fig:pairwise_generato}{{8.3}{62}{Confronto tra la distribuzione dei coefficienti \emph {pairwise} della matrice odierna (sinistra) e della matrice sintetica a un mese (destra)}{figure.8.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8.4}{\ignorespaces Spettro degli autovalori della matrice odierna (in alto) e della matrice sintetica (in basso) confrontato con la distribuzione teorica di Marchenko-Pastur.}}{62}{figure.8.4}\protected@file@percent }
-\newlabel{fig:mp_generato}{{8.4}{62}{Spettro degli autovalori della matrice odierna (in alto) e della matrice sintetica (in basso) confrontato con la distribuzione teorica di Marchenko-Pastur}{figure.8.4}{}}
-\@writefile{toc}{\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{62}{section*.3}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8.5}{\ignorespaces Confronto dei primi tre autovettori tra matrice odierna e matrice sintetica: le componenti del \emph  {market mode} (in alto) sono tutte dello stesso segno in entrambe le matrici.}}{63}{figure.8.5}\protected@file@percent }
-\newlabel{fig:pf_generato}{{8.5}{63}{Confronto dei primi tre autovettori tra matrice odierna e matrice sintetica: le componenti del \emph {market mode} (in alto) sono tutte dello stesso segno in entrambe le matrici}{figure.8.5}{}}
-\@writefile{toc}{\contentsline {paragraph}{Struttura gerarchica.}{63}{section*.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Topologia scale-free del MST.}{63}{section*.5}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8.6}{\ignorespaces Dendrogrammi comparativi per la matrice odierna (in alto) e la matrice sintetica a un mese (in basso).}}{64}{figure.8.6}\protected@file@percent }
-\newlabel{fig:dendrogram_generato}{{8.6}{64}{Dendrogrammi comparativi per la matrice odierna (in alto) e la matrice sintetica a un mese (in basso)}{figure.8.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {8.7}{\ignorespaces Distribuzione di grado del Minimum Spanning Tree in scala log-log, matrice odierna vs matrice sintetica a un mese.}}{64}{figure.8.7}\protected@file@percent }
-\newlabel{fig:mst_generato}{{8.7}{64}{Distribuzione di grado del Minimum Spanning Tree in scala log-log, matrice odierna vs matrice sintetica a un mese}{figure.8.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.1}{\ignorespaces Proiezione bidimensionale, a coppie, della traiettoria latente storica e dei 1000 scenari generati sulle quattro dimensioni latenti a maggiore varianza storica ($Z_9$, $Z_{18}$, $Z_7$, $Z_1$).}}{60}{figure.8.1}\protected@file@percent }
+\newlabel{fig:latent_scatter_2d}{{8.1}{60}{Proiezione bidimensionale, a coppie, della traiettoria latente storica e dei 1000 scenari generati sulle quattro dimensioni latenti a maggiore varianza storica ($Z_9$, $Z_{18}$, $Z_7$, $Z_1$)}{figure.8.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.2}{\ignorespaces Illustrazione della procedura di block-bootstrap per uno scenario sintetico (\emph  {Scenario 63} tra i 1000 generati): in alto, la composizione del salto latente cumulato sulle 20 dimensioni; in basso, il confronto tra lo stato attuale $\mathbf  {z}_{\text  {oggi}}$ e lo stato previsto a un mese $\mathbf  {z}_{\text  {futuro}}$.}}{61}{figure.8.2}\protected@file@percent }
+\newlabel{fig:block_bootstrap}{{8.2}{61}{Illustrazione della procedura di block-bootstrap per uno scenario sintetico (\emph {Scenario 63} tra i 1000 generati): in alto, la composizione del salto latente cumulato sulle 20 dimensioni; in basso, il confronto tra lo stato attuale $\mathbf {z}_{\text {oggi}}$ e lo stato previsto a un mese $\mathbf {z}_{\text {futuro}}$}{figure.8.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.2}Verifica dei cinque fatti stilizzati sulle matrici generate}{62}{section.8.2}\protected@file@percent }
+\newlabel{sec:verifica_stylized_facts_generate}{{8.2}{62}{Verifica dei cinque fatti stilizzati sulle matrici generate}{section.8.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.3}{\ignorespaces Analisi statistica della nuvola di 1000 scenari generati: distribuzione delle distanze di Mahalanobis dal centroide (sinistra) e proiezione sul primo asse principale (destra). Lo Scenario 63, oggetto dell'analisi di dettaglio, si colloca al 95\textdegree \ percentile lungo il primo asse.}}{62}{figure.8.3}\protected@file@percent }
+\newlabel{fig:analisi_statistica}{{8.3}{62}{Analisi statistica della nuvola di 1000 scenari generati: distribuzione delle distanze di Mahalanobis dal centroide (sinistra) e proiezione sul primo asse principale (destra). Lo Scenario 63, oggetto dell'analisi di dettaglio, si colloca al 95\textdegree \ percentile lungo il primo asse}{figure.8.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Distribuzione pairwise.}{62}{section*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{62}{section*.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8.4}{\ignorespaces Confronto tra la distribuzione dei coefficienti \emph  {pairwise} della matrice odierna (sinistra) e della matrice sintetica a un mese (destra).}}{63}{figure.8.4}\protected@file@percent }
+\newlabel{fig:pairwise_generato}{{8.4}{63}{Confronto tra la distribuzione dei coefficienti \emph {pairwise} della matrice odierna (sinistra) e della matrice sintetica a un mese (destra)}{figure.8.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.5}{\ignorespaces Spettro degli autovalori della matrice odierna (in alto) e della matrice sintetica (in basso) confrontato con la distribuzione teorica di Marchenko-Pastur.}}{63}{figure.8.5}\protected@file@percent }
+\newlabel{fig:mp_generato}{{8.5}{63}{Spettro degli autovalori della matrice odierna (in alto) e della matrice sintetica (in basso) confrontato con la distribuzione teorica di Marchenko-Pastur}{figure.8.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{63}{section*.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8.6}{\ignorespaces Confronto dei primi tre autovettori tra matrice odierna e matrice sintetica: le componenti del \emph  {market mode} (in alto) sono tutte dello stesso segno in entrambe le matrici.}}{64}{figure.8.6}\protected@file@percent }
+\newlabel{fig:pf_generato}{{8.6}{64}{Confronto dei primi tre autovettori tra matrice odierna e matrice sintetica: le componenti del \emph {market mode} (in alto) sono tutte dello stesso segno in entrambe le matrici}{figure.8.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Struttura gerarchica.}{64}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Topologia scale-free del MST.}{64}{section*.5}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {8.3}Limiti della validazione e sviluppi futuri}{64}{section.8.3}\protected@file@percent }
 \newlabel{sec:limiti_validazione}{{8.3}{64}{Limiti della validazione e sviluppi futuri}{section.8.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.7}{\ignorespaces Dendrogrammi comparativi per la matrice odierna (in alto) e la matrice sintetica a un mese (in basso).}}{65}{figure.8.7}\protected@file@percent }
+\newlabel{fig:dendrogram_generato}{{8.7}{65}{Dendrogrammi comparativi per la matrice odierna (in alto) e la matrice sintetica a un mese (in basso)}{figure.8.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.8}{\ignorespaces Distribuzione di grado del Minimum Spanning Tree in scala log-log, matrice odierna vs matrice sintetica a un mese.}}{65}{figure.8.8}\protected@file@percent }
+\newlabel{fig:mst_generato}{{8.8}{65}{Distribuzione di grado del Minimum Spanning Tree in scala log-log, matrice odierna vs matrice sintetica a un mese}{figure.8.8}{}}
 \citation{caprioli2024ptfvae}
-\@writefile{brf}{\backcite{caprioli2024ptfvae}{{65}{8.3}{osservazione.3}}}
+\@writefile{brf}{\backcite{caprioli2024ptfvae}{{66}{8.3}{osservazione.3}}}
 \@writefile{toc}{\contentsline {chapter}{\numberline {9}Conclusioni e Sviluppi Futuri}{67}{chapter.9}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}

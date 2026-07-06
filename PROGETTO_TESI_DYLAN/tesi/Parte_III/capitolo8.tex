@@ -19,6 +19,15 @@ Ripetendo il campionamento a blocchi un numero $N$ di volte (in questo lavoro, $
 
 \begin{figure}[h!]
 \centering
+\includegraphics[width=0.92\textwidth]{./Pictures/capitolo8/fig_latent_scenarios_scatter_2d.png}
+\caption{Proiezione bidimensionale, a coppie, della traiettoria latente storica e dei 1000 scenari generati sulle quattro dimensioni latenti a maggiore varianza storica ($Z_9$, $Z_{18}$, $Z_7$, $Z_1$).}
+\label{fig:latent_scatter_2d}
+\end{figure}
+
+La Figura~\ref{fig:latent_scatter_2d} offre una visione d'insieme della procedura appena descritta, proiettando a coppie la traiettoria latente storica e la nuvola di scenari generati sulle quattro dimensioni latenti a maggiore varianza storica (in questo caso $Z_9$, $Z_{18}$, $Z_7$ e $Z_1$). È importante notare che le due nuvole di punti visualizzate insieme non condividono la medesima granularità temporale. La traiettoria colorata (dal viola al giallo, 2001--2021) rappresenta la dinamica del passato: per renderla visivamente continua e distinguere chiaramente la transizione da una matrice di correlazione alla successiva, essa è stata ricostruita codificando le matrici di correlazione calcolate con passo giornaliero ($\text{stride}=1$, punto 1 della procedura sopra), e non con lo stride di 10 giorni impiegato per l'addestramento del modello (Capitolo~\ref{ch:preprocessing}). I punti azzurri, al contrario, rappresentano i 1000 scenari sintetici prodotti dal block-bootstrap: il campionamento a blocchi (punto 3) è stato eseguito a un orizzonte di un mese (21 giorni lavorativi) dallo stato attuale, non giorno per giorno --- lo stride giornaliero utilizzato per la traiettoria storica serve unicamente a visualizzarne con continuità l'andamento passato, non a definire la cadenza temporale della generazione. La stella rossa indica lo stato attuale $\mathbf{z}_{\text{oggi}}$, mentre la croce verde indica lo Scenario 63 approfondito nella Sezione~\ref{sec:verifica_stylized_facts_generate}. Si osserva come la traiettoria storica esplori un'ampia porzione dello spazio latente lungo l'intero ventennio, mentre la nuvola di scenari a un mese resti concentrata in un intorno relativamente ristretto dello stato attuale: un comportamento atteso, poiché la variabilità cumulata su un orizzonte di 21 giorni è necessariamente più contenuta rispetto a quella osservabile sull'intera storia del mercato.
+
+\begin{figure}[h!]
+\centering
 \includegraphics[width=0.85\textwidth]{./Pictures/capitolo8/fig_block_bootstrap_latente.png}
 \caption{Illustrazione della procedura di block-bootstrap per uno scenario sintetico (\emph{Scenario 63} tra i 1000 generati): in alto, la composizione del salto latente cumulato sulle 20 dimensioni; in basso, il confronto tra lo stato attuale $\mathbf{z}_{\text{oggi}}$ e lo stato previsto a un mese $\mathbf{z}_{\text{futuro}}$.}
 \label{fig:block_bootstrap}

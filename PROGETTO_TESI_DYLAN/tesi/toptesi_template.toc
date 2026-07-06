@@ -33,8 +33,8 @@
 \contentsline {section}{\numberline {6.1}Implementazione della PCA come baseline}{47}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Design e iperparametri dell'Autoencoder Lineare}{47}{section.6.2}%
 \contentsline {section}{\numberline {6.3}Design e iperparametri dell'Autoencoder Non-Lineare}{48}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{49}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{50}{section.6.5}%
+\contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{50}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{51}{section.6.5}%
 \contentsline {part}{\EnsureStandardFontEncoding {III}\hspace {1em}Risultati, Validazione e Applicazioni}{53}{part.3}%
 \contentsline {chapter}{\numberline {7}Analisi della Compressione e Ricostruzione Storica}{55}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Valutazione della PCA e dell'AE Lineare: il benchmark della linearità}{55}{section.7.1}%
@@ -42,12 +42,12 @@
 \contentsline {section}{\numberline {7.3}Il trade-off tra compressione esatta e flessibilità generativa}{58}{section.7.3}%
 \contentsline {chapter}{\numberline {8}Generazione Stocastica di Nuovi Scenari (Validazione del VAE)}{59}{chapter.8}%
 \contentsline {section}{\numberline {8.1}Campionamento dallo spazio latente: dal prior al block-bootstrap storico}{59}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Verifica dei cinque fatti stilizzati sulle matrici generate}{61}{section.8.2}%
-\contentsline {paragraph}{Distribuzione pairwise.}{61}{section*.1}%
-\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{61}{section*.2}%
-\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{62}{section*.3}%
-\contentsline {paragraph}{Struttura gerarchica.}{63}{section*.4}%
-\contentsline {paragraph}{Topologia scale-free del MST.}{63}{section*.5}%
+\contentsline {section}{\numberline {8.2}Verifica dei cinque fatti stilizzati sulle matrici generate}{62}{section.8.2}%
+\contentsline {paragraph}{Distribuzione pairwise.}{62}{section*.1}%
+\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{62}{section*.2}%
+\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{63}{section*.3}%
+\contentsline {paragraph}{Struttura gerarchica.}{64}{section*.4}%
+\contentsline {paragraph}{Topologia scale-free del MST.}{64}{section*.5}%
 \contentsline {section}{\numberline {8.3}Limiti della validazione e sviluppi futuri}{64}{section.8.3}%
 \contentsline {chapter}{\numberline {9}Conclusioni e Sviluppi Futuri}{67}{chapter.9}%
 \contentsline {section}{\numberline {9.1}Sintesi dei risultati ottenuti}{67}{section.9.1}%

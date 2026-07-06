@@ -40,17 +40,17 @@
 \contentsline {section}{\numberline {7.1}Valutazione della PCA e dell'AE Lineare: il benchmark della linearità}{55}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Performance di ricostruzione: AE Non-Lineare e VAE}{56}{section.7.2}%
 \contentsline {section}{\numberline {7.3}Il trade-off tra compressione esatta e flessibilità generativa}{58}{section.7.3}%
-\contentsline {chapter}{\numberline {8}Generazione Stocastica di Nuovi Scenari (Validazione del VAE)}{61}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Campionamento dallo spazio latente: dal prior al block-bootstrap storico}{61}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Verifica dei cinque fatti stilizzati sulle matrici generate}{63}{section.8.2}%
-\contentsline {paragraph}{Distribuzione pairwise.}{63}{section*.1}%
-\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{63}{section*.2}%
-\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{64}{section*.3}%
-\contentsline {paragraph}{Struttura gerarchica.}{65}{section*.4}%
-\contentsline {paragraph}{Topologia scale-free del MST.}{65}{section*.5}%
-\contentsline {section}{\numberline {8.3}Limiti della validazione e sviluppi futuri}{66}{section.8.3}%
-\contentsline {chapter}{\numberline {9}Conclusioni e Sviluppi Futuri}{69}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Sintesi dei risultati ottenuti}{69}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Impatto nel campo del Risk Management quantitativo}{70}{section.9.2}%
-\contentsline {section}{\numberline {9.3}Limiti del modello attuale}{70}{section.9.3}%
-\contentsline {section}{\numberline {9.4}Sviluppi futuri}{71}{section.9.4}%
+\contentsline {chapter}{\numberline {8}Generazione Stocastica di Nuovi Scenari (Validazione del VAE)}{59}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Campionamento dallo spazio latente: dal prior al block-bootstrap storico}{59}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Verifica dei cinque fatti stilizzati sulle matrici generate}{61}{section.8.2}%
+\contentsline {paragraph}{Distribuzione pairwise.}{61}{section*.1}%
+\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{61}{section*.2}%
+\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{62}{section*.3}%
+\contentsline {paragraph}{Struttura gerarchica.}{63}{section*.4}%
+\contentsline {paragraph}{Topologia scale-free del MST.}{63}{section*.5}%
+\contentsline {section}{\numberline {8.3}Limiti della validazione e sviluppi futuri}{64}{section.8.3}%
+\contentsline {chapter}{\numberline {9}Conclusioni e Sviluppi Futuri}{67}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Sintesi dei risultati ottenuti}{67}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Impatto nel campo del Risk Management quantitativo}{68}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Limiti del modello attuale}{68}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Sviluppi futuri}{69}{section.9.4}%

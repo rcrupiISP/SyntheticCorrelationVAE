@@ -166,4 +166,60 @@ Topologia dell'MST & Rete \emph{scale-free} retta da legge di potenza con \emph{
 \label{tab:comparazione_rmt}
 \end{table}
 
+Per rendere visivamente tangibile il fallimento sintetizzato in Tabella~\ref{tab:comparazione_rmt}, le Figure~\ref{fig:rmt_pairwise}--\ref{fig:rmt_mst_graph} confrontano fianco a fianco la matrice reale n.\,100 già analizzata nelle Sezioni~\ref{sec:pairwise_distribution}--\ref{sec:mst_scalefree} con una matrice di controllo costruita a partire da $N=362$ serie temporali di rumore gaussiano bianco i.i.d. $\mathcal{N}(0,1)$ di lunghezza $T=724$: le stesse dimensioni della matrice reale, cosicché ogni differenza osservata sia imputabile esclusivamente alla struttura di mercato e non a un semplice effetto di dimensionalità campionaria.
+
+La Figura~\ref{fig:rmt_pairwise} mostra il primo confronto diretto sulla distribuzione \emph{pairwise}: mentre la matrice reale conserva la media positiva pari a $0.2334$ discussa nella Sezione~\ref{sec:pairwise_distribution}, la distribuzione del benchmark casuale è perfettamente simmetrica, centrata su una media pressoché nulla ($0.0000$) e con deviazione standard $0.0373$, in pieno accordo con il valore teorico atteso $1/\sqrt{T} = 0.0372$ per correlazioni campionarie tra serie indipendenti. Circa il $50\%$ dei coefficienti del benchmark risulta negativo, contro lo $0.06\%$ osservato nel mercato reale.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{./Pictures/capitolo3/fig_pairwise_distribution_rmt_comparison.png}
+\caption{Proprietà 1 -- Distribuzione dei coefficienti \emph{pairwise}: mercato reale (matrice n.\,100, media $0.2334$) contro benchmark RMT di rumore gaussiano i.i.d. (media $0.0000$, deviazione standard $0.0373 \approx 1/\sqrt{T}$).}
+\label{fig:rmt_pairwise}
+\end{figure}
+
+La Figura~\ref{fig:rmt_marchenko_pastur} conferma la stessa dicotomia nello spettro degli autovalori: nella matrice reale il primo autovalore $\lambda_1=88.753$ (pari al $24.5\%$ della varianza totale) fuoriesce di quasi due ordini di grandezza dal limite superiore teorico $\lambda_+=2.914$, insieme ad altri $8$ autovalori settoriali che violano il medesimo limite. Nel benchmark casuale, costruito con lo stesso rapporto spettrale $q=N/T=0.5$, l'intero spettro empirico aderisce visivamente alla densità teorica di Marchenko-Pastur: il primo autovalore vale appena $2.907$ (leggermente sotto $\lambda_+$, una fluttuazione di dimensione finita pienamente compatibile con la teoria) e nessun autovalore emerge oltre il bulk, a conferma dell'assenza di qualsiasi fattore di mercato o settoriale.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{./Pictures/capitolo3/fig_marchenko_pastur_rmt_comparison.png}
+\caption{Proprietà 2 -- Spettro degli autovalori contro la densità di Marchenko-Pastur ($q=0.5$, $\lambda_+=2.914$): la matrice reale espone $9$ autovalori oltre il bulk (incluso il modo di mercato $\lambda_1=88.753$), mentre il benchmark RMT non ne presenta alcuno ($\lambda_1=2.907$).}
+\label{fig:rmt_marchenko_pastur}
+\end{figure}
+
+La proprietà di Perron-Frobenius, verificata nella Sezione~\ref{sec:perron_frobenius} per la matrice reale, fallisce sistematicamente nel benchmark casuale (Figura~\ref{fig:rmt_perron_frobenius}): il primo autovettore della matrice di controllo presenta segni distribuiti casualmente ($50.8\%$ di componenti negative), contro l'uniformità di segno (tutte le componenti positive) osservata nel mercato reale. L'assenza di un effetto mercato cooperativo si traduce quindi nella perdita totale della struttura di segno dell'autovettore dominante.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{./Pictures/capitolo3/fig_perron_frobenius_rmt_comparison.png}
+\caption{Proprietà 3 -- Componenti del primo autovettore: segni tutti concordi (positivi) nella matrice reale contro segni casuali ($50.8\%$ negativi) nel benchmark RMT, che viola la proprietà di Perron-Frobenius.}
+\label{fig:rmt_perron_frobenius}
+\end{figure}
+
+Applicando alla matrice casuale lo stesso algoritmo di clustering gerarchico utilizzato nella Sezione~\ref{sec:struttura_gerarchica}, la Figura~\ref{fig:rmt_heatmap} mostra che nessun riordinamento è in grado di rivelare blocchi diagonali: mentre la matrice reale riordinata espone chiaramente i raggruppamenti settoriali già osservati in Figura~\ref{fig:esempio_heatmap}, la matrice casuale riordinata rimane un campo omogeneo e privo di struttura, con correlazioni fuori diagonale confinate nell'intervallo $[-0.163, 0.160]$ (deviazione standard $0.037$) contro l'intervallo $[-0.099, 0.836]$ (deviazione standard $0.092$) della matrice reale.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.85\textwidth]{./Pictures/capitolo3/fig_heatmap_rmt_comparison.png}
+\caption{Proprietà 4 -- Matrice di correlazione riordinata per clustering gerarchico: blocchi settoriali densi e riconoscibili nella matrice reale contro un campo omogeneo e amorfo nel benchmark RMT, ottenuto applicando lo stesso algoritmo di ordinamento.}
+\label{fig:rmt_heatmap}
+\end{figure}
+
+Infine, la topologia di rete conferma il quadro (Figure~\ref{fig:rmt_mst_degree} e~\ref{fig:rmt_mst_graph}). L'MST del benchmark casuale presenta un grado massimo di soli $6$ collegamenti, contro i $14$ del nodo \emph{hub} più connesso della matrice reale, pur condividendo lo stesso grado medio $\approx 1.99$ imposto dal vincolo topologico $\sum_i k_i = 2(N-1)$ comune a ogni albero di espansione. La distribuzione di grado casuale si esaurisce entro poco più di mezza decade, un intervallo incompatibile con l'estensione multi-decade richiesta da una autentica legge di potenza scale-free.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{./Pictures/capitolo3/fig_mst_degree_rmt_comparison.png}
+\caption{Proprietà 5 -- Distribuzione di grado dell'MST in scala log-log: la matrice reale raggiunge un grado massimo di $14$ su un intervallo esteso, mentre il benchmark RMT si esaurisce entro il grado $6$, senza alcun nodo \emph{hub}.}
+\label{fig:rmt_mst_degree}
+\end{figure}
+
+La visualizzazione topologica in Figura~\ref{fig:rmt_mst_graph} rende immediatamente evidente il contrasto: la matrice reale genera \emph{hub} settoriali chiaramente visibili, colorati per settore GICS e di dimensione proporzionale al grado, mentre l'MST casuale produce una rete omogenea, priva di nodi centrali dominanti e di qualunque cluster settoriale riconoscibile (colore uniforme).
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.95\textwidth]{./Pictures/capitolo3/fig_mst_graph_rmt_comparison.png}
+\caption{Proprietà 5 -- Visualizzazione topologica del Minimum Spanning Tree: \emph{hub} settoriali ben visibili nella matrice reale (colore = settore GICS, dimensione = grado del nodo) contro una rete omogenea priva di centri dominanti nel benchmark RMT.}
+\label{fig:rmt_mst_graph}
+\end{figure}
+
 Questo fallimento radicale dimostra matematicamente che i cinque fatti stilizzati costituiscono la firma geometrica esclusiva dell'informazione finanziaria reale. Qualsiasi modello generativo profondo non può limitarsi a operare nel dominio di metriche rigide di errore quadratico medio, ma deve necessariamente superare questo \emph{benchmark test}. Il Variational Autoencoder, per essere considerato un valido motore stocastico di scenari, dovrà generare matrici sintetiche dallo spazio latente che non solo si discostino dal rumore di MP, ma che replichino fedelmente tutte le asimmetrie e le leggi di potenza che la Random Matrix Theory non è in grado di spiegare.

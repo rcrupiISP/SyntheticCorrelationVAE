@@ -1,42 +1,56 @@
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
 \babel@toc {italian}{}\relax 
-\contentsline {part}{\EnsureStandardFontEncoding {I}\hspace {1em}Fondamenti Teorici}{7}{part.1}%
-\contentsline {chapter}{\numberline {1}Introduzione}{9}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Contesto generale e problematica della generazione di scenari}{9}{section.1.1}%
-\contentsline {section}{\numberline {1.2}Definizione del problema di ricerca e motivazione dell'uso dei modelli generativi profondi}{9}{section.1.2}%
-\contentsline {section}{\numberline {1.3}Obiettivi della tesi}{10}{section.1.3}%
-\contentsline {chapter}{\numberline {2}Matrici di Correlazione in Ambito Finanziario}{13}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Il ruolo della correlazione e la necessità di previsioni future (Markowitz)}{13}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Il problema del rumore nelle matrici empiriche}{14}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Generazione di scenari stocastici futuri tramite decomposizione di Cholesky}{14}{section.2.3}%
-\contentsline {chapter}{\numberline {3}Fatti Stilizzati delle Matrici di Correlazione}{17}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Introduzione alle proprietà strutturali dei mercati reali}{17}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Distribuzione asimmetrica delle correlazioni pairwise}{18}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Analisi spettrale e distribuzione di Marchenko-Pastur}{18}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Proprietà di Perron-Frobenius empirica}{19}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Struttura gerarchica delle correlazioni}{20}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Il Minimum Spanning Tree (MST) e la proprietà scale-free}{20}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Benchmark test: fallimento strutturale della Random Matrix Theory}{21}{section.3.7}%
-\contentsline {chapter}{\numberline {4}Riduzione della Dimensionalità e Modelli Generativi}{23}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Principal Component Analysis (PCA): teoria e limiti lineari}{23}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Autoencoder Lineari (Linear AE): ponte verso le reti neurali}{24}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Autoencoder Profondi (AE): introduzione alla non-linearità}{25}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Variational Autoencoders (VAE) e regolarizzazione dello spazio latente}{25}{section.4.4}%
-\contentsline {part}{\EnsureStandardFontEncoding {II}\hspace {1em}Metodologia e Pipeline di Analisi}{27}{part.2}%
-\contentsline {chapter}{\numberline {5}Pre-processing e Costruzione del Dataset}{29}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Descrizione del dataset}{29}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Calcolo dei rendimenti e stima delle matrici empiriche}{30}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Tecnica di campionamento: il Random Shuffle per la stazionarietà}{30}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Estrazione e flattening delle matrici triangolari inferiori}{31}{section.5.4}%
-\contentsline {chapter}{\numberline {6}Architetture dei Modelli e Setup Sperimentale}{33}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Implementazione della PCA come baseline}{33}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Design e iperparametri dell'Autoencoder Lineare}{33}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Design e iperparametri dell'Autoencoder Non-Lineare}{34}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{35}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{35}{section.6.5}%
-\contentsline {part}{\EnsureStandardFontEncoding {III}\hspace {1em}Risultati, Validazione e Applicazioni}{37}{part.3}%
-\contentsline {chapter}{\numberline {7}Analisi della Compressione e Ricostruzione Storica}{39}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Valutazione della PCA e dell'AE Lineare: il benchmark della linearità}{39}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Performance di ricostruzione: AE Non-Lineare e VAE}{40}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Il trade-off tra compressione esatta e flessibilità generativa}{40}{section.7.3}%
+\contentsline {part}{\EnsureStandardFontEncoding {I}\hspace {1em}Fondamenti Teorici}{9}{part.1}%
+\contentsline {chapter}{\numberline {1}Introduzione}{11}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Contesto generale e problematica della generazione di scenari}{11}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Definizione del problema di ricerca e motivazione dell'uso dei modelli generativi profondi}{11}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Obiettivi della tesi}{13}{section.1.3}%
+\contentsline {chapter}{\numberline {2}Matrici di Correlazione in Ambito Finanziario}{15}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Il ruolo della correlazione e la necessità di previsioni future (Markowitz)}{15}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Il problema del rumore nelle matrici empiriche}{16}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Generazione di scenari stocastici futuri tramite decomposizione di Cholesky}{16}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Fatti Stilizzati delle Matrici di Correlazione}{19}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introduzione alle proprietà strutturali dei mercati reali}{19}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Distribuzione asimmetrica delle correlazioni pairwise}{21}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Analisi spettrale e distribuzione di Marchenko-Pastur}{22}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Proprietà di Perron-Frobenius empirica}{23}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Struttura gerarchica delle correlazioni}{24}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Il Minimum Spanning Tree (MST) e la proprietà scale-free}{25}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Benchmark test: fallimento strutturale della Random Matrix Theory}{26}{section.3.7}%
+\contentsline {chapter}{\numberline {4}Riduzione della Dimensionalità e Modelli Generativi}{29}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Principal Component Analysis (PCA): teoria e limiti lineari}{29}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Autoencoder Lineari (Linear AE): ponte verso le reti neurali}{30}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Autoencoder Profondi (AE): introduzione alla non-linearità}{31}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Variational Autoencoders (VAE) e regolarizzazione dello spazio latente}{31}{section.4.4}%
+\contentsline {part}{\EnsureStandardFontEncoding {II}\hspace {1em}Metodologia e Pipeline di Analisi}{35}{part.2}%
+\contentsline {chapter}{\numberline {5}Pre-processing e Costruzione del Dataset}{37}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Descrizione del dataset}{37}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Calcolo dei rendimenti e stima delle matrici empiriche}{38}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Tecnica di campionamento: il Random Shuffle per la stazionarietà}{39}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Estrazione e flattening delle matrici triangolari inferiori}{40}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Architetture dei Modelli e Setup Sperimentale}{43}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Implementazione della PCA come baseline}{43}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Design e iperparametri dell'Autoencoder Lineare}{43}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Design e iperparametri dell'Autoencoder Non-Lineare}{44}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{45}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{46}{section.6.5}%
+\contentsline {part}{\EnsureStandardFontEncoding {III}\hspace {1em}Risultati, Validazione e Applicazioni}{49}{part.3}%
+\contentsline {chapter}{\numberline {7}Analisi della Compressione e Ricostruzione Storica}{51}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Valutazione della PCA e dell'AE Lineare: il benchmark della linearità}{51}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Performance di ricostruzione: AE Non-Lineare e VAE}{52}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Il trade-off tra compressione esatta e flessibilità generativa}{54}{section.7.3}%
+\contentsline {chapter}{\numberline {8}Generazione Stocastica di Nuovi Scenari (Validazione del VAE)}{57}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Campionamento dallo spazio latente: dal prior al block-bootstrap storico}{57}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Verifica dei cinque fatti stilizzati sulle matrici generate}{59}{section.8.2}%
+\contentsline {paragraph}{Distribuzione pairwise.}{59}{section*.1}%
+\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{59}{section*.2}%
+\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{60}{section*.3}%
+\contentsline {paragraph}{Struttura gerarchica.}{61}{section*.4}%
+\contentsline {paragraph}{Topologia scale-free del MST.}{61}{section*.5}%
+\contentsline {section}{\numberline {8.3}Limiti della validazione e sviluppi futuri}{62}{section.8.3}%
+\contentsline {chapter}{\numberline {9}Conclusioni e Sviluppi Futuri}{65}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Sintesi dei risultati ottenuti}{65}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Impatto nel campo del Risk Management quantitativo}{66}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Limiti del modello attuale}{66}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Sviluppi futuri}{67}{section.9.4}%

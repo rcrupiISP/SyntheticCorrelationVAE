@@ -1,0 +1,13 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex.fmt)
+ restricted \write18 enabled.
+entering extended mode
+! I can't find file `toptesi_template.tex'.
+<*> toptesi_template.tex
+                        
+(Press Enter to retry, or Control-C to exit)
+Please type another input file name
+! Emergency stop.
+<*> toptesi_template.tex
+                        
+!  ==> Fatal error occurred, no output PDF file produced!
+Transcript written on texput.log.

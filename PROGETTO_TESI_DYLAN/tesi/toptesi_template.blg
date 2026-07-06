@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: toptesi_template.aux
+Reallocating 'name_of_file' (item size: 1) to 9 items.
+The style file: plainnat.bst
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Database file #1: references.bib
+Warning--empty journal in mantegna1998hierarchical
+You've used 15 entries,
+            2773 wiz_defined-function locations,
+            686 strings with 7594 characters,
+and the built_in function-call counts, 6302 in all, are:
+= -- 566
+> -- 337
+< -- 10
++ -- 117
+- -- 102
+* -- 488
+:= -- 988
+add.period$ -- 54
+call.type$ -- 15
+change.case$ -- 79
+chr.to.int$ -- 15
+cite$ -- 31
+duplicate$ -- 277
+empty$ -- 535
+format.name$ -- 123
+if$ -- 1306
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 10
+newline$ -- 92
+num.names$ -- 60
+pop$ -- 160
+preamble$ -- 1
+purify$ -- 64
+quote$ -- 0
+skip$ -- 224
+stack$ -- 0
+substring$ -- 197
+swap$ -- 14
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 165
+warning$ -- 1
+while$ -- 57
+width$ -- 0
+write$ -- 212
+(There was 1 warning)

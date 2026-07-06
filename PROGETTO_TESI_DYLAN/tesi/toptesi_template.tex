@@ -13,7 +13,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 
-\usepackage{hyperref}
+\usepackage[pagebackref=true]{hyperref}
 \hypersetup{%
     pdfpagemode={UseOutlines},
     bookmarksopen,
@@ -23,6 +23,10 @@
     citecolor={blue},
     urlcolor={blue}
 }
+%%%%%%% Backref: aggiunge in bibliografia, per ogni voce, i numeri di pagina
+%%%%%%% (cliccabili) da cui è stata citata, per tornare al testo
+\backrefitalian
+\def\backref{Citato a pag.~}
 
 %%%%%%% use PDFLATEX 
 
@@ -66,9 +70,9 @@ Il presente lavoro di tesi si inserisce nel contesto della finanza quantitativa,
 
 La metodologia delinea un percorso evolutivo, basato sui rendimenti giornalieri di un campione rappresentativo di 362 titoli dell'indice S\&P 500 nell'orizzonte temporale 2000-2020. Per valutare il potere ricostruttivo dei vari modelli nelle diverse configurazioni degli spazi latenti $K$, le matrici vengono analizzate impiegando sia metriche di errore classiche (MSE, MAE, norma di Frobenius) e strutturali (MST), sia l'aderenza ai fatti stilizzati. Lo studio stabilisce inizialmente un \emph{benchmark} lineare tramite la Principal Component Analysis (PCA), per poi passare all'implementazione di Autoencoder Lineari (Linear AE) in grado di approssimarne il sottospazio. Il passo successivo prevede l'integrazione della non-linearità attraverso Autoencoder Profondi (AE), dimostrando come la stratificazione profonda consenta di catturare in modo più fedele la complessa curvatura geometrica delle interdipendenze finanziarie.
 
-Questo percorso di raffinamento strutturale trova la sua naturale e logica conclusione nell'evoluzione verso i VAE. Introducendo una componente probabilistica nello spazio latente, il VAE capitalizza la capacità di astrazione appresa nelle fasi deterministiche precedenti per abilitare una generazione di scenari puramente stocastica.
+Questo percorso di raffinamento strutturale trova il proprio culmine nell'adozione del Variational Autoencoder (VAE): pur restando la sua capacità di ricostruzione storica lievemente inferiore a quella dell'Autoencoder Profondo deterministico, nel dominio Cholesky il VAE supera sia la PCA sia l'Autoencoder Lineare, a dimostrazione che la regolarizzazione variazionale imposta dalla divergenza di Kullback-Leibler non compromette in modo sostanziale la fedeltà di ricostruzione. È proprio tale regolarizzazione a rendere lo spazio latente continuo, denso e privo di singolarità, condizione necessaria per abilitare una generazione di scenari puramente stocastica altrimenti preclusa a un autoencoder deterministico, il cui spazio latente resta frammentario e privo di significato al di fuori dei punti osservati in addestramento.
 
-Per quanto concerne l'output generativo, le nuove matrici sintetiche campionate dal VAE vengono valutate esclusivamente sulla base della loro conformità ai cinque fatti stilizzati (\emph{stylized facts}) caratteristici delle matrici di correlazione finanziarie. Nello specifico, le matrici generate dimostrano una rigorosa aderenza a tali proprietà fondamentali: distribuzione asimmetrica verso valori positivi, conformità dello spettro degli autovalori alla distribuzione di Marchenko-Pastur, validità della proprietà di Perron-Frobenius, conservazione della struttura gerarchica (tramite \emph{clustering} gerarchico) e topologia \emph{scale-free} del \emph{Minimum Spanning Tree} (MST). Ciò valida l'architettura proposta come uno strumento solido e autonomo per la generazione di ecosistemi finanziari matematicamente coerenti.
+La procedura di generazione effettivamente adottata non consiste in un semplice campionamento dal \emph{prior} dello spazio latente, bensì in un \emph{block-bootstrap} storico degli incrementi latenti giornalieri, che ancora ciascuno scenario sintetico allo stato di mercato osservato oggi per proiettarne l'evoluzione a un orizzonte di un mese. Le nuove matrici di correlazione così generate vengono valutate sulla base della loro conformità ai cinque fatti stilizzati (\emph{stylized facts}) caratteristici delle matrici di correlazione finanziarie. Nello specifico, le matrici generate dimostrano una rigorosa aderenza a tali proprietà fondamentali: distribuzione asimmetrica verso valori positivi, conformità dello spettro degli autovalori alla distribuzione di Marchenko-Pastur, validità della proprietà di Perron-Frobenius, conservazione della struttura gerarchica (tramite \emph{clustering} gerarchico) e topologia \emph{scale-free} del \emph{Minimum Spanning Tree} (MST). Ciò valida l'architettura proposta come uno strumento solido e autonomo per la generazione di ecosistemi finanziari matematicamente coerenti.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -114,14 +118,14 @@ Per quanto concerne l'output generativo, le nuove matrici sintetiche campionate 
 \part{Risultati, Validazione e Applicazioni}
 
 \input{./Parte_III/capitolo7.tex}
-% \input{./Parte_III/capitolo8.tex}
-% \input{./Parte_III/capitolo9.tex}
+\input{./Parte_III/capitolo8.tex}
+\input{./Parte_III/capitolo9_conclusioni.tex}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%\bibliography{references}
+\bibliography{references}
 
 
 \end{document}

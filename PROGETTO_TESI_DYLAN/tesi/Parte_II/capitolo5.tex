@@ -10,6 +10,34 @@ Per assicurare la continuità e la stabilità statistica del dataset, l'intera p
 
 I dati grezzi sono costituiti dai prezzi di chiusura giornalieri rettificati (\emph{adjusted closing prices}), i quali incorporano ex-ante gli effetti di operazioni societarie straordinarie, quali stacchi di dividendi, \emph{stock split} e raggruppamenti, prevenendo salti artificiali nelle serie storiche che inquinerebbero il calcolo delle covarianze.
 
+La categoria settoriale GICS di ciascun titolo, necessaria per le analisi di struttura gerarchica del Capitolo~\ref{ch:stylized_facts}, non era disponibile da un \emph{provider} dati strutturato: è stata pertanto ricostruita tramite classificazione automatica affidata a un modello linguistico di grandi dimensioni (\emph{Google Gemini}, modello \texttt{gemini-2.5-flash}), interrogato con un prompt \emph{few-shot} contenente esempi di riferimento per ciascuna delle undici categorie GICS. La classificazione ha avuto successo per 360 titoli su 362 (99.4\%), con solamente due ticker (\texttt{ABC}, \texttt{CERN}) rimasti non classificabili (\emph{Unknown}), verosimilmente per ambiguità o obsolescenza del simbolo azionario. La Tabella~\ref{tab:gics_distribution} riporta la distribuzione settoriale risultante, che riflette una composizione eterogenea e realistica del mercato.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lrr}
+\hline
+\textbf{Settore GICS} & \textbf{N. titoli} & \textbf{\%} \\
+\hline
+Industrials & 56 & 15.5\% \\
+Financials & 50 & 13.8\% \\
+Health Care & 46 & 12.7\% \\
+Information Technology & 44 & 12.2\% \\
+Consumer Discretionary & 33 & 9.1\% \\
+Consumer Staples & 29 & 8.0\% \\
+Real Estate & 28 & 7.7\% \\
+Utilities & 24 & 6.6\% \\
+Materials & 20 & 5.5\% \\
+Energy & 19 & 5.2\% \\
+Communication Services & 11 & 3.0\% \\
+Unknown & 2 & 0.6\% \\
+\hline
+\textbf{Totale} & \textbf{362} & \textbf{100\%} \\
+\hline
+\end{tabular}
+\caption{Distribuzione settoriale GICS dei 362 titoli del dataset finale.}
+\label{tab:gics_distribution}
+\end{table}
+
 \section{Calcolo dei rendimenti e stima delle matrici empiriche}
 \label{sec:rendimenti_finestre}
 
@@ -42,6 +70,10 @@ Il processo di estrazione a finestre mobili, applicando il passo costante (\emph
 
 Questo approccio garantisce che la distribuzione statistica sottostante ai tre sottoinsiemi sia perfettamente omogenea e stazionaria: scenari di elevata volatilità e scenari di mercato stabili risultano equamente distribuiti sia nel set di addestramento che in quelli di validazione e test. Questa omogeneizzazione annulla l'impatto del \emph{distribution shift} e permette di testare rigorosamente la capacità dei modelli (PCA, Linear AE, Deep AE, VAE) di apprendere la complessa \emph{manifold} delle correlazioni a parità di condizioni statistiche.
 
+\begin{osservazione}
+Il mescolamento casuale risolve il problema del \emph{distribution shift} di regime macroeconomico, ma non elimina di per sé la sovrapposizione informativa tra finestre adiacenti. Poiché lo \emph{stride} $S=10$ giorni è molto più piccolo della finestra $T_w=724$ giorni, due matrici con indice quasi consecutivo condividono fino al $98.6\%$ delle osservazioni sottostanti ($714$ giorni su $724$). Una permutazione puramente casuale, priva di un vincolo di distanza minima tra gli indici assegnati a split diversi, può quindi collocare matrici quasi identiche l'una nel \emph{Training Set} e l'altra nel \emph{Validation} o \emph{Test Set}. Questo limite, distinto dal problema del \emph{distribution shift} qui risolto, viene discusso tra i limiti metodologici del presente lavoro.
+\end{osservazione}
+
 \section{Estrazione e flattening delle matrici triangolari inferiori}
 \label{sec:flattening}
 
@@ -49,14 +81,16 @@ L'ultimo passaggio della pipeline riguarda la conformazione dell'input per le re
 
 Fornire in pasto a un modello di \emph{deep learning} l'intera griglia $362 \times 362$ comporterebbe un grave spreco di risorse computazionali e introdurrebbe una ridondanza geometrica dannosa, costringendo il modello ad allocare pesi sinaptici per apprendere relazioni di simmetria identiche e valori costanti banalmente noti.
 
-Per ottimizzare drasticamente lo spazio delle feature, si procede all'isolamento e all'estrazione della sola matrice triangolare inferiore (\emph{strictly lower triangular matrix}), scartando sia la diagonale principale sia la porzione superiore. Il numero $D$ di elementi unici e informativi estratti da una matrice $N \times N$ segue la formula delle combinazioni semplici:
+Per ottimizzare drasticamente lo spazio delle feature, si procede all'isolamento e all'estrazione della sola matrice triangolare inferiore, scartando la porzione superiore (ridondante per simmetria). Poiché la diagonale principale della matrice di correlazione è banalmente costante ($C_{ii}=1\ \forall i$), essa viene scartata insieme al triangolo superiore (\emph{strictly lower triangular matrix}, offset $k=-1$), riducendo il numero $D$ di elementi unici e informativi alla formula delle combinazioni semplici:
 \begin{equation}
-D = \frac{N(N - 1)}{2}
+D_{\text{raw}} = \frac{N(N - 1)}{2} = \frac{362 \times 361}{2} = 65341 \text{ elementi}
 \end{equation}
 
-Essendo il paniere azionario composto da $N = 362$ titoli, ogni singola matrice viene compressa in un vettore di dimensione spaziale estremamente elevata:
+Attraverso un'operazione di \emph{flattening}, gli elementi della matrice triangolare inferiore vengono linearizzati in un vettore monodimensionale $\mathbf{x}^{(k)} \in \mathbb{R}^{65341}$. Questa parametrizzazione (indicata nel seguito come \emph{dominio raw}) costituisce l'input della prima fase sperimentale di questo lavoro.
+
+Come anticipato nel Capitolo~\ref{ch:introduzione}, per garantire strutturalmente la positività semidefinita delle matrici ricostruite si è successivamente adottata, in via definitiva, la parametrizzazione basata sulla decomposizione di Cholesky $\mathbf{C} = \mathbf{L}\mathbf{L}^T$. In questo caso la diagonale del fattore triangolare inferiore $\mathbf{L}$ \emph{non} è costante (rappresenta le varianze condizionate residue della fattorizzazione) e deve quindi essere inclusa nel \emph{flattening} (offset $k=0$), portando la dimensione canonica dell'input a:
 \begin{equation}
-D = \frac{362 \times 361}{2} = 65341 \text{ elementi}
+D_{\text{Cholesky}} = \frac{N(N + 1)}{2} = \frac{362 \times 363}{2} = 65703 \text{ elementi}
 \end{equation}
 
-Attraverso un'operazione di \emph{flattening}, gli elementi della matrice triangolare inferiore vengono linearizzati in un vettore monodimensionale $\mathbf{x}^{(k)} \in \mathbb{R}^{65341}$. Questo vettore strutturato e formattato costituisce a tutti gli effetti l'input canonico $\mathbf{x}$ ad altissima dimensionalità che alimenterà i \emph{layer} di ingresso della PCA, dei modelli deterministici (Linear AE, Deep AE) e probabilistici (VAE) nei successivi step sperimentali.
+È questo vettore $\mathbf{x}^{(k)} \in \mathbb{R}^{65703}$, e non quello a 65341 componenti del dominio raw, a costituire l'input canonico che alimenta i \emph{layer} di ingresso di PCA, Autoencoder Lineare, Autoencoder Profondo e VAE nella pipeline sperimentale definitiva descritta nei capitoli successivi; il dominio raw a 65341 componenti resta documentato e utilizzato solo a fini di confronto metodologico (Capitolo~\ref{ch:analisi_compressione}).

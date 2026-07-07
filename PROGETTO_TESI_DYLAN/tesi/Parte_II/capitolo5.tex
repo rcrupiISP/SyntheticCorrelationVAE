@@ -87,7 +87,7 @@ Questo approccio garantisce che la distribuzione statistica sottostante ai tre s
 Il mescolamento casuale risolve il problema del \emph{distribution shift} di regime macroeconomico, ma non elimina di per sé la sovrapposizione informativa tra finestre adiacenti. Poiché lo \emph{stride} $S=10$ giorni è molto più piccolo della finestra $T_w=724$ giorni, due matrici con indice quasi consecutivo condividono fino al $98.6\%$ delle osservazioni sottostanti ($714$ giorni su $724$). Una permutazione puramente casuale, priva di un vincolo di distanza minima tra gli indici assegnati a split diversi, può quindi collocare matrici quasi identiche l'una nel \emph{Training Set} e l'altra nel \emph{Validation} o \emph{Test Set}. Questo limite, distinto dal problema del \emph{distribution shift} qui risolto, viene discusso tra i limiti metodologici del presente lavoro.
 \end{osservazione}
 
-\section{Estrazione e flattening delle matrici triangolari inferiori}
+\section{Estrazione e flattening del fattore triangolare inferiore di Cholesky}
 \label{sec:flattening}
 
 L'ultimo passaggio della pipeline riguarda la conformazione dell'input per le reti neurali. Ogni matrice di correlazione empirica generata $\mathbf{C}^{(k)}$ ha dimensione $N \times N$, ovvero $362 \times 362$. Tuttavia, per le proprietà intrinseche dell'operatore di correlazione, la matrice è perfettamente simmetrica rispetto alla diagonale principale ($C_{ij} = C_{ji}$) e presenta esclusivamente valori unitari sulla diagonale stessa ($C_{ii} = 1$).

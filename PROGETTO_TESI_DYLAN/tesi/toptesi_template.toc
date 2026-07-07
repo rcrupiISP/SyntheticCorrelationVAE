@@ -31,7 +31,7 @@
 \contentsline {paragraph}{Conteggio delle matrici prodotte dalla finestra mobile.}{43}{section*.1}%
 \contentsline {paragraph}{Filtro di validità strutturale: la proprietà di Perron-Frobenius.}{44}{section*.2}%
 \contentsline {paragraph}{Mescolamento e ripartizione.}{44}{section*.3}%
-\contentsline {section}{\numberline {5.4}Estrazione e flattening delle matrici triangolari inferiori}{45}{section.5.4}%
+\contentsline {section}{\numberline {5.4}Estrazione e flattening del fattore triangolare inferiore di Cholesky}{45}{section.5.4}%
 \contentsline {chapter}{\numberline {6}Architetture dei Modelli e Setup Sperimentale}{47}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Implementazione della PCA come baseline}{47}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Design e iperparametri dell'Autoencoder Lineare}{47}{section.6.2}%
@@ -42,18 +42,19 @@
 \contentsline {chapter}{\numberline {7}Analisi della Compressione e Ricostruzione Storica}{55}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Valutazione della PCA e dell'AE Lineare: il benchmark della linearità}{55}{section.7.1}%
 \contentsline {section}{\numberline {7.2}Performance di ricostruzione: AE Non-Lineare e VAE}{56}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Il trade-off tra compressione esatta e flessibilità generativa}{58}{section.7.3}%
-\contentsline {chapter}{\numberline {8}Generazione Stocastica di Nuovi Scenari (Validazione del VAE)}{59}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Campionamento dallo spazio latente: dal prior al block-bootstrap storico}{59}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Verifica dei cinque fatti stilizzati sulle matrici generate}{62}{section.8.2}%
-\contentsline {paragraph}{Distribuzione pairwise.}{62}{section*.4}%
-\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{62}{section*.5}%
-\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{63}{section*.6}%
-\contentsline {paragraph}{Struttura gerarchica.}{64}{section*.7}%
-\contentsline {paragraph}{Topologia scale-free del MST.}{64}{section*.8}%
-\contentsline {section}{\numberline {8.3}Limiti della validazione e sviluppi futuri}{66}{section.8.3}%
-\contentsline {chapter}{\numberline {9}Conclusioni e Sviluppi Futuri}{67}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Sintesi dei risultati ottenuti}{67}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Impatto nel campo del Risk Management quantitativo}{68}{section.9.2}%
-\contentsline {section}{\numberline {9.3}Limiti del modello attuale}{68}{section.9.3}%
-\contentsline {section}{\numberline {9.4}Sviluppi futuri}{69}{section.9.4}%
+\contentsline {section}{\numberline {7.3}Il trade-off tra compressione esatta e flessibilità generativa}{59}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}La struttura dello spazio latente del VAE definitivo}{60}{subsection.7.3.1}%
+\contentsline {chapter}{\numberline {8}Generazione Stocastica di Nuovi Scenari (Validazione del VAE)}{63}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Campionamento dallo spazio latente: dal prior al block-bootstrap storico}{63}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Verifica dei cinque fatti stilizzati sulle matrici generate}{66}{section.8.2}%
+\contentsline {paragraph}{Distribuzione pairwise.}{66}{section*.4}%
+\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{66}{section*.5}%
+\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{67}{section*.6}%
+\contentsline {paragraph}{Struttura gerarchica.}{68}{section*.7}%
+\contentsline {paragraph}{Topologia scale-free del MST.}{68}{section*.8}%
+\contentsline {section}{\numberline {8.3}Limiti della validazione e sviluppi futuri}{70}{section.8.3}%
+\contentsline {chapter}{\numberline {9}Conclusioni e Sviluppi Futuri}{71}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Sintesi dei risultati ottenuti}{71}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Impatto nel campo del Risk Management quantitativo}{72}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Limiti del modello attuale}{72}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Sviluppi futuri}{73}{section.9.4}%

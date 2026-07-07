@@ -311,10 +311,10 @@ INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\rm-lmbx12
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\rm-lmbx8.tfm
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\rm-lmbx6.tfm
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\lm\lm-rm.enc
-INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\lm\lm-mathsy.enc
 INPUT .\Parte_I\capitolo3.tex
 INPUT .\Parte_I\capitolo3.tex
 INPUT Parte_I\capitolo3.tex
+INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\lm\lm-mathsy.enc
 INPUT .\Pictures\capitolo3\fig_esempio_heatmap_100.png
 INPUT .\Pictures\capitolo3\fig_esempio_heatmap_100.png
 INPUT .\Pictures\capitolo3\fig_esempio_heatmap_100.png
@@ -415,6 +415,13 @@ INPUT .\Pictures\capitolo3\fig_heatmap_rmt_comparison.png
 INPUT .\Pictures\capitolo3\fig_heatmap_rmt_comparison.png
 INPUT .\Pictures\capitolo3\fig_heatmap_rmt_comparison.png
 INPUT .\Pictures\capitolo3\fig_heatmap_rmt_comparison.png
+INPUT .\Pictures\capitolo3\fig_dendrogram_rmt_comparison.png
+INPUT .\Pictures\capitolo3\fig_dendrogram_rmt_comparison.png
+INPUT .\Pictures\capitolo3\fig_dendrogram_rmt_comparison.png
+INPUT .\Pictures\capitolo3\fig_dendrogram_rmt_comparison.png
+INPUT .\Pictures\capitolo3\fig_dendrogram_rmt_comparison.png
+INPUT .\Pictures\capitolo3\fig_dendrogram_rmt_comparison.png
+INPUT .\Pictures\capitolo3\fig_dendrogram_rmt_comparison.png
 INPUT .\Pictures\capitolo3\fig_mst_degree_rmt_comparison.png
 INPUT .\Pictures\capitolo3\fig_mst_degree_rmt_comparison.png
 INPUT .\Pictures\capitolo3\fig_mst_degree_rmt_comparison.png

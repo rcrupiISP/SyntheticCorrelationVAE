@@ -61,12 +61,25 @@ Nella strutturazione convenzionale di serie storiche finanziarie per il \emph{de
 
 Per valutare il reale potere ricostruttivo e la capacità di compressione geometrica delle reti neurali, isolandole dall'impatto dei mutamenti macroeconomici radicali nel tempo, la pipeline sperimentale adotta una strategia di campionamento tramite mescolamento casuale (\emph{random shuffle}) sull'intero pool di matrici. 
 
-Il processo di estrazione a finestre mobili, applicando il passo costante (\emph{stride}) $S=10$ giorni lavorativi lungo l'intera serie storica dei prezzi, produce un bacino complessivo di 412 matrici di correlazione empiriche. Queste matrici vengono interamente mischiate in modo stocastico prima di essere ripartite nei tre set operativi, portando alla seguente conformazione tensoriale finale:
+\paragraph{Conteggio delle matrici prodotte dalla finestra mobile.} La numerosità complessiva del pool di matrici è determinata in modo puramente deterministico dai tre parametri della procedura: l'ampiezza della finestra $T_w = 724$ giorni, il passo (\emph{stride}) $S = 10$ giorni e la lunghezza dell'arco temporale su cui la finestra scorre. Quest'ultima non coincide con il numero di giorni di quotazione, bensì con la lunghezza della serie dei \emph{log-rendimenti} su cui è definita la correlazione, pari a $T = T_{\text{tot}} - 1 = 5334 - 1 = 5333$ osservazioni giornaliere (la differenziazione logaritmica $r_t = \ln(P_t/P_{t-1})$ consuma infatti la prima osservazione della serie dei prezzi). La prima finestra occupa le osservazioni con indice $[0,\, T_w)$; ogni finestra successiva trasla in avanti di $S$ posizioni e l'ultima finestra ammissibile è quella il cui estremo destro non oltrepassa $T$, ovvero quella il cui estremo sinistro $k \cdot S$ soddisfa la condizione $k \cdot S \le T - T_w$. L'indice di finestra $k$ assume dunque tutti i valori interi da $0$ fino a $\lfloor (T - T_w)/S \rfloor$, per un totale --- comprensivo della finestra iniziale ($k=0$) --- di:
+\begin{equation}
+N_{\text{tot}} = \left\lfloor \frac{T - T_w}{S} \right\rfloor + 1 = \left\lfloor \frac{5333 - 724}{10} \right\rfloor + 1 = \left\lfloor \frac{4609}{10} \right\rfloor + 1 = 461
+\end{equation}
+matrici di correlazione empiriche.
+
+\paragraph{Filtro di validità strutturale: la proprietà di Perron-Frobenius.} Questo insieme grezzo di $461$ matrici non è stato utilizzato integralmente: prima di costituire il bacino di addestramento è stato sottoposto a un filtro di validità basato sulla proprietà di Perron-Frobenius empirica (Sezione~\ref{sec:perron_frobenius}), che impone al primo autovettore $\mathbf{v}_1$ di ciascuna matrice --- il cosiddetto \emph{market mode} --- di presentare componenti tutte del medesimo segno. L'ispezione sistematica dell'autovettore dominante lungo l'intero insieme ha rivelato che le finestre iniziali della serie non rispettano tale requisito: in esse un medesimo asset presenta \emph{ricorrentemente} una componente negativa nel primo autovettore, in contrasto con l'uniformità di segno che deve caratterizzare una matrice di correlazione finanziaria ben posta. Poiché questa anomalia si concentra in modo sistematico nella porzione iniziale della serie temporale, si è scelto di scartare tutte le finestre con indice inferiore a $49$ --- ovvero le prime $49$ matrici, quelle con indice da $0$ a $48$ --- e di conservare come bacino di matrici valide esclusivamente quelle a partire dall'indice $49$ in poi:
+\begin{equation}
+N_{\text{valide}} = N_{\text{tot}} - 49 = 461 - 49 = 412
+\end{equation}
+matrici. Su questo insieme epurato la proprietà di Perron-Frobenius risulta soddisfatta dalla totalità delle matrici ($412/412$), in piena coerenza con la verifica dei \emph{stylized facts} condotta esattamente sulle medesime $412$ matrici nel Capitolo~\ref{ch:stylized_facts}.
+
+\paragraph{Mescolamento e ripartizione.} È questo bacino filtrato di $412$ matrici valide a essere interamente mischiato in modo stocastico (\emph{random shuffle}) prima di essere ripartito, secondo le frazioni $70/20/10$, nei tre set operativi, portando alla seguente conformazione tensoriale finale:
 \begin{itemize}
     \item \textbf{Training Set:} \emph{shape} $(288, 362, 362)$
     \item \textbf{Validation Set:} \emph{shape} $(82, 362, 362)$
     \item \textbf{Test Set:} \emph{shape} $(42, 362, 362)$
 \end{itemize}
+dove la numerosità del \emph{Test Set} ($42$) è ottenuta per differenza ($412 - 288 - 82$) a valle dell'arrotondamento delle prime due frazioni.
 
 Questo approccio garantisce che la distribuzione statistica sottostante ai tre sottoinsiemi sia perfettamente omogenea e stazionaria: scenari di elevata volatilità e scenari di mercato stabili risultano equamente distribuiti sia nel set di addestramento che in quelli di validazione e test. Questa omogeneizzazione annulla l'impatto del \emph{distribution shift} e permette di testare rigorosamente la capacità dei modelli (PCA, Linear AE, Deep AE, VAE) di apprendere la complessa \emph{manifold} delle correlazioni a parità di condizioni statistiche.
 

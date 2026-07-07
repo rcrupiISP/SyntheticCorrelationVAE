@@ -17,7 +17,7 @@
 \contentsline {section}{\numberline {3.4}Proprietà di Perron-Frobenius empirica}{23}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Struttura gerarchica delle correlazioni}{24}{section.3.5}%
 \contentsline {section}{\numberline {3.6}Il Minimum Spanning Tree (MST) e la proprietà scale-free}{25}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Benchmark test: fallimento strutturale della Random Matrix Theory}{26}{section.3.7}%
+\contentsline {section}{\numberline {3.7}Benchmark test: fallimento strutturale della Random Matrix Theory}{27}{section.3.7}%
 \contentsline {chapter}{\numberline {4}Riduzione della Dimensionalità e Modelli Generativi}{33}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Principal Component Analysis (PCA): teoria e limiti lineari}{33}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Autoencoder Lineari (Linear AE): ponte verso le reti neurali}{34}{section.4.2}%
@@ -28,7 +28,10 @@
 \contentsline {section}{\numberline {5.1}Descrizione del dataset}{41}{section.5.1}%
 \contentsline {section}{\numberline {5.2}Calcolo dei rendimenti e stima delle matrici empiriche}{42}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Tecnica di campionamento: il Random Shuffle per la stazionarietà}{43}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Estrazione e flattening delle matrici triangolari inferiori}{44}{section.5.4}%
+\contentsline {paragraph}{Conteggio delle matrici prodotte dalla finestra mobile.}{43}{section*.1}%
+\contentsline {paragraph}{Filtro di validità strutturale: la proprietà di Perron-Frobenius.}{44}{section*.2}%
+\contentsline {paragraph}{Mescolamento e ripartizione.}{44}{section*.3}%
+\contentsline {section}{\numberline {5.4}Estrazione e flattening delle matrici triangolari inferiori}{45}{section.5.4}%
 \contentsline {chapter}{\numberline {6}Architetture dei Modelli e Setup Sperimentale}{47}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Implementazione della PCA come baseline}{47}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Design e iperparametri dell'Autoencoder Lineare}{47}{section.6.2}%
@@ -43,12 +46,12 @@
 \contentsline {chapter}{\numberline {8}Generazione Stocastica di Nuovi Scenari (Validazione del VAE)}{59}{chapter.8}%
 \contentsline {section}{\numberline {8.1}Campionamento dallo spazio latente: dal prior al block-bootstrap storico}{59}{section.8.1}%
 \contentsline {section}{\numberline {8.2}Verifica dei cinque fatti stilizzati sulle matrici generate}{62}{section.8.2}%
-\contentsline {paragraph}{Distribuzione pairwise.}{62}{section*.1}%
-\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{62}{section*.2}%
-\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{63}{section*.3}%
-\contentsline {paragraph}{Struttura gerarchica.}{64}{section*.4}%
-\contentsline {paragraph}{Topologia scale-free del MST.}{64}{section*.5}%
-\contentsline {section}{\numberline {8.3}Limiti della validazione e sviluppi futuri}{64}{section.8.3}%
+\contentsline {paragraph}{Distribuzione pairwise.}{62}{section*.4}%
+\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{62}{section*.5}%
+\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{63}{section*.6}%
+\contentsline {paragraph}{Struttura gerarchica.}{64}{section*.7}%
+\contentsline {paragraph}{Topologia scale-free del MST.}{64}{section*.8}%
+\contentsline {section}{\numberline {8.3}Limiti della validazione e sviluppi futuri}{66}{section.8.3}%
 \contentsline {chapter}{\numberline {9}Conclusioni e Sviluppi Futuri}{67}{chapter.9}%
 \contentsline {section}{\numberline {9.1}Sintesi dei risultati ottenuti}{67}{section.9.1}%
 \contentsline {section}{\numberline {9.2}Impatto nel campo del Risk Management quantitativo}{68}{section.9.2}%

@@ -74,12 +74,12 @@ Per validare la plausibilità economico-finanziaria delle matrici sintetiche pro
 \label{fig:pf_generato}
 \end{figure}
 
-\paragraph{Struttura gerarchica.} Il dendrogramma ottenuto per clustering gerarchico sulla matrice sintetica (Figura~\ref{fig:dendrogram_generato}) riproduce visivamente un'organizzazione a blocchi molto simile a quella della matrice odierna, con gli stessi principali raggruppamenti settoriali riconoscibili nella struttura ad albero.
+\paragraph{Struttura gerarchica.} Il dendrogramma ottenuto per clustering gerarchico sulla matrice sintetica (Figura~\ref{fig:dendrogram_generato}) riproduce visivamente un'organizzazione a blocchi molto simile a quella della matrice odierna. Colorando la linea verticale di ciascun asset in base al proprio settore GICS, si osserva come gli stessi blocchi cromatici settoriali presenti nella matrice odierna si ripresentino nella matrice sintetica, fondendosi a bassa distanza di aggregazione: il VAE preserva quindi i principali raggruppamenti settoriali della reale tassonomia economica.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo8/fig_dendrogram_generato.png}
-\caption{Dendrogrammi comparativi per la matrice odierna (in alto) e la matrice sintetica a un mese (in basso).}
+\caption{Dendrogrammi comparativi con le foglie colorate per settore GICS e asse verticale condiviso: matrice odierna (in alto) e matrice sintetica a un mese (in basso). In entrambi i pannelli i titoli dello stesso settore formano blocchi cromatici compatti che si fondono a bassa distanza, a riprova che il VAE preserva i cluster settoriali della struttura gerarchica reale.}
 \label{fig:dendrogram_generato}
 \end{figure}
 

@@ -74,6 +74,8 @@ La natura dominante del primo autovalore $\lambda_1$ trova una rigorosa formaliz
 
 Sebbene le matrici di correlazione finanziaria empiriche non siano strettamente non negative --- poiché presentano fisiologicamente coefficienti negativi dovuti a coperture o dinamiche avverse --- la forte dominanza delle correlazioni positive medie indotta dall'effetto mercato fa sì che il sistema finanziario manifesti una sorta di ``proprietà di Perron-Frobenius empirica''.
 
+L'aggettivo \emph{empirica} non è accessorio, e delimita con precisione lo statuto logico di questa proprietà. Poiché il teorema di Perron-Frobenius fornisce soltanto una condizione \emph{sufficiente} --- la positività di tutti gli elementi --- che le matrici di correlazione reali non soddisfano alla lettera, l'uniformità di segno dell'autovettore dominante non è garantita a priori da alcun risultato matematico: è una regolarità statistica, che si realizza quando l'effetto mercato positivo domina il comportamento di ogni singolo titolo, e che va pertanto verificata caso per caso. \citet{huttner2019simulating} dimostrano peraltro che, nell'insieme di \emph{tutte} le matrici di correlazione di dimensione $d$, la frazione di matrici dotate della proprietà di Perron-Frobenius è pari a $2^{1-d}$, una proporzione che svanisce esponenzialmente al crescere della dimensione: la prevalenza sistematica di questa proprietà nelle matrici finanziarie osservate è dunque un fatto stilizzato tutt'altro che banale, che ammette --- come ogni fatto stilizzato --- eccezioni in regimi di mercato particolari. Una minoranza delle finestre storiche analizzate in questo lavoro viola effettivamente la proprietà: il fenomeno, localizzato in un singolo titolo debolmente anticorrelato con il resto del paniere, è documentato e interpretato economicamente nel Capitolo~\ref{ch:preprocessing} (Sezione~\ref{sec:purging}).
+
 Le implicazioni di questa proprietà si traducono in due vincoli algebrici per la matrice $\hat{\mathbf{C}}$:
 \begin{enumerate}
     \item \textbf{Unicità e non degenerazione:} L'autovalore massimo $\lambda_1$ è reale, strettamente positivo e possiede molteplicità uno. Ciò garantisce che la direzione a massima varianza dello spazio finanziario sia unica.
@@ -140,7 +142,7 @@ La validità della legge di potenza implica la presenza di una topologia forteme
 \label{fig:mst_graph}
 \end{figure}
 
-Sulla matrice n.\,100 (Figura~\ref{fig:mst_scalefree} e Figura~\ref{fig:mst_graph}), il fit log-log della distribuzione di grado restituisce un esponente di scala stimato $\gamma=-2.207$ (grado massimo $14$): un valore pienamente interno all'intervallo $2 < |\gamma| < 3$ tipicamente riportato in letteratura, a conferma della natura marcatamente \emph{scale-free}, non gaussiana, della topologia di rete osservata, con pochi \emph{hub} dominanti circondati da un'ampia periferia di nodi a basso grado.
+Sulla matrice n.\,100 (Figura~\ref{fig:mst_scalefree} e Figura~\ref{fig:mst_graph}), il fit log-log della distribuzione di grado restituisce un esponente di scala stimato $\gamma=2.207$ (grado massimo $14$): un valore pienamente interno all'intervallo $2 < \gamma < 3$ tipicamente riportato in letteratura, a conferma della natura marcatamente \emph{scale-free}, non gaussiana, della topologia di rete osservata, con pochi \emph{hub} dominanti circondati da un'ampia periferia di nodi a basso grado.
 
 \section{Benchmark test: fallimento strutturale della Random Matrix Theory}
 \label{sec:benchmark_rmt}
@@ -155,7 +157,7 @@ Generando una matrice di controllo mediante l'estrazione di $N$ serie temporali 
 \hline
 \textbf{Stylized Fact} & \textbf{Mercato Reale (S\&P 500)} & \textbf{Benchmark RMT (Pure Noise)} \\
 \hline
-Distribuzione \emph{Pairwise} & Fortemente asimmetrica, shifted verso valori positivi. & Perfettamente simmetrica e centrata sullo zero. \\
+Distribuzione \emph{Pairwise} & Fortemente asimmetrica, spostata verso valori positivi. & Perfettamente simmetrica e centrata sullo zero. \\
 Spettro degli Autovalori & Presenza di $\lambda_1 \gg \lambda_+$ (mercato) e $\lambda_k > \lambda_+$ (settori). & Interamente vincolato entro i limiti di MP: $[\lambda_-, \lambda_+]$. \\
 Proprietà di Perron-Frobenius & Valida: $\mathbf{v}_1$ ha componenti unicamente positive. & Fallita: $\mathbf{v}_1$ ha componenti a segni casuali stocastici. \\
 Organizzazione Interna & Struttura gerarchica e tassonomica a blocchi settoriali. & Assenza totale di pattern; matrice omogenea amorfa. \\
@@ -204,12 +206,12 @@ Applicando alla matrice casuale lo stesso algoritmo di clustering gerarchico uti
 \label{fig:rmt_heatmap}
 \end{figure}
 
-La stessa gerarchia è resa esplicita dal dendrogramma di Figura~\ref{fig:rmt_dendrogram}, costruito con il medesimo \emph{linkage} average utilizzato per il riordinamento (l'ordine delle foglie coincide dunque con quello delle colonne della heatmap) e con la linea verticale di ciascun asset colorata in base al proprio settore GICS. Nella matrice reale i titoli dello stesso settore si fondono a bassa distanza di aggregazione, formando blocchi cromatici compatti che corrispondono ai cluster settoriali; nel benchmark casuale, invece, tutte le fusioni avvengono in una banda stretta ad alta distanza ($\approx \sqrt{2}$) e i colori settoriali risultano interlacciati in modo casuale, senza alcun blocco riconoscibile. La condivisione dell'asse verticale tra i due pannelli rende immediatamente confrontabile la profonda struttura a bassa distanza del mercato reale con l'\emph{arbusto} piatto e privo di gerarchia del rumore puro.
+La stessa gerarchia è resa esplicita dal dendrogramma di Figura~\ref{fig:rmt_dendrogram}, costruito con il medesimo \emph{linkage} average utilizzato per il riordinamento (l'ordine delle foglie coincide dunque con quello delle colonne della heatmap) e con la linea verticale di ciascun asset colorata in base al proprio settore GICS. Nella matrice reale i titoli dello stesso settore si fondono a bassa distanza di aggregazione, formando blocchi cromatici compatti che corrispondono ai cluster settoriali; nel benchmark casuale, invece, tutte le fusioni avvengono in una banda stretta ad alta distanza ($\approx \sqrt{2}$) e i colori settoriali risultano interlacciati in modo casuale, senza alcun blocco riconoscibile. La condivisione dell'asse verticale tra i due pannelli rende immediatamente confrontabile la profonda struttura a bassa distanza del mercato reale con la struttura a \emph{pettine}, piatta e priva di gerarchia, del rumore puro.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo3/fig_dendrogram_rmt_comparison.png}
-\caption{Proprietà 4 -- Dendrogramma del clustering gerarchico con le foglie colorate per settore GICS (asse verticale condiviso): nella matrice reale i settori formano cluster compatti che si fondono a bassa distanza, mentre nel benchmark RMT le fusioni sono tutte schiacciate ad alta distanza e i colori settoriali appaiono dispersi, senza alcun cluster.}
+\caption{Proprietà 4 -- Dendrogramma del clustering gerarchico con le foglie colorate per settore GICS: nella matrice reale i settori formano cluster compatti che si fondono a bassa distanza, mentre nel benchmark RMT le fusioni sono tutte schiacciate ad alta distanza e i colori settoriali appaiono dispersi, senza alcun cluster.}
 \label{fig:rmt_dendrogram}
 \end{figure}
 

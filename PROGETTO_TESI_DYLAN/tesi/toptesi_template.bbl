@@ -1,21 +1,53 @@
-\begin{thebibliography}{15}
+\begin{thebibliography}{22}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Bouchaud and Potters(2009)]{bouchaud2009rmt}
-Jean-Philippe Bouchaud and Marc Potters.
-\newblock Financial applications of random matrix theory: a short review, 2009.
+\bibitem[Ang e Chen(2002)]{ang2002asymmetric}
+Andrew Ang e Joseph Chen.
+\newblock Asymmetric correlations of equity portfolios.
+\newblock \emph{Journal of Financial Economics}, 63\penalty0 (3):\penalty0
+  443--494, 2002.
+\newblock \doi{10.1016/S0304-405X(02)00068-5}.
+
+\bibitem[Baldi e Hornik(1989)]{baldi1989neural}
+Pierre Baldi e Kurt Hornik.
+\newblock Neural networks and principal component analysis: Learning from
+  examples without local minima.
+\newblock \emph{Neural Networks}, 2\penalty0 (1):\penalty0 53--58, 1989.
+\newblock \doi{10.1016/0893-6080(89)90014-2}.
+
+\bibitem[Bouchaud e Potters(2011)]{bouchaud2009rmt}
+Jean-Philippe Bouchaud e Marc Potters.
+\newblock Financial applications of random matrix theory: a short review.
+\newblock In Gernot Akemann, Jinho Baik e Philippe Di~Francesco (a cura di),
+  \emph{The Oxford Handbook of Random Matrix Theory}, capitolo~40. Oxford
+  University Press, Oxford, 2011.
 \newblock URL \url{https://arxiv.org/abs/0910.1205}.
 
-\bibitem[Caprioli et~al.(2024)Caprioli, Cagliero, and
-  Crupi]{caprioli2024ptfvae}
-Sergio Caprioli, Emanuele Cagliero, and Riccardo Crupi.
+\bibitem[Bourlard e Kamp(1988)]{bourlard1988autoassociation}
+Herv{\'e} Bourlard e Yves Kamp.
+\newblock Auto-association by multilayer perceptrons and singular value
+  decomposition.
+\newblock \emph{Biological Cybernetics}, 59\penalty0 (4--5):\penalty0 291--294,
+  1988.
+\newblock \doi{10.1007/BF00332918}.
+
+\bibitem[Boyle(1977)]{boyle1977options}
+Phelim~P. Boyle.
+\newblock Options: A {M}onte {C}arlo approach.
+\newblock \emph{Journal of Financial Economics}, 4\penalty0 (3):\penalty0
+  323--338, 1977.
+\newblock \doi{10.1016/0304-405X(77)90005-8}.
+
+\bibitem[Caprioli et~al.(2024)Caprioli, Cagliero e Crupi]{caprioli2024ptfvae}
+Sergio Caprioli, Emanuele Cagliero e Riccardo Crupi.
 \newblock Quantifying credit portfolio sensitivity to asset correlations with
   interpretable generative neural networks.
-\newblock \emph{Journal of Risk Model Validation}, 18\penalty0 (1), 2024.
+\newblock \emph{Journal of Risk Model Validation}, 18\penalty0 (1):\penalty0
+  1--17, 2024.
 \newblock \doi{10.21314/JRMV.2024.002}.
 
 \bibitem[Cont(2001)]{cont2001stylizedfacts}
@@ -23,6 +55,7 @@ Rama Cont.
 \newblock Empirical properties of asset returns: stylized facts and statistical
   issues.
 \newblock \emph{Quantitative Finance}, 1\penalty0 (2):\penalty0 223--236, 2001.
+\newblock \doi{10.1080/713665670}.
 
 \bibitem[Doersch(2016)]{doersch2016vae}
 Carl Doersch.
@@ -30,13 +63,21 @@ Carl Doersch.
 \newblock URL \url{https://arxiv.org/abs/1606.05908}.
 \newblock v3, revised January 3, 2021.
 
+\bibitem[Glasserman(2003)]{glasserman2003montecarlo}
+Paul Glasserman.
+\newblock \emph{Monte Carlo Methods in Financial Engineering}, volume~53 of
+  \emph{Stochastic Modelling and Applied Probability}.
+\newblock Springer-Verlag, New York, 2003.
+\newblock ISBN 978-0-387-00451-8.
+\newblock \doi{10.1007/978-0-387-21617-1}.
+
 \bibitem[Goodfellow(2016)]{goodfellow2016gantutorial}
 Ian Goodfellow.
 \newblock {NIPS} 2016 tutorial: Generative adversarial networks, 2016.
 \newblock URL \url{https://arxiv.org/abs/1701.00160}.
 
-\bibitem[H{\"u}ttner and Mai(2019)]{huttner2019simulating}
-Amelie H{\"u}ttner and Jan-Frederik Mai.
+\bibitem[H{\"u}ttner e Mai(2019)]{huttner2019simulating}
+Amelie H{\"u}ttner e Jan-Frederik Mai.
 \newblock Simulating realistic correlation matrices for financial applications:
   correlation matrices with the {P}erron--{F}robenius property.
 \newblock \emph{Journal of Statistical Computation and Simulation}, 89\penalty0
@@ -44,23 +85,32 @@ Amelie H{\"u}ttner and Jan-Frederik Mai.
 \newblock \doi{10.1080/00949655.2018.1546861}.
 \newblock URL \url{https://doi.org/10.1080/00949655.2018.1546861}.
 
-\bibitem[Jolliffe and Cadima(2016)]{jolliffe2016pca}
-Ian~T. Jolliffe and Jorge Cadima.
+\bibitem[Jolliffe e Cadima(2016)]{jolliffe2016pca}
+Ian~T. Jolliffe e Jorge Cadima.
 \newblock Principal component analysis: a review and recent developments.
 \newblock \emph{Philosophical Transactions of the Royal Society A},
   374\penalty0 (2065):\penalty0 20150202, 2016.
 \newblock \doi{10.1098/rsta.2015.0202}.
 
-\bibitem[Kelly et~al.(2019)Kelly, Pruitt, and Su]{kelly2019characteristics}
-Bryan~T. Kelly, Seth Pruitt, and Yinan Su.
-\newblock Characteristics are covariances: A unified model of risk and return.
-\newblock \emph{Journal of Financial Economics}, 134:\penalty0 501--524, 2019.
-\newblock \doi{10.1016/j.jfineco.2019.05.001}.
+\bibitem[Jorion(2007)]{jorion2007var}
+Philippe Jorion.
+\newblock \emph{Value at Risk: The New Benchmark for Managing Financial Risk}.
+\newblock McGraw-Hill, New York, terza edizione, 2007.
+\newblock ISBN 978-0-07-146495-6.
 
-\bibitem[Mantegna(1998)]{mantegna1998hierarchical}
+\bibitem[Longin e Solnik(2001)]{longin2001extreme}
+Fran{\c{c}}ois Longin e Bruno Solnik.
+\newblock Extreme correlation of international equity markets.
+\newblock \emph{The Journal of Finance}, 56\penalty0 (2):\penalty0 649--676,
+  2001.
+\newblock \doi{10.1111/0022-1082.00340}.
+
+\bibitem[Mantegna(1999)]{mantegna1998hierarchical}
 Rosario~N. Mantegna.
 \newblock Hierarchical structure in financial markets.
-\newblock 1998.
+\newblock \emph{The European Physical Journal B}, 11\penalty0 (1):\penalty0
+  193--197, 1999.
+\newblock \doi{10.1007/s100510050929}.
 
 \bibitem[Markowitz(1952)]{markowitz1952portfolio}
 Harry Markowitz.
@@ -68,11 +118,21 @@ Harry Markowitz.
 \newblock \emph{The Journal of Finance}, 7\penalty0 (1):\penalty0 77--91, 1952.
 \newblock \doi{10.2307/2975974}.
 
-\bibitem[Marti(2019)]{marti2019corrgan}
+\bibitem[Marti(2020)]{marti2019corrgan}
 Gautier Marti.
-\newblock Corrgan: Sampling realistic financial correlation matrices using
+\newblock Corr{GAN}: Sampling realistic financial correlation matrices using
   generative adversarial networks.
-\newblock \emph{arXiv preprint arXiv:1910.09504}, 2019.
+\newblock In \emph{ICASSP 2020 -- 2020 IEEE International Conference on
+  Acoustics, Speech and Signal Processing (ICASSP)}, pagine 8459--8463. IEEE,
+  2020.
+\newblock \doi{10.1109/ICASSP40776.2020.9053276}.
+
+\bibitem[McNeil et~al.(2015)McNeil, Frey e Embrechts]{mcneil2015qrm}
+Alexander~J. McNeil, R{\"u}diger Frey e Paul Embrechts.
+\newblock \emph{Quantitative Risk Management: Concepts, Techniques and Tools}.
+\newblock Princeton Series in Finance. Princeton University Press, Princeton,
+  NJ, edizione riveduta, 2015.
+\newblock ISBN 978-0-691-16627-8.
 
 \bibitem[Plaut(2018)]{plaut2018principal}
 Elad Plaut.
@@ -80,28 +140,31 @@ Elad Plaut.
   autoencoders, 2018.
 \newblock arXiv:1804.10253v3.
 
-\bibitem[Plerou et~al.(1999)Plerou, Gopikrishnan, Rosenow, Amaral, and
+\bibitem[Plerou et~al.(1999)Plerou, Gopikrishnan, Rosenow, Amaral e
   Stanley]{plerou1999universal}
 Vasiliki Plerou, Parameswaran Gopikrishnan, Bernd Rosenow, Lu{\'\i}s A.~Nunes
-  Amaral, and H.~Eugene Stanley.
-\newblock Universal and non-universal properties of cross-correlations in
+  Amaral e H.~Eugene Stanley.
+\newblock Universal and nonuniversal properties of cross correlations in
   financial time series.
 \newblock \emph{Physical Review Letters}, 83\penalty0 (7):\penalty0 1471--1474,
   1999.
 \newblock \doi{10.1103/PhysRevLett.83.1471}.
 
-\bibitem[Plerou et~al.(2002)Plerou, Gopikrishnan, Rosenow, Amaral, Guhr, and
+\bibitem[Plerou et~al.(2002)Plerou, Gopikrishnan, Rosenow, Amaral, Guhr e
   Stanley]{plerou2002randommatrix}
-Vasiliki Plerou, Parameswaran Gopikrishnan, Bernd Rosenow, Lu{\'i}s A.~Nunes
-  Amaral, Thomas Guhr, and H.~Eugene Stanley.
-\newblock A random matrix approach to cross-correlations in financial data.
-\newblock \emph{Physical Review E}, 65:\penalty0 066126, 2002.
+Vasiliki Plerou, Parameswaran Gopikrishnan, Bernd Rosenow, Lu{\'\i}s A.~Nunes
+  Amaral, Thomas Guhr e H.~Eugene Stanley.
+\newblock Random matrix approach to cross correlations in financial data.
+\newblock \emph{Physical Review E}, 65\penalty0 (6):\penalty0 066126, 2002.
 \newblock \doi{10.1103/PhysRevE.65.066126}.
 
-\bibitem[Wiese et~al.(2019)Wiese, Knobloch, Korn, and
+\bibitem[Wiese et~al.(2020)Wiese, Knobloch, Korn e
   Kretschmer]{wiese2019quantgans}
-Magnus Wiese, Robert Knobloch, Ralf Korn, and Peter Kretschmer.
-\newblock Quant {GANs}: Deep generation of financial time series, 2019.
-\newblock arXiv:1907.06673v2.
+Magnus Wiese, Robert Knobloch, Ralf Korn e Peter Kretschmer.
+\newblock Quant {GANs}: deep generation of financial time series.
+\newblock \emph{Quantitative Finance}, 20\penalty0 (9):\penalty0 1419--1440,
+  2020.
+\newblock \doi{10.1080/14697688.2020.1730426}.
+\newblock Preprint: arXiv:1907.06673.
 
 \end{thebibliography}

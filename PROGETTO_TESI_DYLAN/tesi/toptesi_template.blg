@@ -1,50 +1,48 @@
 This is BibTeX, Version 0.99d
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: toptesi_template.aux
-Reallocating 'name_of_file' (item size: 1) to 9 items.
-The style file: plainnat.bst
+Reallocating 'name_of_file' (item size: 1) to 12 items.
+The style file: plainnat-it.bst
 Reallocating 'name_of_file' (item size: 1) to 11 items.
 Database file #1: references.bib
-Warning--empty journal in mantegna1998hierarchical
-You've used 15 entries,
-            2773 wiz_defined-function locations,
-            686 strings with 7594 characters,
-and the built_in function-call counts, 6302 in all, are:
-= -- 566
-> -- 337
-< -- 10
-+ -- 117
-- -- 102
-* -- 488
-:= -- 988
-add.period$ -- 54
-call.type$ -- 15
-change.case$ -- 79
-chr.to.int$ -- 15
-cite$ -- 31
-duplicate$ -- 277
-empty$ -- 535
-format.name$ -- 123
-if$ -- 1306
+You've used 22 entries,
+            2748 wiz_defined-function locations,
+            756 strings with 9145 characters,
+and the built_in function-call counts, 9880 in all, are:
+= -- 935
+> -- 462
+< -- 20
++ -- 160
+- -- 138
+* -- 778
+:= -- 1531
+add.period$ -- 92
+call.type$ -- 22
+change.case$ -- 108
+chr.to.int$ -- 22
+cite$ -- 44
+duplicate$ -- 450
+empty$ -- 854
+format.name$ -- 174
+if$ -- 2078
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 10
-newline$ -- 92
-num.names$ -- 60
-pop$ -- 160
+missing$ -- 22
+newline$ -- 141
+num.names$ -- 90
+pop$ -- 197
 preamble$ -- 1
-purify$ -- 64
+purify$ -- 89
 quote$ -- 0
-skip$ -- 224
+skip$ -- 347
 stack$ -- 0
-substring$ -- 197
-swap$ -- 14
-text.length$ -- 0
+substring$ -- 417
+swap$ -- 37
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 165
-warning$ -- 1
-while$ -- 57
+type$ -- 227
+warning$ -- 0
+while$ -- 96
 width$ -- 0
-write$ -- 212
-(There was 1 warning)
+write$ -- 343

@@ -40,7 +40,7 @@
 \contentsline {section}{\numberline {6.2}Design e iperparametri dell'Autoencoder Lineare}{51}{section.6.2}%
 \contentsline {section}{\numberline {6.3}Design e iperparametri dell'Autoencoder Non-Lineare}{52}{section.6.3}%
 \contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{54}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{55}{section.6.5}%
+\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{56}{section.6.5}%
 \contentsline {part}{\EnsureStandardFontEncoding {III}\hspace {1em}Risultati, Validazione e Applicazioni}{57}{part.3}%
 \contentsline {chapter}{\numberline {7}Analisi della Compressione e Ricostruzione Storica}{59}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Valutazione della PCA e dell'AE Lineare: il benchmark della linearità}{59}{section.7.1}%

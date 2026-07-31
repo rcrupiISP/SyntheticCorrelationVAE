@@ -1,6 +1,6 @@
-PWD C:\Users\dylan\Desktop\TESI\SyntheticCorrelationVAE\PROGETTO_TESI_DYLAN\tesi
+PWD c:\Users\dylan\Desktop\TESI\SyntheticCorrelationVAE\PROGETTO_TESI_DYLAN\tesi
 INPUT C:\Users\dylan\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT toptesi_template.tex
+INPUT c:\Users\dylan\Desktop\TESI\SyntheticCorrelationVAE\PROGETTO_TESI_DYLAN\tesi\toptesi_template.tex
 OUTPUT toptesi_template.log
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\toptesi\toptesi.cls
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\toptesi\toptesi.cls

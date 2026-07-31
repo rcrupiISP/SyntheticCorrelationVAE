@@ -40,24 +40,28 @@
 \contentsline {section}{\numberline {6.2}Design e iperparametri dell'Autoencoder Lineare}{51}{section.6.2}%
 \contentsline {section}{\numberline {6.3}Design e iperparametri dell'Autoencoder Non-Lineare}{52}{section.6.3}%
 \contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{54}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{56}{section.6.5}%
-\contentsline {part}{\EnsureStandardFontEncoding {III}\hspace {1em}Risultati, Validazione e Applicazioni}{57}{part.3}%
-\contentsline {chapter}{\numberline {7}Analisi della Compressione e Ricostruzione Storica}{59}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Valutazione della PCA e dell'AE Lineare: il benchmark della linearità}{59}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Performance di ricostruzione: AE Non-Lineare e VAE}{60}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Il trade-off tra compressione esatta e flessibilità generativa}{63}{section.7.3}%
-\contentsline {subsection}{\numberline {7.3.1}La struttura dello spazio latente del VAE definitivo}{64}{subsection.7.3.1}%
-\contentsline {chapter}{\numberline {8}Generazione Stocastica di Nuovi Scenari (Validazione del VAE)}{67}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Campionamento dallo spazio latente: dal prior al block-bootstrap storico}{67}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Verifica dei cinque fatti stilizzati sulle matrici generate}{70}{section.8.2}%
-\contentsline {paragraph}{Distribuzione pairwise.}{70}{section*.7}%
-\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{70}{section*.8}%
-\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{72}{section*.9}%
-\contentsline {paragraph}{Struttura gerarchica.}{72}{section*.10}%
-\contentsline {paragraph}{Topologia scale-free del MST.}{72}{section*.11}%
-\contentsline {section}{\numberline {8.3}Limiti della validazione e sviluppi futuri}{73}{section.8.3}%
-\contentsline {chapter}{\numberline {9}Conclusioni e Sviluppi Futuri}{75}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Sintesi dei risultati ottenuti}{75}{section.9.1}%
-\contentsline {section}{\numberline {9.2}Impatto nel campo del Risk Management quantitativo}{76}{section.9.2}%
-\contentsline {section}{\numberline {9.3}Limiti del modello attuale}{76}{section.9.3}%
-\contentsline {section}{\numberline {9.4}Sviluppi futuri}{77}{section.9.4}%
+\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{57}{section.6.5}%
+\contentsline {part}{\EnsureStandardFontEncoding {III}\hspace {1em}Risultati, Validazione e Applicazioni}{59}{part.3}%
+\contentsline {chapter}{\numberline {7}Analisi della Compressione e Ricostruzione Storica}{61}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Valutazione della PCA e dell'AE Lineare: il benchmark della linearità}{61}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Performance di ricostruzione: AE Non-Lineare e VAE}{63}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Robustezza dell'ordinamento: MAE e norma di Frobenius}{63}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Le metriche topologiche del Minimum Spanning Tree}{65}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Il comportamento del VAE al variare di $K$}{70}{subsection.7.2.3}%
+\contentsline {subsection}{\numberline {7.2.4}L'addestramento del VAE definitivo}{72}{subsection.7.2.4}%
+\contentsline {section}{\numberline {7.3}Il trade-off tra compressione esatta e flessibilità generativa}{74}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}La struttura dello spazio latente del VAE definitivo}{74}{subsection.7.3.1}%
+\contentsline {chapter}{\numberline {8}Generazione Stocastica di Nuovi Scenari (Validazione del VAE)}{79}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Campionamento dallo spazio latente: dal prior al block-bootstrap storico}{79}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Verifica dei cinque fatti stilizzati sulle matrici generate}{82}{section.8.2}%
+\contentsline {paragraph}{Distribuzione pairwise.}{82}{section*.7}%
+\contentsline {paragraph}{Spettro e distribuzione di Marchenko-Pastur.}{82}{section*.8}%
+\contentsline {paragraph}{Proprietà di Perron-Frobenius.}{84}{section*.9}%
+\contentsline {paragraph}{Struttura gerarchica.}{84}{section*.10}%
+\contentsline {paragraph}{Topologia scale-free del MST.}{84}{section*.11}%
+\contentsline {section}{\numberline {8.3}Limiti della validazione e sviluppi futuri}{85}{section.8.3}%
+\contentsline {chapter}{\numberline {9}Conclusioni e Sviluppi Futuri}{87}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Sintesi dei risultati ottenuti}{87}{section.9.1}%
+\contentsline {section}{\numberline {9.2}Impatto nel campo del Risk Management quantitativo}{88}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Limiti del modello attuale}{88}{section.9.3}%
+\contentsline {section}{\numberline {9.4}Sviluppi futuri}{89}{section.9.4}%

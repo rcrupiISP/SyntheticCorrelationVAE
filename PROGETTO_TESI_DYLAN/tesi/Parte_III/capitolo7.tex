@@ -5,27 +5,42 @@
 
 La prima fase di validazione empirica ha avuto come obiettivo la misurazione delle capacità di ricostruzione dei modelli puramente lineari. Come descritto nel Capitolo~\ref{ch:preprocessing}, l'input fornito ai modelli non è costituito dalle serie storiche dei rendimenti originali, bensì dai vettori appiattiti $\mathbf{x} \in \mathbb{R}^{65703}$ rappresentanti la decomposizione di Cholesky delle matrici di correlazione mobili. Di conseguenza, la PCA in questa fase non estrae il classico "fattore di mercato" associato ai titoli (che deriverebbe dall'autodecomposizione dei rendimenti), ma identifica le direzioni di massima varianza nello \emph{spazio delle correlazioni/Cholesky}, tipicamente dominate dalla tendenza sistemica delle correlazioni \emph{pairwise} a variare coralmente nel tempo (il cosiddetto \emph{breathing effect}, o "respiro" del mercato).
 
-Le misurazioni sul \emph{Training Set} hanno confermato rigorosamente il teorema di \citet{bourlard1988autoassociation}: a parità di dimensione del collo di bottiglia $K$, l'Autoencoder Lineare (privo di \emph{bias} e funzioni di attivazione) converge asintoticamente al medesimo Errore Quadratico Medio (MSE) della \emph{Principal Component Analysis} (PCA), con uno scarto relativo inferiore al 20\% a ogni $K$ testato (Tabella~\ref{tab:mse_test_cholesky}). Fissato questo limite, la PCA e il Linear AE stabiliscono il \emph{benchmark} assoluto per la pura compressione lineare dello spazio delle correlazioni: qualsiasi architettura profonda proposta deve dimostrare di poter infrangere tale soglia sfruttando la propria espressività topologica.
+Le misurazioni sul \emph{Training Set} hanno confermato rigorosamente il teorema di \citet{bourlard1988autoassociation}: a parità di dimensione del collo di bottiglia $K$, l'Autoencoder Lineare (privo di \emph{bias} e funzioni di attivazione) converge asintoticamente al medesimo Errore Quadratico Medio (MSE) della \emph{Principal Component Analysis} (PCA), con uno scarto relativo inferiore al 20\% a ogni $K$ testato (Tabella~\ref{tab:err_test_cholesky}). Fissato questo limite, la PCA e il Linear AE stabiliscono il \emph{benchmark} assoluto per la pura compressione lineare dello spazio delle correlazioni: qualsiasi architettura profonda proposta deve dimostrare di poter infrangere tale soglia sfruttando la propria espressività topologica.
 
-\begin{table}[h!]
+\begin{table}[htbp]
 \centering
+\small
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lrrrr}
 \hline
-\textbf{Metodo} & $K=3$ & $K=10$ & $K=20$ & $K=100$ \\
+\textbf{Modello} & $K=3$ & $K=10$ & $K=20$ & $K=100$ \\
 \hline
-PCA & $3.56\times10^{-3}$ & $5.55\times10^{-4}$ & $2.73\times10^{-4}$ & $7.39\times10^{-5}$ \\
-Linear AE & $4.14\times10^{-3}$ & $6.72\times10^{-4}$ & $3.38\times10^{-4}$ & $8.19\times10^{-5}$ \\
-Autoencoder Profondo & $1.70\times10^{-4}$ & $8.45\times10^{-5}$ & $7.19\times10^{-5}$ & $7.34\times10^{-5}$ \\
-VAE & --- & --- & $1.55\times10^{-4}$ & --- \\
+\multicolumn{5}{l}{\textit{MSE ($\times 10^{-4}$)} $\downarrow$} \\
+PCA & $35.56 \pm 18.60$ & $5.55 \pm 4.03$ & $2.73 \pm 2.28$ & $0.74 \pm 0.77$ \\
+Linear AE & $41.44 \pm 33.67$ & $6.72 \pm 4.82$ & $3.38 \pm 3.54$ & $0.82 \pm 0.85$ \\
+Autoencoder Profondo & $\mathbf{1.70 \pm 2.10}$ & $\mathbf{0.84 \pm 0.82}$ & $\mathbf{0.72 \pm 0.77}$ & $\mathbf{0.73 \pm 0.81}$ \\
+VAE & --- & --- & $1.55 \pm 1.10$ & --- \\
+\hline
+\multicolumn{5}{l}{\textit{MAE ($\times 10^{-2}$)} $\downarrow$} \\
+PCA & $4.64 \pm 1.25$ & $1.75 \pm 0.56$ & $1.18 \pm 0.46$ & $0.55 \pm 0.25$ \\
+Linear AE & $4.90 \pm 1.94$ & $1.96 \pm 0.66$ & $1.33 \pm 0.61$ & $0.58 \pm 0.27$ \\
+Autoencoder Profondo & $\mathbf{0.85 \pm 0.49}$ & $\mathbf{0.55 \pm 0.28}$ & $\mathbf{0.51 \pm 0.27}$ & $\mathbf{0.51 \pm 0.27}$ \\
+VAE & --- & --- & $0.86 \pm 0.32$ & --- \\
+\hline
+\multicolumn{5}{l}{\textit{Norma di Frobenius} $\downarrow$} \\
+PCA & $20.88 \pm 5.54$ & $8.17 \pm 2.46$ & $5.63 \pm 2.03$ & $2.85 \pm 1.26$ \\
+Linear AE & $21.86 \pm 8.18$ & $8.97 \pm 2.79$ & $6.17 \pm 2.52$ & $3.01 \pm 1.32$ \\
+Autoencoder Profondo & $\mathbf{4.22 \pm 2.15}$ & $\mathbf{2.97 \pm 1.51}$ & $\mathbf{2.72 \pm 1.43}$ & $\mathbf{2.75 \pm 1.45}$ \\
+VAE & --- & --- & $4.28 \pm 1.43$ & --- \\
 \hline
 \end{tabular}
-\caption{Errore quadratico medio (MSE) di ricostruzione sul \emph{Test Set}, dominio Cholesky, al variare della dimensione latente $K$. Il VAE è stato valutato solo a $K=20$ (si veda la nota alla Tabella~\ref{tab:mst_test_cholesky}).}
-\label{tab:mse_test_cholesky}
+\caption{Errori di ricostruzione sul \emph{Test Set}, dominio Cholesky, al variare della dimensione latente $K$: MSE, MAE e norma di Frobenius riuniti in un unico prospetto. I valori sono media $\pm$ deviazione standard sulle $42$ matrici del \emph{Test Set}; la freccia accanto a ciascuna metrica indica la direzione di miglioramento e il grassetto segnala il valore migliore di ogni colonna, senza che ciò implichi significatività statistica là dove lo scarto è piccolo rispetto alla dispersione (come accade a $K=100$, dove i tre modelli sono di fatto equivalenti). Sulla griglia condivisa $K\in\{3,10,20,100\}$ il VAE compare solo a $K=20$, perché le sue run sono state condotte a $K\in\{10,20,30\}$ (Sezione~\ref{subsec:vae_vs_k}, Tabella~\ref{tab:vae_vs_k_test}).}
+\label{tab:err_test_cholesky}
 \end{table}
 
-\begin{figure}[h!]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.75\textwidth]{./Pictures/capitolo7/fig_mse_vs_k.png}
+\includegraphics[width=0.95\textwidth]{./Pictures/capitolo7/fig_mse_vs_k.png}
 \caption{MSE di ricostruzione sul \emph{Test Set} (dominio Cholesky) in funzione della dimensione latente $K$, per i quattro modelli confrontati (scala logaritmica).}
 \label{fig:mse_vs_k}
 \end{figure}
@@ -35,58 +50,188 @@ Tuttavia, l'analisi dell'errore di ricostruzione sul \emph{Test Set} (Figura~\re
 \section{Performance di ricostruzione: AE Non-Lineare e VAE}
 \label{sec:risultati_ae_vae}
 
-L'introduzione della non-linearità attraverso l'Autoencoder Profondo (Deep AE) ha prodotto un netto superamento del limite imposto dalla PCA, sia sul \emph{Training Set} sia, cosa più rilevante, sul \emph{Test Set} mai visto durante l'addestramento (Tabella~\ref{tab:mse_test_cholesky} e Figura~\ref{fig:mse_vs_k}): a $K=20$, ad esempio, l'MSE di test dell'AE ($7.19\times10^{-5}$) è di quasi quattro volte inferiore a quello della PCA ($2.73\times10^{-4}$). Questo risultato è reso possibile dall'omogeneizzazione statistica introdotta dal campionamento a mescolamento casuale (Capitolo~\ref{ch:preprocessing}): a differenza di quanto osservato nei test preliminari con partizionamento temporale sequenziale (dove il \emph{distribution shift} tra regimi macroeconomici impediva ai modelli non lineari di generalizzare, portandoli persino a essere superati dalla PCA), nella pipeline definitiva l'Autoencoder Profondo non mostra segni di \emph{overfitting}: \emph{Training Loss} e \emph{Validation/Test Loss} rimangono stabilmente allineate su tutto l'arco di $K$ testati.
+L'introduzione della non-linearità attraverso l'Autoencoder Profondo (Deep AE) ha prodotto un netto superamento del limite imposto dalla PCA, sia sul \emph{Training Set} sia, cosa più rilevante, sul \emph{Test Set} mai visto durante l'addestramento (Tabella~\ref{tab:err_test_cholesky} e Figura~\ref{fig:mse_vs_k}): a $K=20$, ad esempio, l'MSE di test dell'AE ($7.19\times10^{-5}$) è di quasi quattro volte inferiore a quello della PCA ($2.73\times10^{-4}$). Questo risultato è reso possibile dall'omogeneizzazione statistica introdotta dal campionamento a mescolamento casuale (Capitolo~\ref{ch:preprocessing}): a differenza di quanto osservato nei test preliminari con partizionamento temporale sequenziale (dove il \emph{distribution shift} tra regimi macroeconomici impediva ai modelli non lineari di generalizzare, portandoli persino a essere superati dalla PCA), nella pipeline definitiva l'Autoencoder Profondo non mostra segni di \emph{overfitting}: \emph{Training Loss} e \emph{Validation/Test Loss} rimangono stabilmente allineate su tutto l'arco di $K$ testati.
 
 Il passaggio al Variational Autoencoder (VAE) introduce una dinamica prestazionale più sfumata di quanto una prima intuizione potrebbe suggerire. Il VAE, addestrato nella parametrizzazione Cholesky con la \emph{Reconstruction Loss} basata sulla Divergenza di Jeffreys (Sezione~\ref{sec:setup_vae}), ottiene a $K=20$ un MSE di test pari a $1.55\times10^{-4}$, \textbf{inferiore} sia a quello della PCA ($2.73\times10^{-4}$) sia a quello del Linear AE ($3.38\times10^{-4}$), pur restando superiore a quello dell'Autoencoder Profondo deterministico ($7.19\times10^{-5}$).
 
-\begin{table}[h!]
+\subsection{Robustezza dell'ordinamento: MAE e norma di Frobenius}
+\label{subsec:metriche_errore}
+
+L'MSE, essendo una media di scarti quadratici, è per costruzione dominato dalle poche componenti peggio ricostruite. Per accertare che l'ordinamento appena descritto non sia un artefatto di questa sensibilità agli \emph{outlier}, il confronto è stato replicato sulle altre due metriche di errore introdotte nella Sezione~\ref{sec:metriche_convergenza}: il \emph{Mean Absolute Error} (MAE), che pesa linearmente ogni scarto ed è quindi assai più robusto alle code, e la norma di Frobenius, che misura in unità assolute l'energia residua complessiva fra matrice originale e matrice ricostruita. Entrambe sono riportate, accanto all'MSE, nella Tabella~\ref{tab:err_test_cholesky}, mentre le Figure~\ref{fig:mae_vs_k} e~\ref{fig:frobenius_vs_k} ne mostrano l'andamento in funzione di $K$.
+
+\begin{figure}[htbp]
 \centering
+\includegraphics[width=0.95\textwidth]{./Pictures/capitolo7/fig_mae_vs_k.png}
+\caption{Errore assoluto medio (MAE) di ricostruzione sul \emph{Test Set} (dominio Cholesky) in funzione della dimensione latente $K$, per i quattro modelli confrontati.}
+\label{fig:mae_vs_k}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{./Pictures/capitolo7/fig_frobenius_vs_k.png}
+\caption{Norma di Frobenius dell'errore di ricostruzione sul \emph{Test Set} (dominio Cholesky) in funzione della dimensione latente $K$, per i quattro modelli confrontati.}
+\label{fig:frobenius_vs_k}
+\end{figure}
+
+Le due metriche restituiscono esattamente la stessa graduatoria dell'MSE, il che esclude che l'ordinamento dipenda dalla scelta della funzione di errore: a ogni $K$ l'Autoencoder Profondo domina, PCA e Linear AE si sovrappongono quasi perfettamente (con un vantaggio marginale e sistematico della PCA, coerente con il teorema di \citet{bourlard1988autoassociation}), e il VAE a $K=20$ si colloca in posizione intermedia, migliore di entrambi i modelli lineari (MAE $0.86\times10^{-2}$ contro $1.18$ e $1.33\times10^{-2}$) ma non dell'AE deterministico ($0.51\times10^{-2}$).
+
+Il confronto rende però evidente un secondo fenomeno, invisibile nella sola lettura a $K=20$: il divario tra modelli lineari e non lineari non è costante, ma si annulla al crescere di $K$. A $K=3$ la distanza è drammatica --- la norma di Frobenius della PCA ($20.88$) è quasi cinque volte quella dell'AE ($4.22$) --- mentre a $K=100$ i due approcci diventano statisticamente indistinguibili ($2.85$ contro $2.75$). Il vantaggio della non-linearità è dunque un vantaggio di \emph{efficienza rappresentativa}, non di accuratezza asintotica: l'Autoencoder Profondo raggiunge già con $K=10$ (MAE $0.55\times10^{-2}$, Frobenius $2.97$) la stessa qualità che la PCA ottiene soltanto con $K=100$ (MAE $0.55\times10^{-2}$, Frobenius $2.85$), ossia con una rappresentazione latente dieci volte più grande. Simmetricamente, la curva dell'AE si appiattisce rapidamente, e lo fa con un gomito ben identificabile: fra $K=10$ e $K=20$ l'MSE scende ancora di quasi il $15\%$ ($0.84$ contro $0.72\times10^{-4}$), mentre fra $K=20$ e $K=100$ non migliora affatto ($0.72$ contro $0.73\times10^{-4}$), e lo stesso vale per MAE e norma di Frobenius. Oltre tale soglia le dimensioni aggiuntive non aggiungono informazione utile: la \emph{manifold} delle correlazioni è già interamente catturata. È su questa evidenza che $K=20$ è stato assunto come dimensione latente di riferimento per il VAE (Sezione~\ref{subsec:vae_vs_k}).
+
+Un'ultima notazione riguarda la dispersione. Le deviazioni standard sono, per tutte le metriche e tutti i modelli, dello stesso ordine di grandezza della media (per l'MSE della PCA a $K=20$, ad esempio, $2.73\times10^{-4} \pm 2.28\times10^{-4}$): l'errore di ricostruzione non è omogeneo sul \emph{Test Set}, ma varia sensibilmente da finestra a finestra, riflettendo la diversa complessità strutturale delle matrici di correlazione nei differenti regimi di mercato. I confronti fra modelli restano nondimeno significativi, poiché le distanze fra le curve sono ampiamente superiori alla dispersione e, soprattutto, tutti i modelli sono valutati sulle \emph{stesse} $42$ matrici.
+
+\subsection{Le metriche topologiche del Minimum Spanning Tree}
+\label{subsec:metriche_mst}
+
+Un errore di ricostruzione contenuto non garantisce di per sé che la struttura di rete sottostante alla matrice di correlazione sia stata preservata: una ricostruzione può essere accurata "in media" e nondimeno alterare la gerarchia dei legami fra i titoli, che è precisamente l'informazione che i fatti stilizzati del Capitolo~\ref{ch:stylized_facts} certificano come caratteristica dei mercati reali. Per questo motivo ogni matrice ricostruita è stata confrontata con l'originale anche sul piano topologico, tramite le cinque metriche di similarità fra i rispettivi \emph{Minimum Spanning Tree} definite nella Sezione~\ref{sec:metriche_convergenza}.
+
+\begin{table}[htbp]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lrrrr}
 \hline
-\textbf{Metrica MST ($K=20$, Test)} & PCA & Linear AE & AE & VAE \\
+\textbf{Modello} & $K=3$ & $K=10$ & $K=20$ & $K=100$ \\
 \hline
-\emph{Edge overlap} (\%) & 83.0 & 83.1 & 91.1 & 88.4 \\
-\emph{Edge Jaccard} (\%) & 71.2 & 71.4 & 84.0 & 79.4 \\
-Distanza $L_1$ distribuzione di grado & 0.081 & 0.084 & 0.068 & 0.076 \\
-\emph{Betweenness} \emph{top-10} overlap (\%) & 71.7 & 68.6 & 80.2 & 77.9 \\
+\multicolumn{5}{l}{\textit{Edge overlap (\%)} $\uparrow$} \\
+PCA & $53.7 \pm 10.1$ & $77.1 \pm 6.2$ & $83.0 \pm 5.2$ & $90.3 \pm 4.0$ \\
+Linear AE & $54.3 \pm 11.6$ & $77.2 \pm 6.5$ & $83.1 \pm 4.8$ & $90.2 \pm 4.0$ \\
+Autoencoder Profondo & $\mathbf{87.7 \pm 5.9}$ & $\mathbf{91.0 \pm 4.4}$ & $\mathbf{91.1 \pm 4.6}$ & $\mathbf{91.1 \pm 4.5}$ \\
+VAE & --- & --- & $88.4 \pm 4.4$ & --- \\
+\hline
+\multicolumn{5}{l}{\textit{Edge Jaccard (\%)} $\uparrow$} \\
+PCA & $37.4 \pm 9.8$ & $63.1 \pm 8.3$ & $71.2 \pm 7.5$ & $82.6 \pm 6.5$ \\
+Linear AE & $38.2 \pm 11.5$ & $63.3 \pm 8.5$ & $71.4 \pm 6.9$ & $82.4 \pm 6.4$ \\
+Autoencoder Profondo & $\mathbf{78.5 \pm 8.6}$ & $\mathbf{83.8 \pm 7.1}$ & $\mathbf{84.0 \pm 7.4}$ & $\mathbf{84.0 \pm 7.3}$ \\
+VAE & --- & --- & $79.4 \pm 6.8$ & --- \\
+\hline
+\multicolumn{5}{l}{\textit{Betweenness top-10 overlap (\%)} $\uparrow$} \\
+PCA & $41.9 \pm 16.3$ & $61.9 \pm 18.8$ & $71.7 \pm 17.2$ & $81.7 \pm 16.5$ \\
+Linear AE & $43.3 \pm 22.3$ & $64.8 \pm 16.0$ & $68.6 \pm 18.6$ & $81.9 \pm 14.7$ \\
+Autoencoder Profondo & $\mathbf{74.5 \pm 18.1}$ & $\mathbf{82.1 \pm 16.0}$ & $\mathbf{80.2 \pm 17.7}$ & $\mathbf{84.5 \pm 14.8}$ \\
+VAE & --- & --- & $77.9 \pm 16.0$ & --- \\
+\hline
+\multicolumn{5}{l}{\textit{Scarto di lunghezza media dei cammini (pesata)} $\downarrow$} \\
+PCA & $0.783 \pm 0.593$ & $0.708 \pm 0.534$ & $0.441 \pm 0.327$ & $0.365 \pm 0.351$ \\
+Linear AE & $0.878 \pm 0.543$ & $0.716 \pm 0.507$ & $0.453 \pm 0.409$ & $0.344 \pm 0.310$ \\
+Autoencoder Profondo & $\mathbf{0.376 \pm 0.339}$ & $\mathbf{0.255 \pm 0.257}$ & $\mathbf{0.301 \pm 0.324}$ & $\mathbf{0.256 \pm 0.261}$ \\
+VAE & --- & --- & $0.406 \pm 0.336$ & --- \\
+\hline
+\multicolumn{5}{l}{\textit{Scarto di lunghezza media dei cammini (non pesata)} $\downarrow$} \\
+PCA & $1.008 \pm 0.875$ & $1.020 \pm 0.812$ & $0.672 \pm 0.530$ & $0.565 \pm 0.547$ \\
+Linear AE & $1.062 \pm 0.741$ & $1.049 \pm 0.824$ & $0.700 \pm 0.660$ & $0.516 \pm 0.444$ \\
+Autoencoder Profondo & $\mathbf{0.580 \pm 0.547}$ & $\mathbf{0.402 \pm 0.401}$ & $\mathbf{0.459 \pm 0.471}$ & $\mathbf{0.412 \pm 0.407}$ \\
+VAE & --- & --- & $0.573 \pm 0.492$ & --- \\
 \hline
 \end{tabular}
-\caption{Metriche topologiche di similarità del Minimum Spanning Tree tra matrice originale e ricostruita, dominio Cholesky, $K=20$, \emph{Test Set}. Il VAE non è mai stato confrontato a $K=3$ o $K=100$: si vedano le Osservazioni a fine sezione.}
+\caption{Metriche topologiche di similarità fra il Minimum Spanning Tree della matrice originale e quello della matrice ricostruita, dominio Cholesky, \emph{Test Set}, al variare di $K$: tutte e cinque le metriche riunite in un unico prospetto. I valori sono media $\pm$ deviazione standard sulle $42$ matrici del \emph{Test Set}; la freccia accanto a ciascuna metrica indica la direzione di miglioramento e il grassetto segnala il valore migliore di ogni colonna, senza che ciò implichi significatività statistica là dove lo scarto è piccolo rispetto alla dispersione. Il VAE compare solo a $K=20$ perché è l'unico valore della griglia condivisa a cui è stato addestrato (Sezione~\ref{subsec:vae_vs_k}).}
 \label{tab:mst_test_cholesky}
 \end{table}
 
-\begin{figure}[h!]
+\begin{figure}[htbp]
 \centering
-\includegraphics[width=0.75\textwidth]{./Pictures/capitolo7/fig_mst_edge_overlap_vs_k.png}
+\includegraphics[width=0.95\textwidth]{./Pictures/capitolo7/fig_mst_edge_overlap_vs_k.png}
 \caption{Percentuale di archi in comune tra l'MST della matrice originale e quello della matrice ricostruita, dominio Cholesky, \emph{Test Set}, in funzione di $K$.}
 \label{fig:mst_edge_overlap_vs_k}
 \end{figure}
 
-Le metriche topologiche basate sul Minimum Spanning Tree (Tabella~\ref{tab:mst_test_cholesky} e Figura~\ref{fig:mst_edge_overlap_vs_k}) confermano lo stesso ordinamento: l'Autoencoder Profondo preserva la topologia di rete meglio di tutti gli altri modelli a ogni $K$; il VAE si colloca sistematicamente in posizione intermedia, superando nettamente PCA e Linear AE pur non raggiungendo la fedeltà topologica dell'AE deterministico.
+La Tabella~\ref{tab:mst_test_cholesky} conferma senza eccezioni l'ordinamento già emerso dalle metriche di errore, e in forma persino più netta: l'Autoencoder Profondo domina tutte e cinque le metriche a ogni valore di $K$ --- non esiste una sola configurazione in cui un modello lineare lo superi su una qualsiasi dimensione topologica ---, PCA e Linear AE restano indistinguibili fra loro, e il VAE a $K=20$ si colloca sistematicamente in posizione intermedia, superando nettamente i due modelli lineari pur senza raggiungere la fedeltà topologica dell'AE deterministico. La Figura~\ref{fig:mst_edge_overlap_vs_k} illustra il quadro sulla metrica più immediata, la percentuale di archi in comune.
 
 Questo risultato non è casuale, ma la diretta conseguenza della natura della \emph{Reconstruction Loss} impiegata: la loss basata sulla Divergenza di Jeffreys (Sezione~\ref{sec:setup_vae}) pesa esplicitamente l'errore sulla struttura spettrale della matrice di correlazione ricostruita, anziché limitarsi a un errore elemento-per-elemento sui coefficienti del fattore di Cholesky; questa parametrizzazione più informativa, unita alla garanzia strutturale di PSD, riduce significativamente il costo che il vincolo di regolarizzazione $D_{KL}$ impone alla fedeltà di ricostruzione.
 
-La robustezza di questi risultati poggia su un addestramento stabile del VAE definitivo (dimensione latente $K=20$, parametrizzazione Cholesky), documentato dalle curve riportate nelle Figure~\ref{fig:vae_loss_curve} e~\ref{fig:vae_recon_kl}. La \emph{loss} totale (Figura~\ref{fig:vae_loss_curve}) decresce in modo regolare lungo le 1000 epoche, con \emph{Training Loss} e \emph{Validation Loss} strettamente allineate fino a circa l'epoca 600; oltre tale soglia si apre un divario modesto --- la \emph{Training Loss} continua a scendere mentre la \emph{Validation Loss} si stabilizza su un \emph{plateau} --- pienamente coerente con la \emph{policy} di \emph{Model Checkpointing} che conserva i pesi esclusivamente in corrispondenza del minimo assoluto della \emph{Validation Loss} (Sezione~\ref{sec:metriche_convergenza}). I due picchi transitori visibili attorno alle epoche 180 e 260 sono compatibili con l'instabilità numerica dovuta all'inversione di matrici di correlazione quasi singolari nelle prime fasi dell'addestramento.
+Le Figure~\ref{fig:mst_edge_jaccard_vs_k}--\ref{fig:mst_avg_path_len_unweighted_vs_k} riportano l'andamento in funzione di $K$ delle restanti quattro metriche, dal quale emergono tre elementi che la sola lettura a $K=20$ non lascia cogliere.
 
-\begin{figure}[h!]
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{./Pictures/capitolo7/fig_mst_edge_jaccard_vs_k.png}
+\caption{Indice di Jaccard fra l'insieme degli archi dell'MST della matrice originale e quello della matrice ricostruita, dominio Cholesky, \emph{Test Set}, in funzione di $K$.}
+\label{fig:mst_edge_jaccard_vs_k}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{./Pictures/capitolo7/fig_mst_betweenness_vs_k.png}
+\caption{Percentuale di sovrapposizione fra i dieci nodi a più alta \emph{betweenness centrality} dell'MST originale e quelli dell'MST ricostruito, dominio Cholesky, \emph{Test Set}, in funzione di $K$.}
+\label{fig:mst_betweenness_vs_k}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{./Pictures/capitolo7/fig_mst_avg_path_len_vs_k.png}
+\caption{Scarto assoluto fra la lunghezza media dei cammini dell'MST originale e quella dell'MST ricostruito, versione pesata sulle distanze, dominio Cholesky, \emph{Test Set}, in funzione di $K$.}
+\label{fig:mst_avg_path_len_vs_k}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{./Pictures/capitolo7/fig_mst_avg_path_len_unweighted_vs_k.png}
+\caption{Scarto assoluto fra la lunghezza media dei cammini dell'MST originale e quella dell'MST ricostruito, versione non pesata (conteggio degli archi), dominio Cholesky, \emph{Test Set}, in funzione di $K$.}
+\label{fig:mst_avg_path_len_unweighted_vs_k}
+\end{figure}
+
+Il primo, e il più istruttivo, è la severità del crollo topologico dei modelli lineari alle basse dimensioni latenti, molto più marcata di quanto le sole metriche di errore lascino intuire. A $K=3$ la PCA ricostruisce matrici il cui MST condivide appena il $53.7\%$ degli archi con l'originale (indice di Jaccard $37.4\%$), contro l'$87.7\%$ ($78.5\%$) dell'Autoencoder Profondo: più di un legame su due viene alterato. La proiezione lineare a bassissima dimensionalità conserva quindi il livello \emph{medio} delle correlazioni ma ne distrugge l'architettura gerarchica, ricostruendo una rete che non è più quella del mercato. È la controparte topologica dell'appiattimento discusso nella Sezione~\ref{sec:risultati_pca_linear}, e mostra che la superiorità dell'architettura profonda non è un miglioramento marginale di accuratezza, bensì la capacità di preservare l'oggetto che interessa.
+
+Il secondo elemento è che, anche in questo caso, il divario si richiude al crescere di $K$: a $K=100$ tutti i modelli convergono su un \emph{edge overlap} attorno al $90$--$91\%$, che appare come un tetto strutturale --- nemmeno il modello migliore riesce a riprodurre l'ultimo $9\%$ degli archi, verosimilmente i legami più deboli e instabili dell'albero, quelli il cui ordinamento è più sensibile a perturbazioni infinitesime dei coefficienti di correlazione. Il VAE a $K=20$ si colloca in posizione intermedia su tutte e cinque le metriche senza eccezioni, ed è anzi molto più vicino all'AE che ai modelli lineari: sull'\emph{edge overlap} ($88.4\%$) recupera i due terzi della distanza fra PCA ($83.0\%$) e AE ($91.1\%$).
+
+Il terzo elemento è una cautela interpretativa che riguarda tre delle cinque metriche. La sovrapposizione dei nodi a più alta \emph{betweenness} presenta deviazioni standard elevatissime (fino a $22$ punti percentuali) perché è costruita su un ordinamento discreto dei soli dieci nodi più centrali: basta una permutazione al margine della classifica per farla oscillare, e non a caso l'AE vi mostra un andamento non monotono in $K$ ($82.1\%$ a $K=10$, $80.2\%$ a $K=20$). Gli scarti di lunghezza media dei cammini hanno dispersione comparabile alla media stessa e presentano oscillazioni analoghe. Queste metriche vanno quindi lette come conferme qualitative dell'ordinamento fra modelli, non come misure di precisione fine.
+
+\subsection{Il comportamento del VAE al variare di $K$}
+\label{subsec:vae_vs_k}
+
+In tutti i grafici di confronto il VAE compare come un punto isolato in corrispondenza di $K=20$: è l'unico valore appartenente sia alla griglia condivisa $K\in\{3,10,20,100\}$ su cui sono stati valutati PCA, Linear AE e Autoencoder Profondo, sia all'insieme $K\in\{10,20,30\}$ delle run effettivamente condotte per il VAE, ed è quindi l'unico su cui il confronto a quattro modelli è metodologicamente lecito. Il VAE non è dunque stato valutato a $K=3$ né a $K=100$.
+
+La ragione per cui l'analisi si è concentrata su $K=20$ è quella anticipata nella Sezione~\ref{subsec:metriche_errore}: $K=20$ è il gomito della curva di ricostruzione, ossia il più piccolo valore della dimensione latente oltre il quale l'accuratezza non migliora più in misura apprezzabile. Aumentare ulteriormente $K$ significherebbe pagare il costo di un modello più grande senza alcun ritorno in fedeltà, mentre scendere sotto tale soglia comporterebbe una perdita ancora misurabile. Fissata questa scelta e addestrato il modello definitivo, le due run aggiuntive a $K=10$ e $K=30$ sono state condotte \emph{a posteriori} e con una finalità diversa dall'ottimizzazione di $K$: verificare se il numero di dimensioni latenti \emph{effettivamente utilizzate} dal VAE resti pressoché invariato al variare della dimensione nominale, oppure se dipenda da essa. La Tabella~\ref{tab:vae_vs_k_test} riporta il quadro completo delle tre run sul \emph{Test Set}. Esse condividono ogni iperparametro di addestramento --- architettura, peso $\beta = 1$ della Divergenza KL, numero di epoche, \emph{batch size}, ottimizzatore, \emph{scheduler}, partizione dei dati e seme casuale (Tabella~\ref{tab:vae_iperparametri}) --- e differiscono unicamente per $K$: il confronto è quindi controllato rispetto alla sola dimensione latente. Resta però il fatto che le tre run non nascono come esplorazione sistematica di $K$ e che la griglia esaminata non ne copre i valori estremi ($K=3$, $K=100$): se ne ricava un'indicazione affidabile sul comportamento del modello nell'intervallo considerato, non una curva di ottimizzazione completa.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{lrrr}
+\hline
+\textbf{Metrica (VAE, \emph{Test Set})} & $K=10$ & $K=20$ & $K=30$ \\
+\hline
+MSE & $1.26\times10^{-4}$ & $1.55\times10^{-4}$ & $1.88\times10^{-4}$ \\
+MAE & $7.72\times10^{-3}$ & $8.59\times10^{-3}$ & $9.41\times10^{-3}$ \\
+Norma di Frobenius & $3.86$ & $4.28$ & $4.61$ \\
+\hline
+\emph{Edge overlap} (\%) & $88.6$ & $88.4$ & $88.2$ \\
+\emph{Edge Jaccard} (\%) & $79.7$ & $79.4$ & $79.1$ \\
+\emph{Betweenness} \emph{top-10} overlap (\%) & $74.5$ & $77.9$ & $73.3$ \\
+\hline
+Dimensioni attive (varianza $\geq 0.5$) & $6$ & $6$ & $6$ \\
+Dimensioni attive (varianza $\geq 0.1$) & $7$ & $9$ & $7$ \\
+\hline
+\end{tabular}
+\caption{Metriche di ricostruzione del VAE sul \emph{Test Set} (dominio Cholesky) alle tre dimensioni latenti effettivamente addestrate, e numero di dimensioni latenti effettivamente attive. Queste ultime non sono metriche di test: sono contate sullo spettro di varianza empirica delle dimensioni latenti, calcolato sui codici $\mathbf{z}=\boldsymbol{\mu}$ delle $288$ matrici del \emph{Training Set} --- la stessa base della Figura~\ref{fig:vae_latent_spectrum} --- secondo due soglie alternative. Le tre run condividono tutti gli iperparametri di addestramento (Tabella~\ref{tab:vae_iperparametri}) e differiscono unicamente per la dimensione latente $K$.}
+\label{tab:vae_vs_k_test}
+\end{table}
+
+Il dato che salta all'occhio è che l'errore di ricostruzione del VAE \emph{peggiora} monotonicamente al crescere di $K$: l'MSE passa da $1.26\times10^{-4}$ a $K=10$ a $1.88\times10^{-4}$ a $K=30$, con MAE e norma di Frobenius che seguono lo stesso andamento. È un comportamento diametralmente opposto a quello degli altri tre modelli, per i quali l'aumento della dimensione latente non può che ridurre (o al più lasciare invariato) l'errore, e che rappresenta la firma della competizione fra il termine di ricostruzione e la regolarizzazione $\beta\,\mathcal{L}_{\text{KL}}$: aggiungere dimensioni nominali a un modello variazionale non ne accresce la capacità effettivamente utilizzata, ma amplia lo spazio su cui il vincolo di conformità al \emph{prior} deve essere soddisfatto. L'analisi dello spettro di attività dello spazio latente (Sezione~\ref{subsec:struttura_latente}, Figura~\ref{fig:vae_latent_spectrum}) fornisce a questa lettura una verifica diretta, mostrando che la maggioranza delle dimensioni nominali collassa a posteriori.
+
+Sul piano topologico il quadro è assai più piatto: la sovrapposizione degli archi e l'indice di Jaccard calano in modo appena percettibile al crescere di $K$ ($88.6\%$, $88.4\%$, $88.2\%$ e $79.7\%$, $79.4\%$, $79.1\%$), variazioni di due o tre decimi di punto percentuale a fronte di deviazioni standard vicine ai $5$ punti, e dunque prive di significato; l'unica eccezione è la sovrapposizione dei nodi centrali, che raggiunge il massimo proprio a $K=20$ ($77.9\%$), ma su una metrica che si è appena visto essere la più rumorosa dell'intera batteria. La struttura di rete ricostruita dal VAE è quindi sostanzialmente indifferente alla dimensione latente nell'intervallo esplorato.
+
+Il riscontro che le due run aggiuntive erano destinate a fornire è però nell'ultima parte della tabella. Contando le dimensioni latenti la cui varianza empirica supera $0.5$ si ottiene lo stesso numero --- sei --- in tutte e tre le configurazioni; ampliando il criterio alle dimensioni con varianza superiore a $0.1$ si passa a sette a $K=10$, nove a $K=20$ e sette a $K=30$. In tutti e tre i casi la separazione fra dimensioni attive e dimensioni collassate è netta e non lascia margini di ambiguità al conteggio: le prime non scendono sotto una varianza di $0.3$, le seconde non superano $0.03$. Il numero di fattori che il VAE utilizza davvero è dunque sostanzialmente indipendente dalla dimensione nominale: triplicare le dimensioni disponibili non fa emergere nuovi fattori di rischio, ma soltanto nuove dimensioni collassate.
+
+La conseguenza è che la dimensionalità effettiva della \emph{manifold} delle correlazioni non è un iperparametro da calibrare, bensì una proprietà dei dati che il modello individua da sé attraverso la selezione automatica della dimensionalità analizzata nella Sezione~\ref{subsec:struttura_latente}. Fissare $K=20$ non limita perciò ciò che il modello può rappresentare --- lo stesso nucleo di sei fattori attivi si sarebbe ottenuto anche a $K=10$ o $K=30$ --- e la leggera crescita dell'errore di ricostruzione con $K$ non è il segno di una capacità sprecata, ma del costo che le dimensioni in eccesso impongono al termine di regolarizzazione. È questa invarianza a rendere robusta la scelta compiuta: il gomito della curva di ricostruzione individua $K=20$, e l'analisi dello spazio latente conferma che a quella dimensione il modello dispone dello stesso numero di fattori effettivi che avrebbe a qualunque altra.
+
+\subsection{L'addestramento del VAE definitivo}
+\label{subsec:addestramento_vae}
+
+La robustezza di questi risultati poggia su un addestramento stabile del VAE definitivo (dimensione latente $K=20$, parametrizzazione Cholesky), documentato dalle curve riportate nelle Figure~\ref{fig:vae_loss_curve} e~\ref{fig:vae_recon_kl}. La \emph{loss} totale (Figura~\ref{fig:vae_loss_curve}) decresce in modo regolare lungo le 1000 epoche, con \emph{Training Loss} e \emph{Validation Loss} strettamente allineate fino a circa l'epoca 600; oltre tale soglia si apre un divario modesto --- la \emph{Training Loss} continua a scendere mentre la \emph{Validation Loss} si stabilizza su un \emph{plateau} --- pienamente coerente con la \emph{policy} di \emph{Model Checkpointing} che conserva i pesi esclusivamente in corrispondenza del minimo assoluto della \emph{Validation Loss} (Sezione~\ref{sec:metriche_convergenza}).
+
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.92\textwidth]{./Pictures/capitolo7/fig_vae_loss_curve.png}
 \caption{Curva di addestramento del VAE definitivo ($K=20$, dominio Cholesky): \emph{loss} totale (scala logaritmica) su \emph{Training} e \emph{Validation Set} lungo 1000 epoche. La \emph{Validation Loss} si stabilizza su un \emph{plateau} oltre l'epoca 600, punto in cui interviene il \emph{Model Checkpointing}.}
 \label{fig:vae_loss_curve}
 \end{figure}
 
-La Figura~\ref{fig:vae_recon_kl} scompone la \emph{loss} nelle sue due componenti su assi separati, evidenziando la dinamica del \emph{trade-off} $\beta$-VAE: l'errore di ricostruzione (asse sinistro, Divergenza di Jeffreys) cala progressivamente fino a stabilizzarsi su un \emph{plateau} attorno a $7$--$8$, mentre la Divergenza di Kullback-Leibler (asse destro) resta confinata entro una banda ristretta dopo il transitorio iniziale (il picco isolato attorno all'epoca 180 corrisponde a una brusca oscillazione della componente KL, riconducibile allo stesso evento di instabilità numerica). L'assenza di una crescita incontrollata del termine KL certifica che la regolarizzazione $\beta\,\mathcal{L}_{\text{KL}}$ non degenera in un \emph{posterior collapse} globale, e che il modello raggiunge un equilibrio stabile fra fedeltà di ricostruzione e conformità dello spazio latente al \emph{prior} $\mathcal{N}(\mathbf{0},\mathbf{I})$.
+La Figura~\ref{fig:vae_recon_kl} scompone la \emph{loss} nelle sue due componenti su assi separati, evidenziando la dinamica del \emph{trade-off} $\beta$-VAE: l'errore di ricostruzione (asse sinistro, Divergenza di Jeffreys) cala progressivamente fino a stabilizzarsi su un \emph{plateau} attorno a $7$--$8$, mentre la Divergenza di Kullback-Leibler (asse destro), esaurito il transitorio iniziale, decresce lentamente da circa $10$ e si assesta attorno a $8$. Sono i due estremi \emph{assenti} da questa curva a certificare la salute dell'addestramento: il termine KL non diverge --- l'\emph{aggregate posterior} non si allontana dal \emph{prior} $\mathcal{N}(\mathbf{0},\mathbf{I})$ e il modello non degenera in un autoencoder deterministico --- ma nemmeno si annulla, stabilizzandosi su un \emph{plateau} strettamente positivo che esclude un \emph{posterior collapse} globale, nel quale l'\emph{encoder} riprodurrebbe il \emph{prior} per ogni ingresso e il \emph{decoder} ignorerebbe del tutto il codice $\mathbf{z}$. Poiché $\mathcal{L}_{\text{KL}}$ somma i contributi delle $20$ dimensioni latenti, un \emph{plateau} attorno a $8$ nat --- circa $1$ nat per ciascuna delle sei-nove dimensioni effettivamente attive (Sezione~\ref{subsec:struttura_latente}) --- resta pienamente compatibile con il collasso di tutte le altre. La stabilizzazione simultanea delle due componenti attesta infine il raggiungimento di un equilibrio fra fedeltà di ricostruzione e conformità dello spazio latente al \emph{prior}.
 
-\begin{figure}[h!]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.92\textwidth]{./Pictures/capitolo7/fig_vae_recon_kl_curve.png}
 \caption{Decomposizione della \emph{loss} del VAE definitivo nelle componenti di ricostruzione (asse sinistro, Divergenza di Jeffreys) e di Divergenza di Kullback-Leibler (asse destro), su \emph{Training} e \emph{Validation Set}. Le due componenti sono riportate su scale distinte e non vanno confrontate direttamente.}
 \label{fig:vae_recon_kl}
 \end{figure}
-
-\begin{osservazione}
-Il confronto a $K=20$ presentato in questa sezione è l'unico punto in cui tutti e quattro i modelli sono stati valutati sullo stesso \emph{Test Set} con la stessa metodologia. Il VAE non è stato sistematicamente confrontato a $K=3$ o $K=100$; inoltre l'errore di ricostruzione del VAE, a differenza degli altri tre modelli, non decresce monotonicamente con $K$ (MSE sul \emph{Training Set}: $6.33\times10^{-5}$ a $K=10$, $8.69\times10^{-5}$ a $K=20$, $1.16\times10^{-4}$ a $K=30$) --- un andamento anomalo, verosimilmente legato alla competizione tra ricostruzione e regolarizzazione KL --- che, come mostra l'analisi dello spettro di attività dello spazio latente (Sezione~\ref{sec:tradeoff_generazione}, Figura~\ref{fig:vae_latent_spectrum}), induce il collasso a posteriori di una parte consistente delle dimensioni nominali, cosicché un incremento di $K$ non si traduce necessariamente in capacità rappresentativa effettivamente utilizzata --- e al fatto che le run confrontate a $K=10,20,30$ non condividono esattamente gli stessi iperparametri di addestramento (non è quindi un \emph{ablation study} controllato sul solo $K$).
-\end{osservazione}
 
 \section{Il trade-off tra compressione esatta e flessibilità generativa}
 \label{sec:tradeoff_generazione}
@@ -95,14 +240,14 @@ I risultati finora descritti delineano il compromesso fondamentale che giustific
 
 L'Autoencoder Profondo deterministico massimizza l'efficacia della compressione storica (Sezione~\ref{sec:risultati_ae_vae}), ma fallisce totalmente qualora lo si voglia utilizzare come motore di simulazione. Poiché lo spazio latente di un AE classico non è governato da alcuna restrizione probabilistica, i vettori $\mathbf{z}$ si dispongono in modo disaggregato e frammentario, creando vaste regioni di vuoto geometrico (Capitolo~\ref{ch:modelli_generativi}, \S\ref{sec:deep_ae}). Tentare di generare nuovi scenari campionando un vettore casuale da tale spazio e proiettandolo attraverso il \emph{Decoder} produce output privi di coerenza economico-finanziaria. L'AE deterministico è quindi confinato alla pura memorizzazione di un passato statico, per quanto accurata.
 
-Il VAE, pur restando lievemente meno accurato dell'AE nella pura ricostruzione (Tabella~\ref{tab:mse_test_cholesky}), paga questo scarto --- contenuto, e non catastrofico come inizialmente ipotizzato --- in cambio dell'unica proprietà che rende possibile la generazione stocastica: una regolarizzazione variazionale (il vincolo $D_{KL}$ unito al rumore di campionamento) che modella uno spazio latente continuo, denso e senza discontinuità, in cui è possibile campionare in modo significativo (Capitolo~\ref{ch:modelli_generativi}, \S\ref{sec:vae}). È proprio questa capacità generativa, resa possibile senza rinunciare in modo sostanziale alla fedeltà di ricostruzione, a motivare la scelta del VAE come modello finale per la generazione di scenari sintetici affrontata nel Capitolo~\ref{ch:generazione_stocastica}, dove la procedura di campionamento effettivamente adottata (un \emph{block-bootstrap} storico nello spazio latente) e la validazione delle matrici generate sui cinque fatti stilizzati del Capitolo~\ref{ch:stylized_facts} vengono presentate in dettaglio.
+Il VAE, pur restando lievemente meno accurato dell'AE nella pura ricostruzione (Tabella~\ref{tab:err_test_cholesky}), paga questo scarto --- contenuto, e non catastrofico come inizialmente ipotizzato --- in cambio dell'unica proprietà che rende possibile la generazione stocastica: una regolarizzazione variazionale (il vincolo $D_{KL}$ unito al rumore di campionamento) che modella uno spazio latente continuo, denso e senza discontinuità, in cui è possibile campionare in modo significativo (Capitolo~\ref{ch:modelli_generativi}, \S\ref{sec:vae}). È proprio questa capacità generativa, resa possibile senza rinunciare in modo sostanziale alla fedeltà di ricostruzione, a motivare la scelta del VAE come modello finale per la generazione di scenari sintetici affrontata nel Capitolo~\ref{ch:generazione_stocastica}, dove la procedura di campionamento effettivamente adottata (un \emph{block-bootstrap} storico nello spazio latente) e la validazione delle matrici generate sui cinque fatti stilizzati del Capitolo~\ref{ch:stylized_facts} vengono presentate in dettaglio.
 
 \subsection{La struttura dello spazio latente del VAE definitivo}
 \label{subsec:struttura_latente}
 
-L'evidenza diretta di questa organizzazione emerge dall'analisi dello spazio latente del VAE definitivo ($K=20$). La Figura~\ref{fig:vae_latent_spectrum} ne riporta lo \emph{spettro di attività}, ovvero la varianza empirica di ciascuna delle 20 dimensioni latenti, calcolata sui codici $\mathbf{z}=\boldsymbol{\mu}$ dell'intero \emph{dataset}. Lo spettro rivela un fenomeno caratteristico dei modelli variazionali, la \emph{selezione automatica della dimensionalità}: solo un ridotto sottoinsieme di dimensioni utilizza effettivamente la propria capacità rappresentativa --- circa sei fortemente attive, con varianza pari o superiore a $0.7$ ($Z_{18}, Z_9, Z_7, Z_1, Z_4, Z_5$), a cui si aggiungono alcune dimensioni a varianza intermedia ($Z_6, Z_{10}, Z_{12}$) --- avvicinandosi alla varianza unitaria del \emph{prior} $\mathcal{N}(\mathbf{0},\mathbf{I})$, mentre le restanti dimensioni subiscono un \emph{collasso a posteriori} (\emph{posterior collapse}), con varianza prossima a zero. È importante interpretare correttamente la soglia unitaria (linea tratteggiata): contrariamente a quanto la dicitura \emph{Puro Rumore} riportata in legenda potrebbe suggerire, non è il raggiungimento della varianza $1.0$ a segnalare l'assenza di informazione. Tale linea rappresenta semplicemente la varianza di riferimento del \emph{prior}, e sono proprio le dimensioni che vi si avvicinano a codificare i fattori di rischio latenti, mentre quelle collassate --- concentrate in un intorno degenere dell'origine --- non trasportano alcun segnale.
+L'evidenza diretta di questa organizzazione emerge dall'analisi dello spazio latente del VAE definitivo ($K=20$). La Figura~\ref{fig:vae_latent_spectrum} ne riporta lo \emph{spettro di attività}, ovvero la varianza empirica di ciascuna delle 20 dimensioni latenti, calcolata sui codici $\mathbf{z}=\boldsymbol{\mu}$ delle $288$ matrici del \emph{Training Set}. Lo spettro rivela un fenomeno caratteristico dei modelli variazionali, la \emph{selezione automatica della dimensionalità}: solo un ridotto sottoinsieme di dimensioni utilizza effettivamente la propria capacità rappresentativa --- circa sei fortemente attive, con varianza pari o superiore a $0.7$ ($Z_{18}, Z_9, Z_7, Z_1, Z_4, Z_5$), a cui si aggiungono alcune dimensioni a varianza intermedia ($Z_6, Z_{10}, Z_{12}$) --- avvicinandosi alla varianza unitaria del \emph{prior} $\mathcal{N}(\mathbf{0},\mathbf{I})$, mentre le restanti dimensioni subiscono un \emph{collasso a posteriori} (\emph{posterior collapse}), con varianza prossima a zero. È importante interpretare correttamente la soglia unitaria (linea tratteggiata): non è il raggiungimento della varianza $1.0$ a segnalare l'assenza di informazione, bensì il suo azzeramento. Tale linea rappresenta semplicemente la varianza di riferimento del \emph{prior}, e sono proprio le dimensioni che vi si avvicinano a codificare i fattori di rischio latenti, mentre quelle collassate --- concentrate in un intorno degenere dell'origine --- non trasportano alcun segnale.
 
-\begin{figure}[h!]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo7/fig_vae_latent_variance_spectrum.png}
 \caption{Spettro di attività dello spazio latente del VAE definitivo: varianza empirica delle 20 dimensioni latenti sui codici $\mathbf{z}=\boldsymbol{\mu}$. Poche dimensioni si avvicinano alla varianza unitaria del \emph{prior} (linea tratteggiata), mentre la maggioranza collassa verso lo zero.}
@@ -111,18 +256,18 @@ L'evidenza diretta di questa organizzazione emerge dall'analisi dello spazio lat
 
 Questa struttura è confermata dalle proiezioni bidimensionali a coppie delle dimensioni latenti. Le quattro dimensioni più attive ($Z_{18}, Z_9, Z_7, Z_1$; Figura~\ref{fig:vae_latent_active}) descrivono un \emph{manifold} continuo e riccamente strutturato, in cui i codici si dispongono lungo traiettorie regolari --- la firma temporale della successione delle matrici di correlazione mobili --- e in cui \emph{Training}, \emph{Validation} e \emph{Test Set} si sovrappongono senza fratture, prova visiva tanto della continuità e densità dello spazio latente quanto della capacità di generalizzazione fuori campione. All'opposto, le quattro dimensioni più inattive ($Z_{14}, Z_{19}, Z_{20}, Z_{15}$; Figura~\ref{fig:vae_latent_inactive}) appaiono prive di qualsiasi struttura: decisiva è la scala degli assi, confinata all'intervallo $\pm 0.1$ contro il $\pm 2.5$ delle dimensioni attive, che ne conferma il collasso in una nube puntiforme attorno all'origine anziché una dispersione ampia coerente con il \emph{prior}.
 
-\begin{figure}[h!]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.98\textwidth]{./Pictures/capitolo7/fig_vae_latent_active_2d.png}
 \caption{Proiezioni bidimensionali a coppie delle quattro dimensioni latenti a maggiore varianza ($Z_{18}, Z_9, Z_7, Z_1$) del VAE definitivo. I codici tracciano un \emph{manifold} continuo e strutturato; \emph{Training}, \emph{Validation} e \emph{Test Set} si sovrappongono coerentemente.}
 \label{fig:vae_latent_active}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[htbp]
 \centering
 \includegraphics[width=0.98\textwidth]{./Pictures/capitolo7/fig_vae_latent_inactive_2d.png}
 \caption{Proiezioni bidimensionali a coppie delle quattro dimensioni latenti più inattive ($Z_{14}, Z_{19}, Z_{20}, Z_{15}$) del VAE definitivo. Si noti la scala degli assi ($\pm 0.1$): i codici collassano in una nube puntiforme attorno all'origine, priva di struttura.}
 \label{fig:vae_latent_inactive}
 \end{figure}
 
-Lungi dal costituire un difetto, la selezione automatica della dimensionalità è precisamente ciò che rende ben posto il campionamento generativo. La \emph{manifold} effettiva vive in un sottospazio attivo di dimensione ridotta (circa 6--9 dimensioni), sul quale è possibile perturbare in modo significativo i codici latenti, mentre le dimensioni collassate --- di fatto indistinguibili da un \emph{prior} degenere --- possono essere lasciate pressoché invariate senza perdita di informazione. Non è un caso che la procedura generativa del Capitolo~\ref{ch:generazione_stocastica} operi proiettando e visualizzando gli scenari sintetici proprio sulle quattro dimensioni a maggiore varianza ($Z_9, Z_{18}, Z_7, Z_1$): sono queste a governare la geometria dello spazio delle correlazioni. Lo stesso fenomeno offre, infine, una spiegazione complementare all'anomalia dell'MSE non monotòno in $K$ discussa nell'Osservazione della Sezione~\ref{sec:risultati_ae_vae}: incrementare la dimensione nominale $K$ non accresce di per sé la capacità effettivamente sfruttata dalla rete, poiché le dimensioni aggiuntive tendono semplicemente a collassare.
+Lungi dal costituire un difetto, la selezione automatica della dimensionalità è precisamente ciò che rende ben posto il campionamento generativo. La \emph{manifold} effettiva vive in un sottospazio attivo di dimensione ridotta (circa 6--9 dimensioni), sul quale è possibile perturbare in modo significativo i codici latenti, mentre le dimensioni collassate --- di fatto indistinguibili da un \emph{prior} degenere --- possono essere lasciate pressoché invariate senza perdita di informazione. Lo stesso fenomeno offre, infine, una chiave di lettura per un'anomalia emersa in fase sperimentale, ovvero il fatto che l'errore di ricostruzione del VAE --- a differenza di quanto accade per gli altri tre modelli --- non decresca monotonicamente al crescere di $K$: incrementare la dimensione nominale $K$ non accresce di per sé la capacità effettivamente sfruttata dalla rete, poiché le dimensioni aggiuntive tendono semplicemente a collassare.

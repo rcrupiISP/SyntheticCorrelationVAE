@@ -25,7 +25,7 @@ L'Autoencoder Lineare (Linear AE) è stato progettato per fungere da ponte anali
 \label{fig:architettura_linear_ae}
 \end{figure}
 
-L'ottimizzazione dei pesi è stata condotta minimizzando esclusivamente la funzione di costo spaziale MSE tramite l'ottimizzatore Adam ($\text{lr}=10^{-3}$, \emph{batch size} 64, fino a 5000 epoche). Come prassi di \emph{sanity check}, gli iperparametri di addestramento sono stati calibrati in modo iterativo per garantire che la \emph{loss} del Linear AE convergesse asintoticamente sull'orizzonte esatto dettato dalla PCA sul set di addestramento a parità di $K$, validando l'assenza di minimi locali sub-ottimali (si vedano i risultati quantitativi nel Capitolo~\ref{ch:analisi_compressione}, Tabella~\ref{tab:mse_test_cholesky}).
+L'ottimizzazione dei pesi è stata condotta minimizzando esclusivamente la funzione di costo spaziale MSE tramite l'ottimizzatore Adam ($\text{lr}=10^{-3}$, \emph{batch size} 64, fino a 5000 epoche). Come prassi di \emph{sanity check}, gli iperparametri di addestramento sono stati calibrati in modo iterativo per garantire che la \emph{loss} del Linear AE convergesse asintoticamente sull'orizzonte esatto dettato dalla PCA sul set di addestramento a parità di $K$, validando l'assenza di minimi locali sub-ottimali (si vedano i risultati quantitativi nel Capitolo~\ref{ch:analisi_compressione}, Tabella~\ref{tab:err_test_cholesky}).
 
 \section{Design e iperparametri dell'Autoencoder Non-Lineare}
 \label{sec:setup_deep_ae}
@@ -70,7 +70,7 @@ Il Variational Autoencoder (VAE) rappresenta l'apice ingegneristico della pipeli
 \label{fig:architettura_vae}
 \end{figure}
 
-Il bilanciamento tra l'errore di ricostruzione e il vincolo topologico imposto dalla Divergenza di Kullback-Leibler (KL) è l'iperparametro critico del sistema, secondo il framework $\beta$-VAE $\mathcal{L} = \mathcal{L}_{\text{Recon}} + \beta \, \mathcal{L}_{\text{KL}}$.
+Il bilanciamento tra l'errore di ricostruzione e il vincolo topologico imposto dalla Divergenza di Kullback-Leibler (KL) è governato, secondo il framework $\beta$-VAE, dal peso $\beta$ nella \emph{loss} complessiva $\mathcal{L} = \mathcal{L}_{\text{Recon}} + \beta \, \mathcal{L}_{\text{KL}}$. In tutte le run riportate in questa tesi tale peso è stato mantenuto al valore $\beta = 1$: la formulazione impiegata è dunque quella dell'ELBO canonico, priva di qualsiasi ri-pesatura del termine di regolarizzazione. La scelta discende dalla natura della \emph{loss} di ricostruzione adottata, descritta qui di seguito: anch'essa è una divergenza di Kullback-Leibler --- calcolata fra le distribuzioni associate alle matrici di correlazione anziché nello spazio latente --- cosicché i due addendi sono grandezze omogenee, espresse nella medesima unità di misura. Un coefficiente $\beta \neq 1$ introdurrebbe perciò un fattore di scala fra due quantità già commensurabili, allontanando l'obiettivo dal limite inferiore dell'evidenza senza una giustificazione statistica che lo imponga.
 
 La \emph{Reconstruction Loss} adottata in questa pipeline non è però il consueto errore quadratico medio: viene valutata direttamente nel dominio delle matrici di correlazione e confronta due oggetti. Il \emph{target} è $\mathbf{R}_{\text{orig}} \in \mathbb{R}^{N \times N}$, la matrice di correlazione empirica della finestra temporale in ingresso ($N=362$ titoli, Capitolo~\ref{ch:preprocessing}). La ricostruzione è $\mathbf{R}_{\text{recon}} \in \mathbb{R}^{N \times N}$, ottenuta dall'output del Decoder $\hat{\mathbf{x}} \in \mathbb{R}^{D}$ ri-disponendone le componenti nel triangolo inferiore del fattore $\hat{\mathbf{L}}$, calcolando il prodotto $\hat{\mathbf{L}}\hat{\mathbf{L}}^{T}$ --- semi-definito positivo per costruzione --- e rinormalizzandolo a diagonale unitaria; l'intera catena resta all'interno del grafo computazionale differenziabile, cosicché il gradiente si propaghi fino ai pesi del Decoder. Associando alle due matrici le distribuzioni gaussiane centrate $P \sim \mathcal{N}(\mathbf{0}, \mathbf{R}_{\text{orig}})$ e $Q \sim \mathcal{N}(\mathbf{0}, \mathbf{R}_{\text{recon}})$, la \emph{loss} è la \textbf{Divergenza di Jeffreys}, ossia la somma delle due divergenze KL direzionali:
 \begin{equation}
@@ -81,6 +81,37 @@ La sostituzione dell'MSE risponde a un limite preciso della formulazione tradizi
 
 L'addestramento modella uno spazio continuo che permette, in linea di principio, di estrarre nuove matrici sintetiche campionando puramente dalla normale standard $p(\mathbf{z})$ senza necessitare di input originari; la procedura di generazione effettivamente adottata in questa tesi, più articolata, è descritta nel Capitolo~\ref{ch:generazione_stocastica}.
 
+La Tabella~\ref{tab:vae_iperparametri} riepiloga la configurazione completa con cui il VAE è stato addestrato. Le tre run condotte --- alle dimensioni latenti $K=10$, $K=20$ e $K=30$, i cui risultati sono confrontati nella Sezione~\ref{subsec:vae_vs_k} --- condividono per intero i valori riportati: l'unica grandezza che varia fra loro è $K$.
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{ll}
+\hline
+\textbf{Iperparametro} & \textbf{Valore} \\
+\hline
+Dimensione dell'input $D$ & $65\,703$ ($=N(N+1)/2$, con $N=362$) \\
+Strati nascosti (\emph{encoder}) & $2048 \to 1024 \to 512$ \\
+Decoder & speculare all'\emph{encoder} \\
+Funzione di attivazione & LeakyReLU (pendenza negativa $0.01$) \\
+\emph{Dropout} / \emph{batch normalization} & assenti \\
+Dimensione latente $K$ & $10$, $20$, $30$ \\
+Peso della Divergenza KL, $\beta$ & $1.0$ \\
+Epoche & $1000$ \\
+\emph{Batch size} & $64$ \\
+Ottimizzatore & Adam \\
+\emph{Learning rate} iniziale & $1\times10^{-3}$ \\
+\emph{Weight decay} & $1\times10^{-5}$ \\
+\emph{Scheduler} & \emph{Cosine Annealing} ($T_{\max}=1000$, $\eta_{\min}=1\times10^{-6}$) \\
+Normalizzazione dell'input & \emph{z-score} per componente, statistiche del \emph{Training Set} \\
+Partizione \emph{train} / \emph{val} / \emph{test} & $288$ / $82$ / $42$ matrici (su $412$ totali) \\
+Seme casuale & $42$ \\
+\hline
+\end{tabular}
+\caption{Iperparametri di addestramento del VAE. I valori riportati sono comuni a tutte e tre le run condotte ($K=10$, $K=20$, $K=30$), che differiscono unicamente per la dimensione latente; il modello definitivo impiegato per la generazione degli scenari (Capitolo~\ref{ch:generazione_stocastica}) è quello a $K=20$.}
+\label{tab:vae_iperparametri}
+\end{table}
+
 \section{Metriche di valutazione e criteri di convergenza}
 \label{sec:metriche_convergenza}
 
@@ -89,7 +120,7 @@ L'addestramento dei modelli neurali è stato governato monitorando un set di met
 \begin{enumerate}
     \item \textbf{Metriche Spaziali Rigide:} La valutazione quantitativa puntuale si basa sul \emph{Mean Squared Error} (MSE), impiegato direttamente come funzione di costo e indicatore primario. A questo si affiancano il \emph{Mean Absolute Error} (MAE), più resistente agli \emph{outlier}, e la Norma di Frobenius, che quantifica l'energia complessiva residua tra la matrice empirica originale e la sua approssimazione ricostruita o generata.
 
-    \item \textbf{Metriche Topologiche:} Per verificare che la fedeltà di ricostruzione non sia solo puntuale ma preservi anche la struttura di rete (Capitolo~\ref{ch:stylized_facts}), ogni matrice ricostruita viene confrontata con l'originale attraverso il rispettivo \emph{Minimum Spanning Tree}: percentuale di archi in comune (\emph{edge overlap} e indice di Jaccard), distanza $L_1$ tra le distribuzioni di grado dei nodi, differenza nella \emph{average path length} (pesata e non) e sovrapposizione dei nodi a più alta \emph{betweenness centrality}.
+    \item \textbf{Metriche Topologiche:} Per verificare che la fedeltà di ricostruzione non sia solo puntuale ma preservi anche la struttura di rete (Capitolo~\ref{ch:stylized_facts}), ogni matrice ricostruita viene confrontata con l'originale attraverso il rispettivo \emph{Minimum Spanning Tree}: percentuale di archi in comune (\emph{edge overlap} e indice di Jaccard), differenza nella \emph{average path length} (pesata e non) e sovrapposizione dei nodi a più alta \emph{betweenness centrality}.
 
     \item \textbf{Ottimizzatore e Learning Rate Policy:} È stato impiegato l'algoritmo di ottimizzazione Adam, rinomato per la gestione dinamica del momento del gradiente. Per agevolare la discesa verso il minimo globale, è stato implementato uno \emph{scheduler} per il \emph{Learning Rate} basato sulla tecnica del \emph{Cosine Annealing}. Questa strategia riduce il tasso di apprendimento seguendo il decadimento morbido e continuo della funzione coseno, permettendo esplorazioni ampie nelle fasi iniziali e un'ottimizzazione fine, priva dei bruschi salti tipici degli approcci \emph{step-based}, man mano che la rete si avvicina al \emph{plateau} di convergenza.
     

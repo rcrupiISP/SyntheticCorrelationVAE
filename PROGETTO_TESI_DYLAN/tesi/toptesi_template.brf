@@ -1,5 +1,6 @@
 \backcite {bouchaud2009rmt}{{11}{1.2}{section.1.2}}
 \backcite {plerou2002randommatrix}{{11}{1.2}{section.1.2}}
+\backcite {kingma2013vae}{{12}{1.2}{section.1.2}}
 \backcite {marti2019corrgan}{{12}{1.2}{section.1.2}}
 \backcite {caprioli2024ptfvae}{{12}{1.2}{section.1.2}}
 \backcite {markowitz1952portfolio}{{15}{2.1}{section.2.1}}
@@ -25,11 +26,11 @@
 \backcite {jolliffe2016pca}{{35}{4.1}{section.4.1}}
 \backcite {bourlard1988autoassociation}{{36}{4.2}{equation.4.3}}
 \backcite {baldi1989neural}{{36}{4.2}{equation.4.3}}
-\backcite {plaut2018principal}{{36}{4.2}{equation.4.3}}
-\backcite {doersch2016vae}{{37}{4.4}{section.4.4}}
-\backcite {goodfellow2016gantutorial}{{37}{4.4}{section.4.4}}
+\backcite {plaut2018principal}{{37}{4.2}{equation.4.3}}
+\backcite {kingma2013vae}{{38}{4.4}{section.4.4}}
+\backcite {doersch2016vae}{{38}{4.4}{section.4.4}}
+\backcite {goodfellow2016gantutorial}{{38}{4.4}{section.4.4}}
 \backcite {marti2019corrgan}{{38}{4.4}{section.4.4}}
-\backcite {wiese2019quantgans}{{38}{4.4}{section.4.4}}
 \backcite {caprioli2024ptfvae}{{38}{4.4}{section.4.4}}
 \backcite {huttner2019simulating}{{46}{5.3}{equation.5.4}}
 \backcite {bourlard1988autoassociation}{{59}{7.1}{section.7.1}}
@@ -38,4 +39,3 @@
 \backcite {caprioli2024ptfvae}{{76}{9.2}{section.9.2}}
 \backcite {caprioli2024ptfvae}{{77}{9.4}{section.9.4}}
 \backcite {marti2019corrgan}{{77}{9.4}{section.9.4}}
-\backcite {wiese2019quantgans}{{77}{9.4}{section.9.4}}

@@ -98,6 +98,13 @@ Philippe Jorion.
 \newblock McGraw-Hill, New York, terza edizione, 2007.
 \newblock ISBN 978-0-07-146495-6.
 
+\bibitem[Kingma e Welling(2013)]{kingma2013vae}
+Diederik~P. Kingma e Max Welling.
+\newblock Auto-encoding variational {B}ayes, 2013.
+\newblock URL \url{https://arxiv.org/abs/1312.6114}.
+\newblock Pubblicato in: \emph{2nd International Conference on Learning
+  Representations} (ICLR 2014), Banff, Canada.
+
 \bibitem[Longin e Solnik(2001)]{longin2001extreme}
 Fran{\c{c}}ois Longin e Bruno Solnik.
 \newblock Extreme correlation of international equity markets.
@@ -157,14 +164,5 @@ Vasiliki Plerou, Parameswaran Gopikrishnan, Bernd Rosenow, Lu{\'\i}s A.~Nunes
 \newblock Random matrix approach to cross correlations in financial data.
 \newblock \emph{Physical Review E}, 65\penalty0 (6):\penalty0 066126, 2002.
 \newblock \doi{10.1103/PhysRevE.65.066126}.
-
-\bibitem[Wiese et~al.(2020)Wiese, Knobloch, Korn e
-  Kretschmer]{wiese2019quantgans}
-Magnus Wiese, Robert Knobloch, Ralf Korn e Peter Kretschmer.
-\newblock Quant {GANs}: deep generation of financial time series.
-\newblock \emph{Quantitative Finance}, 20\penalty0 (9):\penalty0 1419--1440,
-  2020.
-\newblock \doi{10.1080/14697688.2020.1730426}.
-\newblock Preprint: arXiv:1907.06673.
 
 \end{thebibliography}

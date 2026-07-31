@@ -19,8 +19,10 @@
 \@writefile{toc}{\contentsline {section}{\numberline {1.2}Definizione del problema di ricerca e motivazione dell'uso dei modelli generativi profondi}{11}{section.1.2}\protected@file@percent }
 \@writefile{brf}{\backcite{bouchaud2009rmt}{{11}{1.2}{section.1.2}}}
 \@writefile{brf}{\backcite{plerou2002randommatrix}{{11}{1.2}{section.1.2}}}
+\citation{kingma2013vae}
 \citation{marti2019corrgan}
 \citation{caprioli2024ptfvae}
+\@writefile{brf}{\backcite{kingma2013vae}{{12}{1.2}{section.1.2}}}
 \@writefile{brf}{\backcite{marti2019corrgan}{{12}{1.2}{section.1.2}}}
 \@writefile{brf}{\backcite{caprioli2024ptfvae}{{12}{1.2}{section.1.2}}}
 \@writefile{toc}{\contentsline {section}{\numberline {1.3}Obiettivi della tesi}{13}{section.1.3}\protected@file@percent }
@@ -125,25 +127,25 @@
 \@writefile{brf}{\backcite{jolliffe2016pca}{{35}{4.1}{section.4.1}}}
 \citation{bourlard1988autoassociation}
 \citation{baldi1989neural}
-\citation{plaut2018principal}
 \@writefile{toc}{\contentsline {section}{\numberline {4.2}Autoencoder Lineari (Linear AE): ponte verso le reti neurali}{36}{section.4.2}\protected@file@percent }
 \newlabel{sec:linear_ae}{{4.2}{36}{Autoencoder Lineari (Linear AE): ponte verso le reti neurali}{section.4.2}{}}
 \@writefile{brf}{\backcite{bourlard1988autoassociation}{{36}{4.2}{equation.4.3}}}
 \@writefile{brf}{\backcite{baldi1989neural}{{36}{4.2}{equation.4.3}}}
-\@writefile{brf}{\backcite{plaut2018principal}{{36}{4.2}{equation.4.3}}}
+\citation{plaut2018principal}
+\citation{kingma2013vae}
 \citation{doersch2016vae}
-\citation{goodfellow2016gantutorial}
-\citation{marti2019corrgan}
-\citation{wiese2019quantgans}
-\citation{caprioli2024ptfvae}
+\@writefile{brf}{\backcite{plaut2018principal}{{37}{4.2}{equation.4.3}}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.3}Autoencoder Profondi (AE): introduzione alla non-linearità}{37}{section.4.3}\protected@file@percent }
 \newlabel{sec:deep_ae}{{4.3}{37}{Autoencoder Profondi (AE): introduzione alla non-linearità}{section.4.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Variational Autoencoders (VAE) e regolarizzazione dello spazio latente}{37}{section.4.4}\protected@file@percent }
-\newlabel{sec:vae}{{4.4}{37}{Variational Autoencoders (VAE) e regolarizzazione dello spazio latente}{section.4.4}{}}
-\@writefile{brf}{\backcite{doersch2016vae}{{37}{4.4}{section.4.4}}}
-\@writefile{brf}{\backcite{goodfellow2016gantutorial}{{37}{4.4}{section.4.4}}}
+\citation{goodfellow2016gantutorial}
+\citation{marti2019corrgan}
+\citation{caprioli2024ptfvae}
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Variational Autoencoders (VAE) e regolarizzazione dello spazio latente}{38}{section.4.4}\protected@file@percent }
+\newlabel{sec:vae}{{4.4}{38}{Variational Autoencoders (VAE) e regolarizzazione dello spazio latente}{section.4.4}{}}
+\@writefile{brf}{\backcite{kingma2013vae}{{38}{4.4}{section.4.4}}}
+\@writefile{brf}{\backcite{doersch2016vae}{{38}{4.4}{section.4.4}}}
+\@writefile{brf}{\backcite{goodfellow2016gantutorial}{{38}{4.4}{section.4.4}}}
 \@writefile{brf}{\backcite{marti2019corrgan}{{38}{4.4}{section.4.4}}}
-\@writefile{brf}{\backcite{wiese2019quantgans}{{38}{4.4}{section.4.4}}}
 \@writefile{brf}{\backcite{caprioli2024ptfvae}{{38}{4.4}{section.4.4}}}
 \@writefile{toc}{\contentsline {part}{\EnsureStandardFontEncoding {II}\hspace  {1em}Metodologia e Pipeline di Analisi}{41}{part.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {5}Pre-processing e Costruzione del Dataset}{43}{chapter.5}\protected@file@percent }
@@ -267,12 +269,10 @@
 \newlabel{sec:limiti_modello}{{9.3}{76}{Limiti del modello attuale}{section.9.3}{}}
 \citation{caprioli2024ptfvae}
 \citation{marti2019corrgan}
-\citation{wiese2019quantgans}
 \@writefile{toc}{\contentsline {section}{\numberline {9.4}Sviluppi futuri}{77}{section.9.4}\protected@file@percent }
 \newlabel{sec:sviluppi_futuri}{{9.4}{77}{Sviluppi futuri}{section.9.4}{}}
 \@writefile{brf}{\backcite{caprioli2024ptfvae}{{77}{9.4}{section.9.4}}}
 \@writefile{brf}{\backcite{marti2019corrgan}{{77}{9.4}{section.9.4}}}
-\@writefile{brf}{\backcite{wiese2019quantgans}{{77}{9.4}{section.9.4}}}
 \bibdata{references}
 \bibcite{ang2002asymmetric}{{1}{2002}{{Ang e Chen}}{{}}}
 \bibcite{baldi1989neural}{{2}{1989}{{Baldi e Hornik}}{{}}}
@@ -287,13 +287,13 @@
 \bibcite{huttner2019simulating}{{11}{2019}{{H{\"u}ttner e Mai}}{{}}}
 \bibcite{jolliffe2016pca}{{12}{2016}{{Jolliffe e Cadima}}{{}}}
 \bibcite{jorion2007var}{{13}{2007}{{Jorion}}{{}}}
-\bibcite{longin2001extreme}{{14}{2001}{{Longin e Solnik}}{{}}}
-\bibcite{mantegna1998hierarchical}{{15}{1999}{{Mantegna}}{{}}}
-\bibcite{markowitz1952portfolio}{{16}{1952}{{Markowitz}}{{}}}
-\bibcite{marti2019corrgan}{{17}{2020}{{Marti}}{{}}}
-\bibcite{mcneil2015qrm}{{18}{2015}{{McNeil et~al.}}{{McNeil, Frey e Embrechts}}}
-\bibcite{plaut2018principal}{{19}{2018}{{Plaut}}{{}}}
-\bibcite{plerou1999universal}{{20}{1999}{{Plerou et~al.}}{{Plerou, Gopikrishnan, Rosenow, Amaral e Stanley}}}
-\bibcite{plerou2002randommatrix}{{21}{2002}{{Plerou et~al.}}{{Plerou, Gopikrishnan, Rosenow, Amaral, Guhr e Stanley}}}
-\bibcite{wiese2019quantgans}{{22}{2020}{{Wiese et~al.}}{{Wiese, Knobloch, Korn e Kretschmer}}}
+\bibcite{kingma2013vae}{{14}{2013}{{Kingma e Welling}}{{}}}
+\bibcite{longin2001extreme}{{15}{2001}{{Longin e Solnik}}{{}}}
+\bibcite{mantegna1998hierarchical}{{16}{1999}{{Mantegna}}{{}}}
+\bibcite{markowitz1952portfolio}{{17}{1952}{{Markowitz}}{{}}}
+\bibcite{marti2019corrgan}{{18}{2020}{{Marti}}{{}}}
+\bibcite{mcneil2015qrm}{{19}{2015}{{McNeil et~al.}}{{McNeil, Frey e Embrechts}}}
+\bibcite{plaut2018principal}{{20}{2018}{{Plaut}}{{}}}
+\bibcite{plerou1999universal}{{21}{1999}{{Plerou et~al.}}{{Plerou, Gopikrishnan, Rosenow, Amaral e Stanley}}}
+\bibcite{plerou2002randommatrix}{{22}{2002}{{Plerou et~al.}}{{Plerou, Gopikrishnan, Rosenow, Amaral, Guhr e Stanley}}}
 \gdef \@abspage@last{80}

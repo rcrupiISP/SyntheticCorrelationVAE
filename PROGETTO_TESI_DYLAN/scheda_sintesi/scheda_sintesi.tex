@@ -1,0 +1,133 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a4paper,top=2.4cm,bottom=2.4cm,left=2.6cm,right=2.6cm]{geometry}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\definecolor{polito}{RGB}{0,60,113}
+\definecolor{rulegray}{RGB}{200,200,200}
+
+\titleformat{\section}{\normalfont\large\bfseries\color{polito}}{\thesection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.6\baselineskip}{0.5\baselineskip}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\footnotesize Scheda di sintesi --- Dylan Magliano (s337915)}
+\fancyfoot[C]{\footnotesize \thepage}
+
+\newcommand{\campo}[2]{%
+  \par\noindent\parbox[t]{0.30\textwidth}{\raggedright\bfseries #1}%
+  \parbox[t]{0.68\textwidth}{\raggedright #2}\par\medskip}
+
+\newcommand{\camposdg}[2]{%
+  \par\noindent\parbox[t]{0.22\textwidth}{\raggedright\bfseries #1}%
+  \parbox[t]{0.76\textwidth}{\raggedright #2}\par\medskip}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries\color{polito} POLITECNICO DI TORINO}\\[0.35em]
+  {\normalsize Corso di Laurea Magistrale in Ingegneria Informatica}\\
+  {\small\itshape Orientamento Artificial Intelligence and Data Analytics}\\[1.2em]
+  {\large\bfseries Scheda di sintesi della tesi di laurea magistrale}\\[0.4em]
+  {\small Anno Accademico 2025--2026}
+\end{center}
+
+\vspace{0.6em}
+\noindent\textcolor{rulegray}{\rule{\textwidth}{0.8pt}}
+\vspace{0.4em}
+
+\campo{Candidato}{Dylan Magliano --- Matricola s337915}
+\campo{Relatori}{prof. Flavio Giobergia\\ prof. Sergio Caprioli}
+\campo{Azienda}{Intesa Sanpaolo}
+
+\noindent\textcolor{rulegray}{\rule{\textwidth}{0.8pt}}
+
+\section{Titolo della tesi (italiano)}
+
+\textbf{Dai pixel ai portafogli finanziari: generare scenari di mercato
+realistici tramite variational autoencoder}
+
+\section{Thesis title (English)}
+
+\textbf{From pixels to financial portfolios: generating realistic market
+scenarios with variational autoencoders}
+
+\section{Abstract in italiano}
+
+{\small\itshape Lunghezza: \input{count_it.tex}\unskip{} caratteri spazi
+inclusi (limite 3550).\par}
+\vspace{0.4em}
+
+\input{abstract_it.tex}
+
+\section{Abstract in English}
+
+{\small\itshape Length: \input{count_en.tex}\unskip{} characters including
+spaces (limit 3550).\par}
+\vspace{0.4em}
+
+\input{abstract_en.tex}
+
+\section{Keywords (English)}
+
+\begin{itemize}[leftmargin=1.3em,itemsep=0.15em,topsep=0.3em]
+  \item Variational autoencoder
+  \item Deep generative models
+  \item Synthetic scenario generation
+  \item Financial correlation matrices
+  \item Cholesky decomposition
+  \item Positive semidefinite matrices
+  \item Stylized facts
+  \item Random matrix theory
+  \item Marchenko--Pastur distribution
+  \item Minimum spanning tree
+  \item Latent space block bootstrap
+  \item Dimensionality reduction
+  \item Representation learning
+  \item Quantitative finance
+  \item Market risk assessment
+  \item S\&P 500
+\end{itemize}
+
+\section{Sustainable Development Goals (SDG)}
+
+\camposdg{SDG prevalente}{\textbf{09. INDUSTRY, INNOVATION AND INFRASTRUCTURE}}
+
+\noindent\small Il contributo centrale della tesi è metodologico e
+tecnologico: progetta e valida un'architettura di deep learning generativo che
+estende alle matrici di correlazione finanziarie strumenti nati per il dominio
+delle immagini. Rientra quindi nel target 9.5, che chiede di potenziare la
+ricerca scientifica e di aggiornare le capacità tecnologiche dei settori
+industriali, incoraggiando l'innovazione.\normalsize
+
+\vspace{1.2em}
+
+\camposdg{SDG secondario}{\textbf{08. DECENT WORK AND ECONOMIC GROWTH}}
+
+\noindent\small Il lavoro nasce in collaborazione con Intesa Sanpaolo e
+fornisce agli istituti finanziari uno strumento per generare scenari di
+mercato realistici con cui stressare i propri modelli. Si collega al target
+8.10 (rafforzare la capacità delle istituzioni finanziarie): una migliore
+rappresentazione della struttura di rischio sostiene la stabilità del sistema
+creditizio e, per suo tramite, la crescita economica.\normalsize
+
+\vspace{1.2em}
+
+\camposdg{SDG terziario}{\textbf{10. REDUCED INEQUALITIES}}
+
+\noindent\small Il target 10.5 chiede di migliorare la regolamentazione e il
+monitoraggio dei mercati e delle istituzioni finanziarie globali. Metodi di
+generazione di scenari validati su proprietà strutturali verificabili (i
+cinque fatti stilizzati) rendono più trasparente e controllabile la
+rappresentazione del rischio, presupposto tecnico di una vigilanza efficace e
+di mercati più stabili.\normalsize
+
+\end{document}

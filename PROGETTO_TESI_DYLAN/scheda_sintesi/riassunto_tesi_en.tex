@@ -1,0 +1,295 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a4paper,top=2.4cm,bottom=2.4cm,left=2.6cm,right=2.6cm]{geometry}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\definecolor{polito}{RGB}{0,60,113}
+\definecolor{rulegray}{RGB}{200,200,200}
+
+\titleformat{\section}{\normalfont\large\bfseries\color{polito}}{\thesection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.5\baselineskip}{0.45\baselineskip}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\footnotesize Thesis summary --- Dylan Magliano (s337915)}
+\fancyfoot[C]{\footnotesize \thepage}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries\color{polito} POLITECNICO DI TORINO}\\[0.35em]
+  {\normalsize Master's Degree in Computer Engineering}\\
+  {\small\itshape Artificial Intelligence and Data Analytics track}\\[1.1em]
+  {\large\bfseries From pixels to financial portfolios: generating\\
+   realistic market scenarios with variational autoencoders}\\[0.7em]
+  {\normalsize\bfseries Thesis summary}\\[0.5em]
+  {\small Candidate: Dylan Magliano (s337915) \quad---\quad
+   Supervisors: prof. Flavio Giobergia, prof. Sergio Caprioli}\\
+  {\small Thesis carried out in collaboration with Intesa Sanpaolo
+   \quad---\quad Academic Year 2025--2026}
+\end{center}
+
+\vspace{0.5em}
+\noindent\textcolor{rulegray}{\rule{\textwidth}{0.8pt}}
+
+\section{Context and research problem}
+
+The correlation matrix of asset returns underpins much of quantitative
+portfolio analysis, from Markowitz onwards. Estimating it from historical
+series alone, however, involves two distinct and structural limitations.
+
+The first is \emph{statistical noise}. When the number of assets $N$ is of the
+same order of magnitude as the length $T$ of the series used for estimation,
+the empirical matrix becomes unstable and its spectrum fills with spurious
+eigenvalues, a phenomenon systematically studied by Random Matrix Theory.
+
+The second, and deeper, is \emph{sampling limitation}: the past offers a single
+trajectory among all those that would have been possible. Market
+configurations never observed in the specific available sample, yet perfectly
+plausible in statistical terms, remain inaccessible to any purely historical
+analysis.
+
+Hence the research question of this thesis: is it possible to build a deep
+generative model that, having learnt how correlations organise themselves in
+real data, produces new synthetic correlation matrices --- mathematically
+valid and structurally indistinguishable from real ones --- with which to
+populate a scenario space richer than the one history alone can provide? The
+closest precedent in the literature is CorrGAN (Marti, 2020), which addresses
+the same problem with adversarial networks; the work of Caprioli et al.\
+(2024) instead uses a Variational Autoencoder on historical matrices with
+resampling in the latent space, an approach methodologically akin to the one
+adopted here.
+
+\section{Data and pre-processing}
+
+The empirical foundation is a dataset of adjusted closing prices of the
+S\&P 500 index over the twenty-year period 2000--2020. To guarantee continuity
+of the series and avoid sampling distortions, the universe was filtered by
+requiring uninterrupted quotations over the entire horizon: $N = 362$ stocks
+survive. The GICS sector classification, required by the hierarchical
+structure analyses, was not available from a structured provider and was
+reconstructed through automatic classification by a large language model
+(360 out of 362 stocks classified).
+
+Daily log-returns are computed from the prices and, from these, Pearson
+correlation matrices are estimated with a rolling window procedure. The window
+width is set to $T_w = 724$ days, exactly twice the number of assets: this
+choice fixes the spectrum ratio $q = N/T_w = 0.5$ by construction, making the
+noise level homogeneous over time and analytically governable through the
+Marchenko--Pastur bounds, and it guarantees that every matrix is full rank and
+therefore positive definite. With a stride of 10 days, 461 matrices are
+obtained.
+
+A structural validity filter based on the empirical Perron--Frobenius property
+then acts on this raw set, requiring the first eigenvector (the \emph{market
+mode}) to have components all of the same sign. The first 49 windows fail it;
+detailed analysis shows that these are all and only the windows containing
+observations preceding mid-October 2001, in which the only gold-mining stock
+in the universe (NEM) is systematically anticorrelated with the rest of the
+market in its typical safe-haven role. This is not a measurement artefact but
+the signature of an exceptional regime, and excluding it explicitly delimits
+the model's domain of validity: \textbf{412 valid matrices} remain, then
+randomly shuffled and split 288 / 82 / 42 across training, validation and test
+sets. Random shuffling, in place of chronological partitioning, neutralises
+the macroeconomic regime \emph{distribution shift} which, in preliminary
+tests, prevented the deep architectures from generalising.
+
+\subsection*{The positive semidefiniteness constraint and the Cholesky parametrisation}
+
+A decisive methodological step concerns the form of the input. A correlation
+matrix must be positive semidefinite (PSD): this is a global constraint on the
+spectrum, and cannot be imposed by acting on individual coefficients
+separately. In the first version of the pipeline the models directly
+reconstructed the lower triangle of the correlation matrix; spectral checks
+revealed the appearance of negative eigenvalues, and a single negative
+eigenvalue --- however negligible in magnitude --- is enough to make the
+Cholesky decomposition fail, and with it the entire scenario simulation.
+
+The final pipeline solves the problem at its root by changing the object being
+learnt: each matrix is decomposed as $\mathbf{C} = \mathbf{L}\mathbf{L}^T$ and
+what is flattened and fed to the models is the lower triangular factor
+$\mathbf{L}$, not the matrix. Whatever vector the decoder produces, the matrix
+$\hat{\mathbf{L}}\hat{\mathbf{L}}^T$ recomposed from it is a Gram matrix and
+therefore PSD by construction, independently of the quality of learning; a
+final renormalisation to unit diagonal brings the result back into the
+correlation domain without altering the signs of the eigenvalues. The
+canonical input is therefore a vector of $D = N(N{+}1)/2 = 65\,703$ elements.
+
+\section{Architectures and experimental protocol}
+
+The comparison follows an incremental path across four models, all trained on
+the same Cholesky parametrisation and evaluated at equal latent dimension $K$:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.25em,topsep=0.35em]
+  \item \textbf{Principal Component Analysis}, a linear benchmark that sets the
+        upper limit of linear compression;
+  \item \textbf{Linear Autoencoder}, a single dense layer with neither bias nor
+        activations, built to replicate that subspace and empirically verify
+        the Bourlard and Kamp theorem;
+  \item \textbf{Deep Autoencoder}, a funnel design
+        $2048 \to 1024 \to 512 \to K$ with LeakyReLU activations, introducing
+        non-linearity;
+  \item \textbf{Variational Autoencoder}, which shares the funnel encoder of
+        the previous model but replaces the deterministic bottleneck with a
+        probabilistic inference module ($\boldsymbol{\mu}$,
+        $\log\boldsymbol{\sigma}^2$, reparameterization trick).
+\end{enumerate}
+
+The VAE reconstruction loss is not the usual mean squared error but the
+\textbf{Jeffreys Divergence} between the Gaussian distributions associated
+with the original and the reconstructed matrix. The motivation is precise: MSE
+treats coefficients as independent quantities and ends up dominated by the
+larger correlations, effectively blind to the smaller eigenvalues of the
+spectrum --- precisely those that identify minimum-variance portfolios. The
+inverse matrices in the Jeffreys formulation reverse this hierarchy and weigh
+the error in relative terms along every direction of the spectrum. Because the
+reconstruction term is itself a divergence, it is homogeneous with the
+Kullback--Leibler regularisation term and the weight $\beta$ remains fixed at
+1: the formulation used is therefore the canonical ELBO.
+
+Evaluation combines two families of metrics: spatial errors (MSE, MAE,
+Frobenius norm) and topological metrics built on the \emph{Minimum Spanning
+Tree} (percentage of shared edges, Jaccard index, overlap of the nodes with
+highest betweenness centrality, differences in average path length). The
+latter verify that a reconstruction accurate ``on average'' has not nonetheless
+altered the hierarchy of links between stocks.
+
+\section{Results on historical reconstruction}
+
+The measurements rigorously confirm the Bourlard and Kamp theorem: PCA and the
+Linear Autoencoder converge, at equal $K$, on the same error limit. The Deep
+Autoencoder clearly surpasses that threshold at every $K$ and shows no sign of
+overfitting: at $K = 20$ its test MSE ($7.19 \times 10^{-5}$) is almost four
+times lower than PCA's ($2.73 \times 10^{-4}$). The advantage of non-linearity
+proves to be one of \emph{representational efficiency}: the AE already reaches
+with $K = 10$ the same quality that PCA attains only with $K = 100$.
+
+The Variational Autoencoder sits in an intermediate position. At $K = 20$ it
+achieves an MSE of $1.55 \times 10^{-4}$, \textbf{lower} than both PCA and the
+Linear Autoencoder, while remaining higher than the deterministic Deep
+Autoencoder. MAE and Frobenius norm return exactly the same ranking, which
+rules out that the ordering is an artefact of MSE's sensitivity to outliers.
+The topological picture is even sharper and consistent: on MST edge overlap
+the VAE recovers two thirds of the distance between the linear models and the
+Deep Autoencoder (88.4\% against PCA's 83.0\% and the AE's 91.1\%). The cost
+that variational regularisation imposes on reconstruction fidelity is
+therefore contained, and far smaller than a first intuition would suggest.
+
+Three runs at $K \in \{10, 20, 30\}$, identical in every other hyperparameter,
+reveal a peculiar behaviour of the VAE: its reconstruction error \emph{worsens}
+slightly as $K$ grows, the opposite of the other three models. Analysis of the
+latent space activity spectrum explains it: in all three configurations only
+about six dimensions are effectively active, while the remaining ones undergo
+\emph{posterior collapse}. The effective dimensionality of the correlation
+manifold is therefore not a hyperparameter to be tuned but a property of the
+data that the model discovers on its own; adding nominal dimensions does not
+increase the capacity actually used and merely widens the space over which
+conformity to the prior must be satisfied. The choice of $K = 20$ for the final
+model --- the elbow of the reconstruction curve --- is thus robust.
+
+\section{Stochastic scenario generation and validation}
+
+It is on the generative side that the VAE shows its distinctive value. The
+deterministic Deep Autoencoder, however superior in pure reconstruction, has a
+fragmented latent space devoid of meaning outside the observed points:
+sampling a random vector from it produces output with no economic or financial
+coherence. Kullback--Leibler regularisation, combined with sampling noise,
+instead shapes a continuous and dense latent space in which meaningful
+sampling is possible. The most effective synthesis of the results is this
+complementarity: \emph{the AE to remember, the VAE to imagine}.
+
+The generation procedure actually adopted, however, is not a simple sampling
+from the prior $\mathcal{N}(\mathbf{0},\mathbf{I})$, which would produce some
+arbitrary plausible scenario, disconnected from the present. The objective is
+more specific: to build a distribution of realistic scenarios of the
+correlation structure \emph{at a one-month horizon starting from the market
+state observed today}, to be assessed from a risk perspective. The technique
+used is a \textbf{historical block bootstrap in the latent space}, articulated
+in four steps: the encoder reconstructs the historical latent trajectory day by
+day; its daily increments are computed; a block of 21 consecutive increments
+(one working month) is randomly sampled and its cumulative jump computed; the
+jump is added to the current state and decoded, yielding a PSD matrix by
+construction. Repeating this a thousand times yields a distribution of possible
+evolutions, anchored to the present yet diversified by block-sampled historical
+variability.
+
+The one thousand scenarios so produced were validated against the five
+stylized facts of financial correlation matrices, each translated into a
+scalar indicator comparable with today's matrix and with the range observed
+over the 412 real matrices:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.2em,topsep=0.35em]
+  \item \textbf{Pairwise distribution skewed towards positive values}: mean
+        between 0.4609 and 0.5352 across all scenarios, against 0.4512 for
+        today's matrix.
+  \item \textbf{Spectrum and Marchenko--Pastur}: market eigenvalue $\lambda_1$
+        in the range $[172.4,\ 197.2]$ against today's 169.1, roughly two
+        orders of magnitude beyond the upper edge of the bulk, accompanied by
+        7--9 sector modes.
+  \item \textbf{Perron--Frobenius property}: the minimum component of the
+        market mode is always positive, with a larger margin from the violation
+        threshold than today's matrix itself.
+  \item \textbf{Hierarchical sector structure}: the ratio between average
+        intra-sector and inter-sector correlation is always greater than 1 and
+        within the historical range; the dendrograms visually reproduce the
+        same sector colour blocks as the real matrix.
+  \item \textbf{Scale-free MST topology}: the power-law exponent lies between
+        2.053 and 2.306, inside the range $2 < \gamma < 3$ expected from the
+        literature.
+\end{enumerate}
+
+The outcome is that \textbf{all 1000 scenarios satisfy the five criteria
+simultaneously}, and all matrices are positive definite as guaranteed by
+construction by the Cholesky parametrisation. Detailed graphical inspection of
+a single scenario confirms the picture on those objects no scalar indicator can
+summarise: cosine similarity with respect to today's matrix is 0.9999 on the
+market mode and 0.9893 and 0.9883 on the two subsequent sector modes.
+
+\section{Limitations and future work}
+
+The work explicitly declares its methodological limitations. The aggregate
+verification reduces each stylized fact to a scalar indicator, while full
+visual inspection remains limited to a single representative scenario; the one
+thousand scenarios moreover derive from heavily overlapping 21-day blocks, with
+an effective sample size below one thousand, and the entire verification is
+anchored to a single starting market state. Random shuffling, while resolving
+distribution shift, does not remove the informational overlap between adjacent
+windows (up to 98.6\% of shared observations), which represents a limited but
+real risk of optimism in the reported generalisation metrics. Finally, the
+model comparison does not cover all latent dimensions uniformly for the VAE,
+and the GICS sector classification was not validated against official sources.
+
+The natural continuation is to apply the generated scenario distribution to
+portfolio risk management, comparing the resulting picture with the one
+obtainable from historical data alone. Next come the strengthening of
+statistical validation --- repeating the verification from a plurality of
+initial states distributed across the twenty-year horizon and extending it from
+scalar indicators to formal distributional goodness-of-fit tests --- a direct
+comparison with alternative generative paradigms (CorrGAN, and more generally
+diffusion models), and the extension of the pipeline to other asset classes and
+to international equity universes.
+
+\section{Conclusion}
+
+The thesis has designed, implemented and validated a complete framework for the
+compression, reconstruction and stochastic generation of realistic financial
+correlation matrices. The most significant result is that the Cholesky
+parametrisation structurally resolves the positive semidefiniteness constraint,
+and that on this basis the Variational Autoencoder pays a contained cost in
+reconstruction fidelity --- indeed remaining superior to the linear benchmarks
+--- in exchange for the one property that makes stochastic generation possible.
+The simultaneous conformity of the one thousand generated scenarios to the five
+stylized facts validates the proposed architecture as a self-contained tool for
+producing mathematically coherent synthetic financial ecosystems.
+
+\end{document}

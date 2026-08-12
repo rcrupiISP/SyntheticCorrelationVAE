@@ -1,0 +1,309 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[a4paper,top=2.4cm,bottom=2.4cm,left=2.6cm,right=2.6cm]{geometry}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+\definecolor{polito}{RGB}{0,60,113}
+\definecolor{rulegray}{RGB}{200,200,200}
+
+\titleformat{\section}{\normalfont\large\bfseries\color{polito}}{\thesection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{1.5\baselineskip}{0.45\baselineskip}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhead[L]{\footnotesize Riassunto della tesi --- Dylan Magliano (s337915)}
+\fancyfoot[C]{\footnotesize \thepage}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries\color{polito} POLITECNICO DI TORINO}\\[0.35em]
+  {\normalsize Corso di Laurea Magistrale in Ingegneria Informatica}\\
+  {\small\itshape Orientamento Artificial Intelligence and Data Analytics}\\[1.1em]
+  {\large\bfseries Dai pixel ai portafogli finanziari: generare scenari\\
+   di mercato realistici tramite variational autoencoder}\\[0.7em]
+  {\normalsize\bfseries Riassunto della tesi}\\[0.5em]
+  {\small Candidato: Dylan Magliano (s337915) \quad---\quad
+   Relatori: prof. Flavio Giobergia, prof. Sergio Caprioli}\\
+  {\small Tesi svolta in collaborazione con Intesa Sanpaolo
+   \quad---\quad Anno Accademico 2025--2026}
+\end{center}
+
+\vspace{0.5em}
+\noindent\textcolor{rulegray}{\rule{\textwidth}{0.8pt}}
+
+\section{Contesto e problema di ricerca}
+
+La matrice di correlazione fra i rendimenti degli asset è l'oggetto su cui
+poggia gran parte dell'analisi quantitativa dei portafogli, dalla
+formulazione di Markowitz in poi. Stimarla dalle sole serie storiche
+comporta però due limiti distinti, entrambi strutturali.
+
+Il primo è il \emph{rumore statistico}. Quando il numero di titoli $N$ è dello
+stesso ordine di grandezza della lunghezza $T$ della serie usata per la stima,
+la matrice empirica diventa instabile e il suo spettro si popola di autovalori
+spuri, un fenomeno studiato in modo sistematico dalla Random Matrix Theory.
+
+Il secondo, più profondo, è la \emph{limitatezza campionaria}: il passato
+offre una sola traiettoria fra tutte quelle che sarebbero state possibili.
+Configurazioni di mercato mai osservate nello specifico campione a
+disposizione, ma perfettamente plausibili sul piano statistico, restano
+inaccessibili a qualunque analisi puramente storica.
+
+Da qui la domanda di ricerca della tesi: è possibile costruire un modello
+generativo profondo che, appreso il modo in cui le correlazioni si organizzano
+nei dati reali, produca matrici di correlazione sintetiche nuove ---
+matematicamente valide e strutturalmente indistinguibili da quelle vere ---
+con cui popolare uno spazio di scenari più ricco di quello che la storia da
+sola può fornire? Il precedente più diretto in letteratura è CorrGAN
+(Marti, 2020), che affronta lo stesso problema con reti avversarie; il lavoro
+di Caprioli et al.\ (2024) mostra invece l'uso di un Variational Autoencoder
+su matrici storiche con ricampionamento nello spazio latente, impostazione
+metodologicamente affine a quella qui adottata.
+
+\section{Dati e pre-processing}
+
+Il fondamento empirico è un dataset di prezzi di chiusura rettificati
+dell'indice S\&P 500 sul ventennio 2000--2020. Per garantire continuità delle
+serie ed evitare distorsioni campionarie, il paniere è stato filtrato
+richiedendo quotazioni ininterrotte sull'intero arco temporale: sopravvivono
+$N = 362$ titoli. La classificazione settoriale GICS, necessaria alle analisi
+di struttura gerarchica, non era disponibile da un provider strutturato ed è
+stata ricostruita tramite classificazione automatica affidata a un modello
+linguistico di grandi dimensioni (360 titoli su 362 classificati).
+
+Dai prezzi si calcolano i log-rendimenti giornalieri e da questi, con una
+procedura a finestre mobili, le matrici di correlazione di Pearson. L'ampiezza
+della finestra è fissata a $T_w = 724$ giorni, esattamente il doppio del
+numero di asset: la scelta fissa per costruzione il rapporto di spettro
+$q = N/T_w = 0.5$, rendendo il livello di rumore omogeneo nel tempo e
+analiticamente governabile tramite i limiti di Marchenko--Pastur, e garantisce
+che ogni matrice sia di rango pieno e dunque definita positiva. Con un passo
+di 10 giorni si ottengono 461 matrici.
+
+Su questo insieme grezzo agisce un filtro di validità strutturale basato sulla
+proprietà di Perron--Frobenius empirica, che richiede al primo autovettore
+(il \emph{market mode}) di avere componenti tutte dello stesso segno. Le prime
+49 finestre non lo soddisfano; l'analisi puntuale mostra che si tratta di
+tutte e sole le finestre contenenti osservazioni antecedenti la metà di
+ottobre 2001, in cui l'unico titolo aurifero del paniere (NEM) risulta
+sistematicamente anticorrelato con il resto del listino nel suo tipico ruolo
+di bene rifugio. Non è un artefatto di misura ma la firma di un regime
+eccezionale, ed escluderlo delimita esplicitamente il dominio di validità del
+modello: restano \textbf{412 matrici valide}, poi mescolate casualmente e
+ripartite in 288 / 82 / 42 fra training, validation e test set. Il
+mescolamento casuale, in luogo del partizionamento cronologico, neutralizza il
+\emph{distribution shift} di regime macroeconomico che nei test preliminari
+impediva alle architetture profonde di generalizzare.
+
+\subsection*{Il vincolo di semidefinita positività e la parametrizzazione di Cholesky}
+
+Un passaggio metodologico decisivo riguarda la forma dell'input. Una matrice
+di correlazione deve essere semidefinita positiva (PSD): è un vincolo globale
+sullo spettro, non imponibile agendo separatamente sui singoli coefficienti.
+Nella prima versione della pipeline i modelli ricostruivano direttamente il
+triangolo inferiore della matrice di correlazione; le verifiche spettrali
+hanno rivelato la comparsa di autovalori negativi, e basta un solo autovalore
+negativo --- anche di magnitudo trascurabile --- perché la decomposizione di
+Cholesky fallisca e con essa l'intera simulazione di scenari.
+
+La pipeline definitiva risolve il problema alla radice, cambiando l'oggetto
+appreso: ogni matrice viene decomposta come $\mathbf{C} = \mathbf{L}\mathbf{L}^T$
+e ciò che viene linearizzato e dato in pasto ai modelli è il fattore
+triangolare inferiore $\mathbf{L}$, non la matrice. Qualunque vettore il
+decoder produca, la matrice $\hat{\mathbf{L}}\hat{\mathbf{L}}^T$ che se ne
+ricompone è una matrice di Gram e quindi PSD per costruzione, indipendentemente
+dalla qualità dell'apprendimento; una rinormalizzazione finale a diagonale
+unitaria riporta il risultato nel dominio della correlazione senza alterare i
+segni degli autovalori. L'input canonico è quindi un vettore di
+$D = N(N{+}1)/2 = 65\,703$ elementi.
+
+\section{Architetture e protocollo sperimentale}
+
+Il confronto segue un percorso incrementale su quattro modelli, tutti
+addestrati sulla medesima parametrizzazione Cholesky e valutati a parità di
+dimensione latente $K$:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.25em,topsep=0.35em]
+  \item \textbf{Principal Component Analysis}, benchmark lineare che fissa il
+        limite massimo di compressione lineare;
+  \item \textbf{Autoencoder Lineare}, singolo layer denso senza bias né
+        attivazioni, costruito per replicare quel sottospazio e verificare
+        empiricamente il teorema di Bourlard e Kamp;
+  \item \textbf{Autoencoder Profondo}, design a imbuto
+        $2048 \to 1024 \to 512 \to K$ con attivazioni LeakyReLU, che introduce
+        la non-linearità;
+  \item \textbf{Variational Autoencoder}, che condivide l'encoder a imbuto del
+        precedente ma sostituisce il bottleneck deterministico con un modulo
+        di inferenza probabilistica ($\boldsymbol{\mu}$,
+        $\log\boldsymbol{\sigma}^2$, \emph{reparameterization trick}).
+\end{enumerate}
+
+La \emph{loss} di ricostruzione del VAE non è l'usuale errore quadratico
+medio, ma la \textbf{Divergenza di Jeffreys} fra le distribuzioni gaussiane
+associate alla matrice originale e a quella ricostruita. La motivazione è
+precisa: l'MSE tratta i coefficienti come grandezze indipendenti e risulta
+dominato dalle correlazioni di ampiezza maggiore, restando di fatto cieco
+sugli autovalori più piccoli dello spettro --- proprio quelli che individuano
+i portafogli a varianza minima. Le matrici inverse presenti nella formulazione
+di Jeffreys ribaltano questa gerarchia e pesano l'errore in termini relativi
+lungo ogni direzione dello spettro. Poiché anche il termine di ricostruzione è
+così una divergenza, esso è omogeneo al termine di regolarizzazione di
+Kullback--Leibler e il peso $\beta$ resta fissato a 1: la formulazione
+impiegata è quella dell'ELBO canonico.
+
+La valutazione combina due famiglie di metriche: errori spaziali (MSE, MAE,
+norma di Frobenius) e metriche topologiche costruite sul \emph{Minimum
+Spanning Tree} (percentuale di archi in comune, indice di Jaccard,
+sovrapposizione dei nodi a più alta \emph{betweenness centrality}, scarti di
+lunghezza media dei cammini). Le seconde servono a verificare che una
+ricostruzione accurata ``in media'' non abbia comunque alterato la gerarchia dei
+legami fra i titoli.
+
+\section{Risultati sulla ricostruzione storica}
+
+Le misurazioni confermano rigorosamente il teorema di Bourlard e Kamp: PCA e
+Autoencoder Lineare convergono, a parità di $K$, sul medesimo limite di
+errore. L'Autoencoder Profondo supera nettamente tale soglia a ogni $K$ e
+senza mostrare segni di \emph{overfitting}: a $K = 20$ il suo MSE di test
+($7.19 \times 10^{-5}$) è di quasi quattro volte inferiore a quello della PCA
+($2.73 \times 10^{-4}$). Il vantaggio della non-linearità si rivela di
+\emph{efficienza rappresentativa}: l'AE raggiunge già con $K = 10$ la stessa
+qualità che la PCA ottiene soltanto con $K = 100$.
+
+Il Variational Autoencoder si colloca in posizione intermedia. A $K = 20$
+ottiene un MSE di $1.55 \times 10^{-4}$, \textbf{inferiore} sia a quello della
+PCA sia a quello dell'Autoencoder Lineare, pur restando superiore a quello
+dell'Autoencoder Profondo deterministico. MAE e norma di Frobenius
+restituiscono esattamente la stessa graduatoria, il che esclude che
+l'ordinamento sia un artefatto della sensibilità dell'MSE agli \emph{outlier}.
+Il quadro topologico è ancora più netto e coerente: sull'\emph{edge overlap}
+dell'MST il VAE recupera i due terzi della distanza fra modelli lineari e
+Autoencoder Profondo (88.4\% contro 83.0\% della PCA e 91.1\% dell'AE). Il
+costo che la regolarizzazione variazionale impone alla fedeltà di
+ricostruzione è quindi contenuto, e assai minore di quanto una prima
+intuizione suggerirebbe.
+
+Tre run condotte a $K \in \{10, 20, 30\}$, identiche in ogni altro
+iperparametro, mostrano un comportamento peculiare del VAE: l'errore di
+ricostruzione \emph{peggiora} lievemente al crescere di $K$, all'opposto degli
+altri tre modelli. L'analisi dello spettro di attività dello spazio latente ne
+dà la spiegazione: in tutte e tre le configurazioni solo circa sei dimensioni
+risultano effettivamente attive, mentre le restanti subiscono un
+\emph{posterior collapse}. La dimensionalità effettiva della \emph{manifold}
+delle correlazioni non è dunque un iperparametro da calibrare, ma una
+proprietà dei dati che il modello individua da sé; aggiungere dimensioni
+nominali non accresce la capacità utilizzata e amplia soltanto lo spazio su
+cui il vincolo di conformità al \emph{prior} deve essere soddisfatto. La
+scelta di $K = 20$ come modello definitivo --- il gomito della curva di
+ricostruzione --- risulta perciò robusta.
+
+\section{Generazione stocastica di scenari e validazione}
+
+È sul piano generativo che il VAE mostra il proprio valore distintivo.
+L'Autoencoder Profondo deterministico, per quanto superiore nella pura
+ricostruzione, dispone di uno spazio latente frammentario e privo di
+significato al di fuori dei punti osservati: campionarvi un vettore casuale
+produce output privi di coerenza economico-finanziaria. La regolarizzazione
+di Kullback--Leibler, unita al rumore di campionamento, modella invece uno
+spazio latente continuo e denso, in cui è possibile campionare in modo
+significativo. La sintesi più efficace dei risultati è questa complementarità:
+\emph{l'AE per ricordare, il VAE per immaginare}.
+
+La procedura di generazione effettivamente adottata non è però un semplice
+campionamento dal \emph{prior} $\mathcal{N}(\mathbf{0},\mathbf{I})$, che
+produrrebbe uno scenario plausibile qualsiasi, scollegato dal presente.
+L'obiettivo è più specifico: costruire una distribuzione di scenari realistici
+della struttura di correlazione \emph{a un orizzonte di un mese a partire
+dallo stato di mercato osservato oggi}, da valutare in ottica di rischiosità.
+La tecnica impiegata è un \textbf{block-bootstrap storico nello spazio
+latente}, articolato in quattro passaggi: l'encoder ricostruisce la traiettoria
+latente storica giorno per giorno; se ne calcolano gli incrementi giornalieri;
+si campiona casualmente un blocco di 21 incrementi consecutivi (un mese
+lavorativo) e se ne cumula il salto; il salto viene sommato allo stato attuale
+e decodificato, ottenendo per costruzione una matrice PSD. Ripetendo mille
+volte si ottiene una distribuzione di evoluzioni possibili, ancorata al
+presente ma diversificata dalla variabilità storica campionata a blocchi.
+
+I mille scenari così prodotti sono stati validati rispetto ai cinque fatti
+stilizzati delle matrici di correlazione finanziarie, ciascuno tradotto in un
+indicatore scalare confrontabile con la matrice odierna e con l'intervallo
+osservato sulle 412 matrici reali:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.2em,topsep=0.35em]
+  \item \textbf{Distribuzione \emph{pairwise} asimmetrica verso valori
+        positivi}: media fra 0.4609 e 0.5352 su tutti gli scenari, contro
+        0.4512 della matrice odierna.
+  \item \textbf{Spettro e Marchenko--Pastur}: autovalore di mercato
+        $\lambda_1$ nell'intervallo $[172.4,\ 197.2]$ contro 169.1 odierno,
+        circa due ordini di grandezza oltre il limite superiore del
+        \emph{bulk}, accompagnato da 7--9 modi settoriali.
+  \item \textbf{Proprietà di Perron--Frobenius}: componente minima del
+        \emph{market mode} sempre positiva, con margine dalla soglia di
+        violazione superiore a quello della stessa matrice odierna.
+  \item \textbf{Struttura gerarchica settoriale}: rapporto fra correlazione
+        media intra-settore e inter-settore sempre maggiore di 1 e interno
+        all'intervallo storico; i dendrogrammi riproducono visivamente gli
+        stessi blocchi cromatici settoriali della matrice reale.
+  \item \textbf{Topologia \emph{scale-free} del MST}: esponente della legge di
+        potenza compreso fra 2.053 e 2.306, dentro l'intervallo
+        $2 < \gamma < 3$ atteso dalla letteratura.
+\end{enumerate}
+
+L'esito è che \textbf{tutti e 1000 gli scenari soddisfano simultaneamente i
+cinque criteri}, e tutte le matrici risultano definite positive come garantito
+per costruzione dalla parametrizzazione di Cholesky. L'ispezione grafica di
+dettaglio su un singolo scenario conferma il quadro anche sugli oggetti che
+nessun indicatore scalare può riassumere: la similarità coseno rispetto alla
+matrice odierna è 0.9999 sul \emph{market mode} e 0.9893 e 0.9883 sui due modi
+settoriali successivi.
+
+\section{Limiti e sviluppi futuri}
+
+Il lavoro dichiara esplicitamente i propri limiti metodologici. La verifica
+aggregata riduce ciascun fatto stilizzato a un indicatore scalare, mentre
+l'ispezione visiva completa resta limitata a un singolo scenario
+rappresentativo; i mille scenari derivano inoltre da blocchi di 21 giorni
+ampiamente sovrapposti, con numerosità campionaria effettiva inferiore a
+mille, e l'intera verifica è ancorata a un unico stato di mercato di partenza.
+Il mescolamento casuale, pur risolvendo il \emph{distribution shift}, non
+elimina la sovrapposizione informativa fra finestre adiacenti (fino al 98.6\%
+di osservazioni condivise), il che costituisce un rischio limitato ma reale di
+ottimismo nelle metriche di generalizzazione. Il confronto fra modelli, infine,
+non copre uniformemente tutte le dimensioni latenti per il VAE, e la
+classificazione settoriale GICS non è stata validata con fonti ufficiali.
+
+Il proseguimento naturale è l'applicazione della distribuzione di scenari
+generata alla gestione del rischio di portafoglio, confrontando il quadro che
+se ne ricava con quello ottenibile dai soli dati storici. Seguono il
+rafforzamento della validazione statistica --- ripetendo la verifica a partire
+da una pluralità di stati iniziali distribuiti lungo il ventennio ed
+estendendola da indicatori scalari a test formali di aderenza distributiva ---
+il confronto diretto con paradigmi generativi alternativi (CorrGAN, e più in
+generale i modelli di diffusione), e l'estensione della pipeline ad altre
+\emph{asset class} e a panieri di titoli internazionali.
+
+\section{Conclusione}
+
+La tesi ha progettato, implementato e validato un framework completo per la
+compressione, ricostruzione e generazione stocastica di matrici di
+correlazione finanziarie realistiche. Il risultato più significativo è che la
+parametrizzazione di Cholesky risolve strutturalmente il vincolo di
+semidefinita positività, e che su questa base il Variational Autoencoder paga
+un costo contenuto in fedeltà di ricostruzione --- restando anzi superiore ai
+benchmark lineari --- in cambio dell'unica proprietà che rende possibile la
+generazione stocastica. La conformità simultanea dei mille scenari generati ai
+cinque fatti stilizzati valida l'architettura proposta come strumento autonomo
+per la produzione di ecosistemi finanziari sintetici matematicamente coerenti.
+
+\end{document}

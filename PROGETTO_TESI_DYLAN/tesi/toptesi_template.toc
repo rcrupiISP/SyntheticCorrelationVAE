@@ -16,8 +16,8 @@
 \contentsline {section}{\numberline {3.3}Analisi spettrale e distribuzione di Marchenko-Pastur}{22}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Proprietà di Perron-Frobenius empirica}{23}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Struttura gerarchica delle correlazioni}{25}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Il Minimum Spanning Tree (MST) e la proprietà scale-free}{25}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Benchmark test: fallimento strutturale della Random Matrix Theory}{26}{section.3.7}%
+\contentsline {section}{\numberline {3.6}Il Minimum Spanning Tree (MST) e la proprietà scale-free}{26}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Benchmark test: fallimento strutturale della Random Matrix Theory}{28}{section.3.7}%
 \contentsline {chapter}{\numberline {4}Riduzione della Dimensionalità e Modelli Generativi}{35}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Principal Component Analysis (PCA): teoria e limiti lineari}{35}{section.4.1}%
 \contentsline {section}{\numberline {4.2}Autoencoder Lineari (Linear AE): ponte verso le reti neurali}{36}{section.4.2}%

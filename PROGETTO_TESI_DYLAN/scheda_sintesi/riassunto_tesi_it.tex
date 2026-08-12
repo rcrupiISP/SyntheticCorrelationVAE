@@ -57,7 +57,7 @@ spuri, un fenomeno studiato in modo sistematico dalla Random Matrix Theory.
 Il secondo, più profondo, è la \emph{limitatezza campionaria}: il passato
 offre una sola traiettoria fra tutte quelle che sarebbero state possibili.
 Configurazioni di mercato mai osservate nello specifico campione a
-disposizione, ma perfettamente plausibili sul piano statistico, restano
+disposizione, ma plausibili sul piano statistico, restano
 inaccessibili a qualunque analisi puramente storica.
 
 Da qui la domanda di ricerca della tesi: è possibile costruire un modello
@@ -172,7 +172,7 @@ legami fra i titoli.
 
 \section{Risultati sulla ricostruzione storica}
 
-Le misurazioni confermano rigorosamente il teorema di Bourlard e Kamp: PCA e
+Le misurazioni confermano empiricamente il teorema di Bourlard e Kamp: PCA e
 Autoencoder Lineare convergono, a parità di $K$, sul medesimo limite di
 errore. L'Autoencoder Profondo supera nettamente tale soglia a ogni $K$ e
 senza mostrare segni di \emph{overfitting}: a $K = 20$ il suo MSE di test
@@ -185,23 +185,23 @@ Il Variational Autoencoder si colloca in posizione intermedia. A $K = 20$
 ottiene un MSE di $1.55 \times 10^{-4}$, \textbf{inferiore} sia a quello della
 PCA sia a quello dell'Autoencoder Lineare, pur restando superiore a quello
 dell'Autoencoder Profondo deterministico. MAE e norma di Frobenius
-restituiscono esattamente la stessa graduatoria, il che esclude che
-l'ordinamento sia un artefatto della sensibilità dell'MSE agli \emph{outlier}.
+restituiscono esattamente la stessa graduatoria, il che indica che
+l'ordinamento non è un artefatto della sensibilità dell'MSE agli \emph{outlier}.
 Il quadro topologico è ancora più netto e coerente: sull'\emph{edge overlap}
 dell'MST il VAE recupera i due terzi della distanza fra modelli lineari e
 Autoencoder Profondo (88.4\% contro 83.0\% della PCA e 91.1\% dell'AE). Il
 costo che la regolarizzazione variazionale impone alla fedeltà di
-ricostruzione è quindi contenuto, e assai minore di quanto una prima
+ricostruzione è quindi contenuto, e minore di quanto una prima
 intuizione suggerirebbe.
 
 Tre run condotte a $K \in \{10, 20, 30\}$, identiche in ogni altro
 iperparametro, mostrano un comportamento peculiare del VAE: l'errore di
 ricostruzione \emph{peggiora} lievemente al crescere di $K$, all'opposto degli
 altri tre modelli. L'analisi dello spettro di attività dello spazio latente ne
-dà la spiegazione: in tutte e tre le configurazioni solo circa sei dimensioni
+suggerisce una spiegazione: in tutte e tre le configurazioni solo circa sei dimensioni
 risultano effettivamente attive, mentre le restanti subiscono un
 \emph{posterior collapse}. La dimensionalità effettiva della \emph{manifold}
-delle correlazioni non è dunque un iperparametro da calibrare, ma una
+delle correlazioni emerge dunque non come un iperparametro da calibrare, ma come una
 proprietà dei dati che il modello individua da sé; aggiungere dimensioni
 nominali non accresce la capacità utilizzata e amplia soltanto lo spazio su
 cui il vincolo di conformità al \emph{prior} deve essere soddisfatto. La
@@ -214,7 +214,7 @@ ricostruzione --- risulta perciò robusta.
 L'Autoencoder Profondo deterministico, per quanto superiore nella pura
 ricostruzione, dispone di uno spazio latente frammentario e privo di
 significato al di fuori dei punti osservati: campionarvi un vettore casuale
-produce output privi di coerenza economico-finanziaria. La regolarizzazione
+tende a produrre output privi di coerenza economico-finanziaria. La regolarizzazione
 di Kullback--Leibler, unita al rumore di campionamento, modella invece uno
 spazio latente continuo e denso, in cui è possibile campionare in modo
 significativo. La sintesi più efficace dei risultati è questa complementarità:
@@ -261,9 +261,10 @@ osservato sulle 412 matrici reali:
 \end{enumerate}
 
 L'esito è che \textbf{tutti e 1000 gli scenari soddisfano simultaneamente i
-cinque criteri}, e tutte le matrici risultano definite positive come garantito
-per costruzione dalla parametrizzazione di Cholesky. L'ispezione grafica di
-dettaglio su un singolo scenario conferma il quadro anche sugli oggetti che
+cinque criteri}, e tutte le matrici risultano definite positive, in linea con la
+semidefinita positività garantita per costruzione dalla parametrizzazione
+di Cholesky. L'ispezione grafica di
+dettaglio su un singolo scenario corrobora il quadro anche sugli oggetti che
 nessun indicatore scalare può riassumere: la similarità coseno rispetto alla
 matrice odierna è 0.9999 sul \emph{market mode} e 0.9893 e 0.9883 sui due modi
 settoriali successivi.
@@ -276,7 +277,7 @@ l'ispezione visiva completa resta limitata a un singolo scenario
 rappresentativo; i mille scenari derivano inoltre da blocchi di 21 giorni
 ampiamente sovrapposti, con numerosità campionaria effettiva inferiore a
 mille, e l'intera verifica è ancorata a un unico stato di mercato di partenza.
-Il mescolamento casuale, pur risolvendo il \emph{distribution shift}, non
+Il mescolamento casuale, pur affrontando il \emph{distribution shift}, non
 elimina la sovrapposizione informativa fra finestre adiacenti (fino al 98.6\%
 di osservazioni condivise), il che costituisce un rischio limitato ma reale di
 ottimismo nelle metriche di generalizzazione. Il confronto fra modelli, infine,
@@ -295,15 +296,15 @@ generale i modelli di diffusione), e l'estensione della pipeline ad altre
 
 \section{Conclusione}
 
-La tesi ha progettato, implementato e validato un framework completo per la
+La tesi ha progettato, implementato e valutato empiricamente un framework completo per la
 compressione, ricostruzione e generazione stocastica di matrici di
 correlazione finanziarie realistiche. Il risultato più significativo è che la
 parametrizzazione di Cholesky risolve strutturalmente il vincolo di
 semidefinita positività, e che su questa base il Variational Autoencoder paga
 un costo contenuto in fedeltà di ricostruzione --- restando anzi superiore ai
-benchmark lineari --- in cambio dell'unica proprietà che rende possibile la
+benchmark lineari --- in cambio della proprietà che rende possibile la
 generazione stocastica. La conformità simultanea dei mille scenari generati ai
-cinque fatti stilizzati valida l'architettura proposta come strumento autonomo
+cinque fatti stilizzati supporta l'impiego dell'architettura proposta come strumento autonomo
 per la produzione di ecosistemi finanziari sintetici matematicamente coerenti.
 
 \end{document}

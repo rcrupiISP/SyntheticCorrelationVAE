@@ -55,7 +55,7 @@ eigenvalues, a phenomenon systematically studied by Random Matrix Theory.
 
 The second, and deeper, is \emph{sampling limitation}: the past offers a single
 trajectory among all those that would have been possible. Market
-configurations never observed in the specific available sample, yet perfectly
+configurations never observed in the specific available sample, yet
 plausible in statistical terms, remain inaccessible to any purely historical
 analysis.
 
@@ -166,32 +166,32 @@ altered the hierarchy of links between stocks.
 
 \section{Results on historical reconstruction}
 
-The measurements rigorously confirm the Bourlard and Kamp theorem: PCA and the
+The measurements empirically confirm the Bourlard and Kamp theorem: PCA and the
 Linear Autoencoder converge, at equal $K$, on the same error limit. The Deep
 Autoencoder clearly surpasses that threshold at every $K$ and shows no sign of
 overfitting: at $K = 20$ its test MSE ($7.19 \times 10^{-5}$) is almost four
 times lower than PCA's ($2.73 \times 10^{-4}$). The advantage of non-linearity
-proves to be one of \emph{representational efficiency}: the AE already reaches
+emerges as one of \emph{representational efficiency}: the AE already reaches
 with $K = 10$ the same quality that PCA attains only with $K = 100$.
 
 The Variational Autoencoder sits in an intermediate position. At $K = 20$ it
 achieves an MSE of $1.55 \times 10^{-4}$, \textbf{lower} than both PCA and the
 Linear Autoencoder, while remaining higher than the deterministic Deep
 Autoencoder. MAE and Frobenius norm return exactly the same ranking, which
-rules out that the ordering is an artefact of MSE's sensitivity to outliers.
+indicates that the ordering is not an artefact of MSE's sensitivity to outliers.
 The topological picture is even sharper and consistent: on MST edge overlap
 the VAE recovers two thirds of the distance between the linear models and the
 Deep Autoencoder (88.4\% against PCA's 83.0\% and the AE's 91.1\%). The cost
 that variational regularisation imposes on reconstruction fidelity is
-therefore contained, and far smaller than a first intuition would suggest.
+therefore contained, and smaller than a first intuition would suggest.
 
 Three runs at $K \in \{10, 20, 30\}$, identical in every other hyperparameter,
 reveal a peculiar behaviour of the VAE: its reconstruction error \emph{worsens}
 slightly as $K$ grows, the opposite of the other three models. Analysis of the
-latent space activity spectrum explains it: in all three configurations only
+latent space activity spectrum suggests an explanation: in all three configurations only
 about six dimensions are effectively active, while the remaining ones undergo
 \emph{posterior collapse}. The effective dimensionality of the correlation
-manifold is therefore not a hyperparameter to be tuned but a property of the
+manifold therefore appears not to be a hyperparameter to be tuned but rather a property of the
 data that the model discovers on its own; adding nominal dimensions does not
 increase the capacity actually used and merely widens the space over which
 conformity to the prior must be satisfied. The choice of $K = 20$ for the final
@@ -249,9 +249,9 @@ over the 412 real matrices:
 \end{enumerate}
 
 The outcome is that \textbf{all 1000 scenarios satisfy the five criteria
-simultaneously}, and all matrices are positive definite as guaranteed by
+simultaneously}, and all matrices are positive definite, with positive semidefiniteness guaranteed by
 construction by the Cholesky parametrisation. Detailed graphical inspection of
-a single scenario confirms the picture on those objects no scalar indicator can
+a single scenario corroborates the picture on those objects no scalar indicator can
 summarise: cosine similarity with respect to today's matrix is 0.9999 on the
 market mode and 0.9893 and 0.9883 on the two subsequent sector modes.
 
@@ -262,7 +262,7 @@ verification reduces each stylized fact to a scalar indicator, while full
 visual inspection remains limited to a single representative scenario; the one
 thousand scenarios moreover derive from heavily overlapping 21-day blocks, with
 an effective sample size below one thousand, and the entire verification is
-anchored to a single starting market state. Random shuffling, while resolving
+anchored to a single starting market state. Random shuffling, while addressing
 distribution shift, does not remove the informational overlap between adjacent
 windows (up to 98.6\% of shared observations), which represents a limited but
 real risk of optimism in the reported generalisation metrics. Finally, the
@@ -281,15 +281,15 @@ to international equity universes.
 
 \section{Conclusion}
 
-The thesis has designed, implemented and validated a complete framework for the
+The thesis has designed, implemented and empirically evaluated a complete framework for the
 compression, reconstruction and stochastic generation of realistic financial
 correlation matrices. The most significant result is that the Cholesky
 parametrisation structurally resolves the positive semidefiniteness constraint,
 and that on this basis the Variational Autoencoder pays a contained cost in
 reconstruction fidelity --- indeed remaining superior to the linear benchmarks
---- in exchange for the one property that makes stochastic generation possible.
+--- in exchange for the property that makes stochastic generation possible.
 The simultaneous conformity of the one thousand generated scenarios to the five
-stylized facts validates the proposed architecture as a self-contained tool for
+stylized facts supports the proposed architecture as a self-contained tool for
 producing mathematically coherent synthetic financial ecosystems.
 
 \end{document}

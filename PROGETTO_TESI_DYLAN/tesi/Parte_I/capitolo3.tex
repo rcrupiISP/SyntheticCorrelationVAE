@@ -156,7 +156,7 @@ La validità della legge di potenza implica la presenza di una topologia forteme
 
 Sulla matrice n.\,100 (Figura~\ref{fig:mst_scalefree} e Figura~\ref{fig:mst_graph}), il fit log-log della distribuzione di grado restituisce un esponente di scala stimato $\gamma=2.207$ (grado massimo $14$): un valore interno all'intervallo $2 < \gamma < 3$ tipicamente riportato in letteratura, coerente con la natura \emph{scale-free}, non gaussiana, della topologia di rete osservata, con pochi \emph{hub} dominanti circondati da un'ampia periferia di nodi a basso grado.
 
-\section{Benchmark test: fallimento strutturale della Random Matrix Theory}
+\section{Benchmark test sulla Random Matrix Theory}
 \label{sec:benchmark_rmt}
 
 Al fine di valutare la significatività statistica dei cinque fatti stilizzati descritti, viene definito un protocollo di \emph{benchmark test} basato sul confronto diretto tra le matrici finanziarie reali e le matrici puramente casuali generate sinteticamente tramite i teoremi della Random Matrix Theory.
@@ -227,7 +227,7 @@ La stessa gerarchia è resa esplicita dal dendrogramma di Figura~\ref{fig:rmt_de
 \label{fig:rmt_dendrogram}
 \end{figure}
 
-Infine, la topologia di rete conferma il quadro (Figure~\ref{fig:rmt_mst_degree} e~\ref{fig:rmt_mst_graph}). L'MST del benchmark casuale presenta un grado massimo di soli $6$ collegamenti, contro i $14$ del nodo \emph{hub} più connesso della matrice reale, pur condividendo lo stesso grado medio $\approx 1.99$ imposto dal vincolo topologico $\sum_i k_i = 2(N-1)$ comune a ogni albero di espansione. La distribuzione di grado casuale si esaurisce entro poco più di mezza decade, un intervallo incompatibile con l'estensione multi-decade richiesta da una autentica legge di potenza scale-free. Il fit lineare in scala log-log della distribuzione reale supporta quantitativamente tale natura scale-free, con una pendenza di $\approx -2.21$ (esponente $\gamma \approx 2.21$) e un coefficiente di determinazione $R^2 \approx 0.98$; sul benchmark casuale, al contrario, la distribuzione è marcatamente concava e non ammette alcuna interpolazione a legge di potenza.
+Infine, la topologia di rete conferma il quadro (Figure~\ref{fig:rmt_mst_degree} e~\ref{fig:rmt_mst_graph}). L'MST del benchmark casuale presenta un grado massimo di soli $6$ collegamenti, contro i $14$ del nodo \emph{hub} più connesso della matrice reale, pur condividendo lo stesso grado medio $\approx 1.99$ imposto dal vincolo topologico $\sum_i k_i = 2(N-1)$ comune a ogni albero di espansione. La distribuzione di grado casuale si esaurisce entro poco più di mezza decade, un intervallo incompatibile con l'estensione multi-decade richiesta da una autentica legge di potenza scale-free. Il fit lineare in scala log-log della distribuzione reale supporta quantitativamente tale natura scale-free, con una pendenza di $\approx -2.21$ (esponente $\gamma \approx 2.21$) e un coefficiente di determinazione $R^2 \approx 0.98$; sul benchmark casuale, al contrario, la distribuzione è marcatamente concava e non si presta ad una interpolazione con legge di potenza.
 
 \begin{figure}[h!]
 \centering
@@ -245,4 +245,4 @@ La visualizzazione topologica in Figura~\ref{fig:rmt_mst_graph} rende immediatam
 \label{fig:rmt_mst_graph}
 \end{figure}
 
-Questo fallimento sistematico mostra che i cinque fatti stilizzati costituiscono una firma geometrica distintiva dell'informazione finanziaria reale. Qualsiasi modello generativo profondo non può limitarsi a operare nel dominio di metriche rigide di errore quadratico medio, ma deve necessariamente superare questo \emph{benchmark test}. Il Variational Autoencoder, per essere considerato un valido motore stocastico di scenari, dovrà generare matrici sintetiche dallo spazio latente che non solo si discostino dal rumore di MP, ma che replichino fedelmente tutte le asimmetrie e le leggi di potenza che la Random Matrix Theory non è in grado di spiegare.
+Questa incompatibilità con la RMT mostra che i cinque fatti stilizzati costituiscono una firma geometrica altamente distintiva dell'informazione economico-finanziara reale. Qualsiasi modello generativo profondo non può limitarsi a operare nel dominio di metriche rigide di errore quadratico medio, ma deve necessariamente superare questo \emph{benchmark test}. Il Variational Autoencoder, per essere considerato un valido motore stocastico, dovrà generare matrici sintetiche dallo spazio latente che non solo si discostino dal rumore, ma che replichino fedelmente tutte le asimmetrie e le leggi di potenza che la Random Matrix Theory non è in grado di spiegare.

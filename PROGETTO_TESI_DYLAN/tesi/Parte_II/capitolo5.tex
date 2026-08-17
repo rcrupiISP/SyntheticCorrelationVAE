@@ -16,7 +16,7 @@ I dati grezzi sono costituiti dai prezzi di chiusura giornalieri rettificati (\e
 
 La categoria settoriale GICS di ciascun titolo, necessaria per le analisi di struttura gerarchica del Capitolo~\ref{ch:stylized_facts}, non era disponibile da un \emph{provider} dati strutturato: è stata pertanto ricostruita tramite classificazione automatica affidata a un modello linguistico di grandi dimensioni (\emph{Google Gemini}, modello \texttt{gemini-2.5-flash}), interrogato con un prompt \emph{few-shot} contenente esempi di riferimento per ciascuna delle undici categorie GICS. La classificazione ha avuto successo per 360 titoli su 362 (99.4\%), con solamente due ticker (\texttt{ABC}, \texttt{CERN}) rimasti non classificabili (\emph{Unknown}), verosimilmente per ambiguità o obsolescenza del simbolo azionario. La Tabella~\ref{tab:gics_distribution} riporta la distribuzione settoriale risultante, che riflette una composizione eterogenea del mercato \emph{large-cap} statunitense.
 
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \begin{tabular}{lrr}
 \hline

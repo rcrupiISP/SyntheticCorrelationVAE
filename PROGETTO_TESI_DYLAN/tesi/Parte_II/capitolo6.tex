@@ -18,7 +18,7 @@ L'Autoencoder Lineare (Linear AE) è stato progettato per fungere da ponte anali
     \item \textbf{Assenza di Bias e Regolarizzazione:} I termini di \emph{bias} sono stati disabilitati in tutti i \emph{layer} ($\mathbf{b} = 0$) e non è stata applicata alcuna penalizzazione di tipo \emph{weight decay} (L2) per non alterare la magnitudo della scomposizione spettrale appresa.
 \end{itemize}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.85\textwidth]{./Pictures/capitolo6/fig_architettura_linear_ae.png}
 \caption{Architettura dell'Autoencoder Lineare: un singolo layer denso lineare, privo di bias, per l'Encoder e per il Decoder, con spazio latente di dimensione $K$.}
@@ -39,7 +39,7 @@ L'architettura è strutturata con un \emph{design} a imbuto (simmetrico), condiv
     \item \textbf{Funzioni di attivazione:} Per gli strati nascosti intermedi ($2048 \to 1024 \to 512$, sia nell'Encoder sia nel Decoder) è stata adottata la funzione di attivazione LeakyReLU (con parametro di pendenza $\alpha$ fissato a 0.01) per mitigare il problema del \emph{vanishing gradient} e garantire un flusso di gradiente non nullo anche per valori di input negativi. Restano invece puramente lineari (privi di attivazione) i due \emph{layer} terminali dei due rami: la proiezione dell'Encoder sullo spazio latente ($512 \to \mathbb{R}^K$), per non vincolare il segno delle coordinate del codice latente, e il \emph{layer} di output del Decoder. Su quest'ultimo, a differenza di quanto inizialmente previsto in fase di progettazione, l'opzione Tanh, valutata per vincolare i valori ricostruiti al dominio $[-1,1]$ coerente con i coefficienti di correlazione di Pearson, è stata infine disattivata in tutte le run utilizzate per i risultati poiché la sua saturazione asintotica agli estremi $\pm 1$ avrebbe potuto azzerare il gradiente in fase di \emph{backpropagation} (\emph{vanishing gradient}), rallentando o bloccando l'apprendimento; si è quindi preferito lasciare che sia il \emph{clipping} finale in fase di ricostruzione della matrice a imporre tale vincolo.
 \end{itemize}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo6/fig_architettura_deep_ae.png}
 \caption{Architettura dell'Autoencoder Profondo (Deep AE): design a imbuto simmetrico con attivazione LeakyReLU sugli strati nascosti intermedi e nessuna attivazione sul layer di \emph{bottleneck} e sull'ultimo layer del Decoder.}
@@ -63,7 +63,7 @@ Il Variational Autoencoder (VAE) è deputato non solo alla compressione, ma alla
     \item \textbf{Rete Generativa (Decoder):} Il Decoder speculare riceve $\mathbf{z}$ e procede alla ricostruzione, garantendo la PSD della matrice di correlazione tramite la stessa procedura basata su Cholesky descritta per l'Autoencoder Profondo.
 \end{itemize}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.98\textwidth]{./Pictures/capitolo6/fig_architettura_vae.png}
 \caption{Architettura del VAE: encoder a imbuto condiviso con il Deep AE, biforcazione in $\boldsymbol{\mu}$ e $\log\boldsymbol{\sigma}^2$, campionamento di $\mathbf{z}$ tramite \emph{reparameterization trick} e decoder speculare.}

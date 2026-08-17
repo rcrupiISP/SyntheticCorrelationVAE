@@ -1,12 +1,17 @@
-\documentclass[%
+%%%%%%% Le opzioni di toptesi vanno passate al pacchetto omonimo (che la classe
+%%%%%%% carica al proprio interno) anziche' alla classe: quelle in forma
+%%%%%%% chiave=valore, se lasciate globali, restano nell'elenco delle opzioni
+%%%%%%% inutilizzate e provocano un "Unused global option(s)" spurio.
+%%%%%%% L'ordine va mantenuto: "oldstyle" ha effetto solo se "stile=classica"
+%%%%%%% e' gia' stato elaborato.
+\PassOptionsToPackage{%
     corpo=11pt,
-    twoside,
     stile=classica,
     oldstyle,
     tipotesi=custom,
-    greek,
     evenboxes,
-]{toptesi}
+}{toptesi}
+\documentclass[twoside,greek]{toptesi}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[utf8]{inputenc}
@@ -37,6 +42,9 @@
 
 \usepackage{dcolumn}
 \newcolumntype{d}{D{.}{.}{-1} } %to vertical align numbers in tables, along the decimal dot
+%%%%%%% Colonna di testo a larghezza fissa composta a bandiera: nelle colonne
+%%%%%%% strette la giustificazione produce righe troppo dilatate (underfull).
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -50,6 +58,15 @@
 %%%%%%% Local definitions
 \newtheorem{osservazione}{Osservazione}% Standard LaTeX
 \newtheorem{observation}{Observation}% Standard LaTeX
+
+%%%%%%% Con "twoside" e' attivo \flushbottom: LaTeX cerca di portare ogni
+%%%%%%% pagina fino a fondo gabbia dilatando gli spazi verticali disponibili.
+%%%%%%% Nelle pagine di fine capitolo e in quelle occupate quasi per intero da
+%%%%%%% una figura non c'e' spazio elastico da dilatare, e la composizione
+%%%%%%% emette un "Underfull \vbox" che non corrisponde ad alcun difetto:
+%%%%%%% la pagina termina semplicemente un po' prima. Si alza la soglia di
+%%%%%%% segnalazione per non sporcare il log; l'impaginazione resta invariata.
+\vbadness=10000
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -90,8 +107,6 @@ La procedura di generazione effettivamente adottata non consiste in un semplice 
 
 Desidero rivolgere il primo ringraziamento al professor Flavio Giobergia, relatore di questa tesi, e a Sergio Caprioli, che mi ha seguito come relatore aziendale: a entrambi devo la disponibilità e la competenza con cui hanno accompagnato ogni fase del lavoro, e la libertà di sbagliare strada quando serviva. Un ringraziamento va inoltre a Intesa Sanpaolo, per avermi dato l'opportunità di svolgere questa ricerca.
 
-Un ringraziamento particolare va al professor Galvagno, che alle scuole superiori mi ha insegnato la matematica e me ne ha trasmesso la passione, spingendomi a proseguire gli studi quando io per primo non credevo di poterlo fare. Se questo percorso è cominciato, lo devo in buona parte a lui.
-
 Ai miei genitori devo tutto ciò che questo traguardo rappresenta. Mi hanno sostenuto senza chiedere nulla in cambio, con una fiducia che non è mai venuta meno, e mi hanno lasciato libero di scegliere.
 
 A mio fratello Alex va un grazie a parte: mi è sempre stato al fianco, anche quando non me ne accorgevo.
@@ -99,6 +114,8 @@ A mio fratello Alex va un grazie a parte: mi è sempre stato al fianco, anche qu
 Grazie alla mia famiglia, ai miei nonni e ai miei zii, per un affetto costante e discreto che in questi anni non è mai mancato: un punto fermo a cui tornare, qualunque cosa accadesse.
 
 Un pensiero va ai miei amici, Matte, Mirko, Ale, Lore, Maio e Mari, per aver reso più leggeri anche i periodi più densi e per esserci stati senza che ci fosse bisogno di chiederlo.
+
+Un ringraziamento particolare va al professor Galvagno, che alle scuole superiori mi ha insegnato la matematica e me ne ha trasmesso la passione, spingendomi a proseguire gli studi quando io per primo non credevo di poterlo fare. Se questo percorso è cominciato, lo devo in buona parte a lui.
 
 Un grazie a Emiliano, che ha scommesso su di me prima che ci fossero ragioni per farlo.
 

@@ -97,8 +97,8 @@
 \newlabel{eq:distanza_metrica}{{3.3}{25}{Struttura gerarchica delle correlazioni}{equation.3.3}{}}
 \newlabel{eq:average_linkage}{{3.4}{25}{Struttura gerarchica delle correlazioni}{equation.3.4}{}}
 \citation{mantegna1998hierarchical}
-\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Dendrogramma ottenuto tramite \emph  {average linkage} sulla distanza $d_{ij}=\sqrt  {2(1-C_{ij})}$, calcolato sulla matrice n.\,100 (Figura~\ref {fig:esempio_heatmap}), con la linea verticale di ciascun asset colorata in base al proprio settore GICS. Si distinguono chiaramente blocchi di foglie dello stesso colore che si fondono a bassa distanza, corrispondenti ai raggruppamenti settoriali.}}{26}{figure.3.5}\protected@file@percent }
-\newlabel{fig:dendrogram}{{3.5}{26}{Dendrogramma ottenuto tramite \emph {average linkage} sulla distanza $d_{ij}=\sqrt {2(1-C_{ij})}$, calcolato sulla matrice n.\,100 (Figura~\ref {fig:esempio_heatmap}), con la linea verticale di ciascun asset colorata in base al proprio settore GICS. Si distinguono chiaramente blocchi di foglie dello stesso colore che si fondono a bassa distanza, corrispondenti ai raggruppamenti settoriali}{figure.3.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces Dendrogramma ottenuto tramite \emph  {average linkage} sulla distanza metrica $d_{ij}=\sqrt  {2(1-C_{ij})}$, calcolato sulla matrice n.\,100 (Figura~\ref {fig:esempio_heatmap}), con la linea verticale di ciascun asset colorata in base al proprio settore GICS. Si distinguono chiaramente blocchi di foglie dello stesso colore che si fondono a bassa distanza, corrispondenti ai raggruppamenti settoriali.}}{26}{figure.3.5}\protected@file@percent }
+\newlabel{fig:dendrogram}{{3.5}{26}{Dendrogramma ottenuto tramite \emph {average linkage} sulla distanza metrica $d_{ij}=\sqrt {2(1-C_{ij})}$, calcolato sulla matrice n.\,100 (Figura~\ref {fig:esempio_heatmap}), con la linea verticale di ciascun asset colorata in base al proprio settore GICS. Si distinguono chiaramente blocchi di foglie dello stesso colore che si fondono a bassa distanza, corrispondenti ai raggruppamenti settoriali}{figure.3.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3.6}Il Minimum Spanning Tree (MST) e la proprietà scale-free}{26}{section.3.6}\protected@file@percent }
 \newlabel{sec:mst_scalefree}{{3.6}{26}{Il Minimum Spanning Tree (MST) e la proprietà scale-free}{section.3.6}{}}
 \@writefile{brf}{\backcite{mantegna1998hierarchical}{{26}{3.6}{section.3.6}}}
@@ -241,7 +241,7 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {7.8}{\ignorespaces Scarto assoluto fra la lunghezza media dei cammini dell'MST originale e quella dell'MST ricostruito, versione non pesata (conteggio degli archi), dominio Cholesky, \emph  {Test Set}, in funzione di $K$. Come nella Figura~\ref {fig:mst_avg_path_len_vs_k}, valori più piccoli corrispondono a una ricostruzione migliore ($\downarrow $).}}{69}{figure.7.8}\protected@file@percent }
 \newlabel{fig:mst_avg_path_len_unweighted_vs_k}{{7.8}{69}{Scarto assoluto fra la lunghezza media dei cammini dell'MST originale e quella dell'MST ricostruito, versione non pesata (conteggio degli archi), dominio Cholesky, \emph {Test Set}, in funzione di $K$. Come nella Figura~\ref {fig:mst_avg_path_len_vs_k}, valori più piccoli corrispondono a una ricostruzione migliore ($\downarrow $)}{figure.7.8}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.2.3}Il comportamento del VAE al variare di $K$}{70}{subsection.7.2.3}\protected@file@percent }
-\newlabel{subsec:vae_vs_k}{{7.2.3}{70}{Il comportamento del VAE al variare di $K$}{subsection.7.2.3}{}}
+\newlabel{subsec:vae_vs_k}{{7.2.3}{70}{Il comportamento del VAE al variare di \texorpdfstring {$K$}{K}}{subsection.7.2.3}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {7.3}{\ignorespaces Metriche di ricostruzione del VAE sul \emph  {Test Set} (dominio Cholesky) alle tre dimensioni latenti effettivamente addestrate, e numero di dimensioni latenti effettivamente attive. Queste ultime non sono metriche di test: sono contate sullo spettro di varianza empirica delle dimensioni latenti, calcolato sui parametri latenti $\mathbf  {z}=\boldsymbol  {\mu }$ delle $288$ matrici del \emph  {Training Set} --- la stessa base della Figura~\ref {fig:vae_latent_spectrum} --- secondo due soglie alternative. Nelle prime tre righe valori più piccoli corrispondono a una ricostruzione migliore ($\downarrow $), nelle tre successive valori più grandi ($\uparrow $). Le tre run condividono tutti gli iperparametri di addestramento (Tabella~\ref {tab:vae_iperparametri}) e differiscono unicamente per la dimensione latente $K$.}}{71}{table.7.3}\protected@file@percent }
 \newlabel{tab:vae_vs_k_test}{{7.3}{71}{Metriche di ricostruzione del VAE sul \emph {Test Set} (dominio Cholesky) alle tre dimensioni latenti effettivamente addestrate, e numero di dimensioni latenti effettivamente attive. Queste ultime non sono metriche di test: sono contate sullo spettro di varianza empirica delle dimensioni latenti, calcolato sui parametri latenti $\mathbf {z}=\boldsymbol {\mu }$ delle $288$ matrici del \emph {Training Set} --- la stessa base della Figura~\ref {fig:vae_latent_spectrum} --- secondo due soglie alternative. Nelle prime tre righe valori più piccoli corrispondono a una ricostruzione migliore ($\downarrow $), nelle tre successive valori più grandi ($\uparrow $). Le tre run condividono tutti gli iperparametri di addestramento (Tabella~\ref {tab:vae_iperparametri}) e differiscono unicamente per la dimensione latente $K$}{table.7.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.2.4}L'addestramento del VAE definitivo}{72}{subsection.7.2.4}\protected@file@percent }
@@ -294,9 +294,9 @@
 \@writefile{lof}{\contentsline {figure}{\numberline {8.5}{\ignorespaces Confronto dei primi tre autovettori tra matrice odierna e matrice sintetica: le componenti del \emph  {market mode} (in alto) sono tutte dello stesso segno in entrambe le matrici.}}{87}{figure.8.5}\protected@file@percent }
 \newlabel{fig:pf_generato}{{8.5}{87}{Confronto dei primi tre autovettori tra matrice odierna e matrice sintetica: le componenti del \emph {market mode} (in alto) sono tutte dello stesso segno in entrambe le matrici}{figure.8.5}{}}
 \@writefile{toc}{\contentsline {paragraph}{Struttura gerarchica.}{87}{section*.13}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Topologia scale-free del MST.}{87}{section*.14}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {8.6}{\ignorespaces Dendrogrammi comparativi con le foglie colorate per settore GICS e asse verticale condiviso: matrice odierna (in alto) e matrice sintetica a un mese (in basso). In entrambi i pannelli i titoli dello stesso settore formano blocchi cromatici compatti che si fondono a bassa distanza, a indicare che il VAE preserva i cluster settoriali della struttura gerarchica reale.}}{88}{figure.8.6}\protected@file@percent }
 \newlabel{fig:dendrogram_generato}{{8.6}{88}{Dendrogrammi comparativi con le foglie colorate per settore GICS e asse verticale condiviso: matrice odierna (in alto) e matrice sintetica a un mese (in basso). In entrambi i pannelli i titoli dello stesso settore formano blocchi cromatici compatti che si fondono a bassa distanza, a indicare che il VAE preserva i cluster settoriali della struttura gerarchica reale}{figure.8.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Topologia scale-free del MST.}{88}{section*.14}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {8.7}{\ignorespaces Distribuzione di grado del Minimum Spanning Tree in scala log-log, matrice odierna vs matrice sintetica a un mese.}}{89}{figure.8.7}\protected@file@percent }
 \newlabel{fig:mst_generato}{{8.7}{89}{Distribuzione di grado del Minimum Spanning Tree in scala log-log, matrice odierna vs matrice sintetica a un mese}{figure.8.7}{}}
 \citation{bourlard1988autoassociation}
@@ -308,16 +308,27 @@
 \@writefile{toc}{\contentsline {section}{\numberline {9.1}Sintesi dei risultati ottenuti}{91}{section.9.1}\protected@file@percent }
 \newlabel{sec:sintesi_risultati}{{9.1}{91}{Sintesi dei risultati ottenuti}{section.9.1}{}}
 \@writefile{brf}{\backcite{bourlard1988autoassociation}{{91}{9.1}{section.9.1}}}
+\citation{caprioli2024ptfvae}
+\citation{marti2019corrgan}
+\citation{marti2019corrgan}
+\citation{bourlard1988autoassociation}
 \@writefile{brf}{\backcite{kingma2013vae}{{92}{9.1}{section.9.1}}}
 \@writefile{brf}{\backcite{doersch2016vae}{{92}{9.1}{section.9.1}}}
 \@writefile{brf}{\backcite{burgess2018understanding}{{92}{9.1}{section.9.1}}}
-\@writefile{toc}{\contentsline {section}{\numberline {9.2}Limiti del modello attuale}{92}{section.9.2}\protected@file@percent }
-\newlabel{sec:limiti_modello}{{9.2}{92}{Limiti del modello attuale}{section.9.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{Differenze e approfondimenti rispetto al lavoro di riferimento.}{92}{section*.15}\protected@file@percent }
+\@writefile{brf}{\backcite{caprioli2024ptfvae}{{92}{9.1}{section*.15}}}
+\@writefile{brf}{\backcite{marti2019corrgan}{{92}{9.1}{section*.15}}}
+\@writefile{brf}{\backcite{marti2019corrgan}{{92}{9.1}{section*.15}}}
+\@writefile{brf}{\backcite{bourlard1988autoassociation}{{93}{9.1}{section*.15}}}
+\citation{caprioli2024ptfvae}
+\@writefile{brf}{\backcite{caprioli2024ptfvae}{{94}{9.1}{section*.15}}}
+\@writefile{toc}{\contentsline {section}{\numberline {9.2}Limiti del modello attuale}{95}{section.9.2}\protected@file@percent }
+\newlabel{sec:limiti_modello}{{9.2}{95}{Limiti del modello attuale}{section.9.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9.3}Sviluppi futuri}{96}{section.9.3}\protected@file@percent }
+\newlabel{sec:sviluppi_futuri}{{9.3}{96}{Sviluppi futuri}{section.9.3}{}}
 \citation{marti2019corrgan}
-\@writefile{toc}{\contentsline {section}{\numberline {9.3}Sviluppi futuri}{93}{section.9.3}\protected@file@percent }
-\newlabel{sec:sviluppi_futuri}{{9.3}{93}{Sviluppi futuri}{section.9.3}{}}
-\@writefile{brf}{\backcite{marti2019corrgan}{{93}{9.3}{section.9.3}}}
 \bibdata{references}
+\@writefile{brf}{\backcite{marti2019corrgan}{{97}{9.3}{section.9.3}}}
 \bibcite{ang2002asymmetric}{{1}{2002}{{Ang e Chen}}{{}}}
 \bibcite{baldi1989neural}{{2}{1989}{{Baldi e Hornik}}{{}}}
 \bibcite{bouchaud2009rmt}{{3}{2011}{{Bouchaud e Potters}}{{}}}
@@ -341,4 +352,4 @@
 \bibcite{plaut2018principal}{{21}{2018}{{Plaut}}{{}}}
 \bibcite{plerou1999universal}{{22}{1999}{{Plerou et~al.}}{{Plerou, Gopikrishnan, Rosenow, Amaral e Stanley}}}
 \bibcite{plerou2002randommatrix}{{23}{2002}{{Plerou et~al.}}{{Plerou, Gopikrishnan, Rosenow, Amaral, Guhr e Stanley}}}
-\gdef \@abspage@last{97}
+\gdef \@abspage@last{101}

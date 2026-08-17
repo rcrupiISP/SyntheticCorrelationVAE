@@ -37,7 +37,11 @@ Lo studio seminale di \citet{bourlard1988autoassociation} caratterizza l'ottimo 
 
 Sebbene le matrici dei pesi dell'AE non siano necessariamente ortogonali come nella PCA --- \citet{plaut2018principal} mostra come sia comunque possibile recuperare esattamente le componenti principali ordinate e ortonormali applicando una SVD ai pesi del \emph{decoder} --- l'Autoencoder Lineare funge da prova matematica: le reti neurali sono in grado di replicare esattamente l'ottimo globale lineare. Questo lo rende il \emph{benchmark} strutturale di partenza prima di introdurre una maggiore complessità con una rete neurale "profonda".
 
-\section{Autoencoder Profondi (AE): introduzione alla non-linearità}
+%%%%%%% Titolo troppo lungo per una riga: l'a capo esplicito evita che la riga
+%%%%%%% sbordi nel margine. L'argomento opzionale mantiene il titolo su una
+%%%%%%% riga sola nell'indice e nei segnalibri del PDF.
+\section[Autoencoder Profondi (AE): introduzione alla non-linearità]%
+        {Autoencoder Profondi (AE): introduzione alla\\ non-linearità}
 \label{sec:deep_ae}
 
 L'evoluzione naturale dell'architettura lineare è l'Autoencoder Profondo (Deep AE). Aggiungendo strati nascosti (\emph{hidden layers}) sovrapposti e introducendo funzioni di attivazione non lineari (come ReLU, Tanh o Sigmoide), la rete neurale acquisisce la capacità, sancita dal Teorema di Approssimazione Universale, di approssimare con precisione arbitraria qualsiasi funzione continua.

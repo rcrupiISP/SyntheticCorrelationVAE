@@ -12,7 +12,7 @@ Identificare e formalizzare queste proprietà strutturali è un prerequisito fon
 
 Le proprietà teoriche descritte in questo capitolo vengono illustrate su una singola matrice di correlazione del dataset finale, scelta come esempio rappresentativo e identificata dall'indice $100$ nella pipeline di preprocessing (Capitolo~\ref{ch:preprocessing}). La Figura~\ref{fig:esempio_heatmap} mostra questa matrice ($N=362$ asset, finestra $W=724$ giorni) riordinata secondo un clustering gerarchico: i blocchi rossi densi lungo la diagonale, separati da regioni fuori blocco nettamente più chiare, anticipano visivamente la struttura gerarchica formalizzata nella Sezione~\ref{sec:struttura_gerarchica}.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.85\textwidth]{./Pictures/capitolo3/fig_esempio_heatmap_100.png}
 \caption{Matrice di correlazione empirica n.\,100 del dataset finale ($N=362$ asset), riordinata secondo clustering gerarchico. I blocchi rossi densi lungo la diagonale corrispondono a raggruppamenti settoriali.}
@@ -28,7 +28,7 @@ In un mercato teorico puramente casuale, in cui i rendimenti dei titoli fossero 
 
 Al contrario, nei mercati finanziari reali si osserva un fenomeno sistematico di deviazione statistica (\emph{distribution shift}). La distribuzione delle correlazioni \emph{pairwise} è marcatamente asimmetrica e significativamente spostata verso valori positivi, con una media campionaria stabilmente superiore allo zero, tipicamente confinata nell'intervallo $[0.2, 0.5]$. Questo spostamento globale riflette l'esistenza del cosiddetto ``effetto mercato'' o fattore di rischio sistematico: in condizioni macroeconomiche ordinarie, e in modo ancora più accentuato durante i crolli finanziari, la quasi totalità degli asset tende a muoversi nella medesima direzione, spinta da shock sistemici globali che dominano sulle componenti idiosincratiche dei singoli titoli.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.85\textwidth]{./Pictures/capitolo3/fig_pairwise_distribution.png}
 \caption{Distribuzione empirica dei coefficienti di correlazione \emph{pairwise} della matrice n.\,100 del dataset finale ($N=362$ asset, $W=724$ giorni). La media campionaria (0.2334) e la mediana (0.2257) risultano spostate verso valori positivi rispetto allo zero atteso sotto l'ipotesi di indipendenza.}
@@ -58,7 +58,7 @@ Quando si analizza lo spettro di una matrice di correlazione reale, l'evidenza e
     \item \textbf{Il bulk del rumore ($\lambda \le \lambda_+$):} La stragrande maggioranza dei rimanenti autovalori (spesso oltre il 90\% del totale) rimane confinata all'interno dell'intervallo $[\lambda_-, \lambda_+]$. Questa porzione dello spettro è statisticamente indistinguibile dal puro rumore bianco, suggerendo che la frazione predominante delle relazioni puntuali descritte dalle matrici empiriche sia priva di reale contenuto informativo stazionario.
 \end{enumerate}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo3/fig_marchenko_pastur.png}
 \caption{Confronto tra lo spettro empirico degli autovalori della matrice n.\,100 e la densità teorica di Marchenko-Pastur (sinistra) e primi 20 autovalori (destra), con $q = N/T = 362/724 = 0.5$ e limite superiore teorico $\lambda_+ = 2.914$.}
@@ -84,7 +84,7 @@ Le implicazioni di questa proprietà si traducono in due vincoli algebrici per l
 
 Dal punto di vista economico-finanziario, questa proprietà è notevole: poiché ciascuna componente $v_{1,i}$ quantifica il livello di partecipazione del titolo $i$-esimo al primo fattore principale, l'uniformità del segno indica che l'effetto mercato agisce in modo cooperativo su tutti i titoli del paniere. Pur con intensità diverse, nessuno degli asset analizzati si muove strutturalmente in opposizione di fase rispetto al trend macroeconomico globale dominante.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.85\textwidth]{./Pictures/capitolo3/fig_perron_frobenius.png}
 \caption{Componenti del primo autovettore $\mathbf{v}_1$ (\emph{market mode}) della matrice n.\,100 per ciascuno dei 362 asset: tutte le componenti risultano dello stesso segno, in accordo con la proprietà di Perron-Frobenius.}
@@ -114,10 +114,10 @@ D(A, B) = \frac{1}{|A|\,|B|} \sum_{i \in A} \sum_{j \in B} d_{ij}
 \end{equation}
 dove $|A|$ e $|B|$ sono le cardinalità dei due cluster. Due gruppi di titoli vengono cioè aggregati sulla base della correlazione \emph{tipica} tra i loro membri, e non della coppia più vicina (\emph{single linkage}) o più lontana (\emph{complete linkage}): mediando su tutte le $|A|\,|B|$ coppie, il criterio attenua il rumore di stima che contamina i singoli coefficienti \emph{pairwise} ed evita che un'unica correlazione sovrastimata saldi due settori distinti. Nel dendrogramma l'altezza di ciascun nodo interno è dunque il valore di $D(A,B)$ alla fusione, misurato nella scala della distanza $d_{ij}$: rami che si ricongiungono a bassa altezza identificano gruppi di titoli fortemente correlati tra loro. L'ordinamento delle foglie che ne risulta è lo stesso impiegato per riordinare righe e colonne di $\hat{\mathbf{C}}$ nella Figura~\ref{fig:esempio_heatmap}.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo3/fig_dendrogram.png}
-\caption{Dendrogramma ottenuto tramite \emph{average linkage} sulla distanza $d_{ij}=\sqrt{2(1-C_{ij})}$, calcolato sulla matrice n.\,100 (Figura~\ref{fig:esempio_heatmap}), con la linea verticale di ciascun asset colorata in base al proprio settore GICS. Si distinguono chiaramente blocchi di foglie dello stesso colore che si fondono a bassa distanza, corrispondenti ai raggruppamenti settoriali.}
+\caption{Dendrogramma ottenuto tramite \emph{average linkage} sulla distanza metrica $d_{ij}=\sqrt{2(1-C_{ij})}$, calcolato sulla matrice n.\,100 (Figura~\ref{fig:esempio_heatmap}), con la linea verticale di ciascun asset colorata in base al proprio settore GICS. Si distinguono chiaramente blocchi di foglie dello stesso colore che si fondono a bassa distanza, corrispondenti ai raggruppamenti settoriali.}
 \label{fig:dendrogram}
 \end{figure}
 
@@ -140,14 +140,14 @@ dove $\gamma$ rappresenta l'esponente di scala strutturale, solitamente confinat
 
 La validità della legge di potenza implica la presenza di una topologia fortemente accentrata. L'MST finanziario è dominato da pochi nodi ad alta connettività, definiti \emph{hubs} super-connessi, che agiscono come centri collettori dell'informazione finanziaria (tipicamente grandi aziende leader di settore o holding sistemiche), attorno ai quali si dispongono radialmente ampi cluster di nodi periferici a basso grado (nodi foglia).
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.75\textwidth]{./Pictures/capitolo3/fig_mst_scalefree.png}
 \caption{Distribuzione di grado del Minimum Spanning Tree della matrice n.\,100, in scala log-log: l'andamento lineare è coerente con la legge di potenza $P(k) \propto k^{-\gamma}$.}
 \label{fig:mst_scalefree}
 \end{figure}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.8\textwidth]{./Pictures/capitolo3/fig_mst_graph.png}
 \caption{Visualizzazione topologica del Minimum Spanning Tree per la matrice n.\,100 (Figura~\ref{fig:esempio_heatmap}), con nodi etichettati per ticker e colorati per settore GICS: si osservano chiaramente \emph{hub} settoriali e cluster periferici.}
@@ -163,9 +163,9 @@ Al fine di valutare la significatività statistica dei cinque fatti stilizzati d
 
 Generando una matrice di controllo mediante l'estrazione di $N$ serie temporali di puro rumore gaussiano bianco i.i.d., si costruisce la corrispondente matrice di correlazione casuale. Sottoponendo tale matrice al medesimo protocollo di analisi qualitativo e quantitativo, si registra un fallimento sistematico nell'adempimento delle proprietà del mercato reale:
 
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
-\begin{tabular}{p{4.5cm} p{5.5cm} p{5.5cm}}
+\begin{tabular}{@{}L{3.6cm} L{5.0cm} L{5.0cm}@{}}
 \hline
 \textbf{Stylized Fact} & \textbf{Mercato Reale (S\&P 500)} & \textbf{Benchmark RMT (Pure Noise)} \\
 \hline
@@ -184,7 +184,7 @@ Per rendere visivamente tangibile il fallimento sintetizzato in Tabella~\ref{tab
 
 La Figura~\ref{fig:rmt_pairwise} mostra il primo confronto diretto sulla distribuzione \emph{pairwise}: mentre la matrice reale conserva la media positiva pari a $0.2334$ discussa nella Sezione~\ref{sec:pairwise_distribution}, la distribuzione del benchmark casuale risulta simmetrica, centrata su una media pressoché nulla ($0.0000$) e con deviazione standard $0.0373$, in pieno accordo con il valore teorico atteso $1/\sqrt{T} = 0.0372$ per correlazioni campionarie tra serie indipendenti. Circa il $50\%$ dei coefficienti del benchmark risulta negativo, contro lo $0.06\%$ osservato nel mercato reale.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo3/fig_pairwise_distribution_rmt_comparison.png}
 \caption{Proprietà 1 -- Distribuzione dei coefficienti \emph{pairwise}: mercato reale (matrice n.\,100, media $0.2334$) contro benchmark RMT di rumore gaussiano i.i.d. (media $0.0000$, deviazione standard $0.0373 \approx 1/\sqrt{T}$).}
@@ -193,7 +193,7 @@ La Figura~\ref{fig:rmt_pairwise} mostra il primo confronto diretto sulla distrib
 
 La Figura~\ref{fig:rmt_marchenko_pastur} conferma la stessa dicotomia nello spettro degli autovalori: nella matrice reale il primo autovalore $\lambda_1=88.753$ (pari al $24.5\%$ della varianza totale) fuoriesce di quasi due ordini di grandezza dal limite superiore teorico $\lambda_+=2.914$, insieme ad altri $8$ autovalori settoriali che violano il medesimo limite. Nel benchmark casuale, costruito con lo stesso rapporto spettrale $q=N/T=0.5$, l'intero spettro empirico aderisce visivamente alla densità teorica di Marchenko-Pastur: il primo autovalore vale appena $2.907$ (leggermente sotto $\lambda_+$, una fluttuazione di dimensione finita pienamente compatibile con la teoria) e nessun autovalore emerge oltre il bulk, a conferma dell'assenza di qualsiasi fattore di mercato o settoriale.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo3/fig_marchenko_pastur_rmt_comparison.png}
 \caption{Proprietà 2 -- Spettro degli autovalori contro la densità di Marchenko-Pastur ($q=0.5$, $\lambda_+=2.914$): la matrice reale espone $9$ autovalori oltre il bulk (incluso il modo di mercato $\lambda_1=88.753$), mentre il benchmark RMT non ne presenta alcuno ($\lambda_1=2.907$).}
@@ -202,7 +202,7 @@ La Figura~\ref{fig:rmt_marchenko_pastur} conferma la stessa dicotomia nello spet
 
 La proprietà di Perron-Frobenius, verificata nella Sezione~\ref{sec:perron_frobenius} per la matrice reale, fallisce sistematicamente nel benchmark casuale (Figura~\ref{fig:rmt_perron_frobenius}): il primo autovettore della matrice di controllo presenta segni distribuiti casualmente ($50.8\%$ di componenti negative), contro l'uniformità di segno (tutte le componenti positive) osservata nel mercato reale. L'assenza di un effetto mercato cooperativo si traduce quindi nella perdita totale della struttura di segno dell'autovettore dominante.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo3/fig_perron_frobenius_rmt_comparison.png}
 \caption{Proprietà 3 -- Componenti del primo autovettore: segni tutti concordi (positivi) nella matrice reale contro segni casuali ($50.8\%$ negativi) nel benchmark RMT, che viola la proprietà di Perron-Frobenius.}
@@ -211,7 +211,7 @@ La proprietà di Perron-Frobenius, verificata nella Sezione~\ref{sec:perron_frob
 
 Applicando alla matrice casuale lo stesso algoritmo di clustering gerarchico utilizzato nella Sezione~\ref{sec:struttura_gerarchica}, la Figura~\ref{fig:rmt_heatmap} mostra che il riordinamento non rivela blocchi diagonali: mentre la matrice reale riordinata espone chiaramente i raggruppamenti settoriali già osservati in Figura~\ref{fig:esempio_heatmap}, la matrice casuale riordinata rimane un campo omogeneo e privo di struttura, con correlazioni fuori diagonale confinate nell'intervallo $[-0.163, 0.160]$ (deviazione standard $0.037$) contro l'intervallo $[-0.099, 0.836]$ (deviazione standard $0.092$) della matrice reale.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.85\textwidth]{./Pictures/capitolo3/fig_heatmap_rmt_comparison.png}
 \caption{Proprietà 4 -- Matrice di correlazione riordinata per clustering gerarchico: blocchi settoriali densi e riconoscibili nella matrice reale contro un campo omogeneo e amorfo nel benchmark RMT, ottenuto applicando lo stesso algoritmo di ordinamento.}
@@ -220,7 +220,7 @@ Applicando alla matrice casuale lo stesso algoritmo di clustering gerarchico uti
 
 La stessa gerarchia è resa esplicita dal dendrogramma di Figura~\ref{fig:rmt_dendrogram}, costruito con il medesimo \emph{linkage} average utilizzato per il riordinamento (l'ordine delle foglie coincide dunque con quello delle colonne della heatmap) e con la linea verticale di ciascun asset colorata in base al proprio settore GICS. Nella matrice reale i titoli dello stesso settore si fondono a bassa distanza di aggregazione, formando blocchi cromatici compatti che corrispondono ai cluster settoriali; nel benchmark casuale, invece, tutte le fusioni avvengono in una banda stretta ad alta distanza ($\approx \sqrt{2}$) e i colori settoriali risultano interlacciati in modo casuale, senza alcun blocco riconoscibile. La condivisione dell'asse verticale tra i due pannelli rende immediatamente confrontabile la profonda struttura a bassa distanza del mercato reale con la struttura a \emph{pettine}, piatta e priva di gerarchia, del rumore puro.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo3/fig_dendrogram_rmt_comparison.png}
 \caption{Proprietà 4 -- Dendrogramma del clustering gerarchico con le foglie colorate per settore GICS: nella matrice reale i settori formano cluster compatti che si fondono a bassa distanza, mentre nel benchmark RMT le fusioni sono tutte schiacciate ad alta distanza e i colori settoriali appaiono dispersi, senza alcun cluster.}
@@ -229,7 +229,7 @@ La stessa gerarchia è resa esplicita dal dendrogramma di Figura~\ref{fig:rmt_de
 
 Infine, la topologia di rete conferma il quadro (Figure~\ref{fig:rmt_mst_degree} e~\ref{fig:rmt_mst_graph}). L'MST del benchmark casuale presenta un grado massimo di soli $6$ collegamenti, contro i $14$ del nodo \emph{hub} più connesso della matrice reale, pur condividendo lo stesso grado medio $\approx 1.99$ imposto dal vincolo topologico $\sum_i k_i = 2(N-1)$ comune a ogni albero di espansione. La distribuzione di grado casuale si esaurisce entro poco più di mezza decade, un intervallo incompatibile con l'estensione multi-decade richiesta da una autentica legge di potenza scale-free. Il fit lineare in scala log-log della distribuzione reale supporta quantitativamente tale natura scale-free, con una pendenza di $\approx -2.21$ (esponente $\gamma \approx 2.21$) e un coefficiente di determinazione $R^2 \approx 0.98$; sul benchmark casuale, al contrario, la distribuzione è marcatamente concava e non si presta ad una interpolazione con legge di potenza.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.9\textwidth]{./Pictures/capitolo3/fig_mst_degree_rmt_comparison.png}
 \caption{Proprietà 5 -- Distribuzione di grado dell'MST in scala log-log: la matrice reale raggiunge un grado massimo di $14$ su un intervallo esteso, mentre il benchmark RMT si esaurisce entro il grado $6$, senza alcun nodo \emph{hub}. La retta tratteggiata sul pannello reale è l'interpolazione lineare in scala log-log (legge di potenza), con pendenza $\approx -2.21$ e $R^2 \approx 0.98$, coerente con una struttura scale-free; il pannello del benchmark RMT non ammette interpolazione analoga.}
@@ -238,7 +238,7 @@ Infine, la topologia di rete conferma il quadro (Figure~\ref{fig:rmt_mst_degree}
 
 La visualizzazione topologica in Figura~\ref{fig:rmt_mst_graph} rende immediatamente evidente il contrasto: entrambi i pannelli adottano la \emph{stessa} codifica cromatica per settore GICS. Nella matrice reale i titoli dello stesso settore si aggregano in \emph{hub} e rami omogenei chiaramente visibili (di dimensione proporzionale al grado), mentre nell'MST casuale i medesimi colori settoriali risultano dispersi in modo del tutto casuale lungo l'albero: nessun raggruppamento per settore sopravvive, a conferma dell'assenza di qualunque struttura economica sottostante al puro rumore.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo3/fig_mst_graph_rmt_comparison.png}
 \caption{Proprietà 5 -- Visualizzazione topologica del Minimum Spanning Tree, con entrambi i pannelli colorati per settore GICS (dimensione = grado del nodo): nella matrice reale i settori si aggregano in \emph{hub} e rami omogenei, mentre nel benchmark RMT gli stessi colori settoriali appaiono dispersi in modo casuale, senza alcun cluster.}

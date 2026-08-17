@@ -17,7 +17,7 @@ La procedura, applicata al modello VAE a 20 dimensioni latenti nel dominio Chole
 
 Ripetendo il campionamento a blocchi un numero $N$ di volte (in questo lavoro, $N=1000$), si ottiene un insieme di scenari sintetici a un mese di distanza, ciascuno ancorato allo stesso stato di partenza $\mathbf{z}_{\text{oggi}}$ ma diversificato dalla variabilità storica campionata a blocchi: un'approssimazione empirica della distribuzione delle evoluzioni possibili della struttura di correlazione, valutabile in ottica di rischiosità.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.92\textwidth]{./Pictures/capitolo8/fig_latent_scenarios_scatter_2d.png}
 \caption{Proiezione bidimensionale, a coppie, della traiettoria latente storica e dei 1000 scenari generati sulle quattro dimensioni latenti a maggiore varianza storica ($Z_9$, $Z_{18}$, $Z_7$, $Z_1$).}
@@ -26,7 +26,7 @@ Ripetendo il campionamento a blocchi un numero $N$ di volte (in questo lavoro, $
 
 La Figura~\ref{fig:latent_scatter_2d} offre una visione d'insieme della procedura appena descritta, proiettando a coppie la traiettoria latente storica e la nuvola di scenari generati sulle quattro dimensioni latenti a maggiore varianza storica (in questo caso $Z_9$, $Z_{18}$, $Z_7$ e $Z_1$). È importante notare che le due nuvole di punti visualizzate insieme non condividono la medesima granularità temporale. La traiettoria colorata (dal viola al giallo, 2000--2020) rappresenta la dinamica del passato: per renderla visivamente continua e distinguere chiaramente la transizione da una matrice di correlazione alla successiva, essa è stata ricostruita codificando le matrici di correlazione calcolate con passo giornaliero ($\text{stride}=1$, punto 1 della procedura sopra), e non con lo stride di 10 giorni impiegato per l'addestramento del modello (Capitolo~\ref{ch:preprocessing}). I punti azzurri, al contrario, rappresentano i 1000 scenari sintetici prodotti dal block-bootstrap: il campionamento a blocchi (punto 3) è stato eseguito a un orizzonte di un mese (21 giorni lavorativi) dallo stato attuale, non giorno per giorno --- lo stride giornaliero utilizzato per la traiettoria storica serve unicamente a visualizzarne con continuità l'andamento passato, non a definire la cadenza temporale della generazione. La stella rossa indica lo stato attuale $\mathbf{z}_{\text{oggi}}$, mentre la croce verde indica lo Scenario 63 approfondito nella Sezione~\ref{sec:verifica_stylized_facts_generate}. Si osserva come la traiettoria storica esplori un'ampia porzione dello spazio latente lungo l'intero ventennio, mentre la nuvola di scenari a un mese resti concentrata in un intorno relativamente ristretto dello stato attuale: un comportamento atteso, poiché la variabilità cumulata su un orizzonte di 21 giorni è necessariamente più contenuta rispetto a quella osservabile sull'intera storia del mercato.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.85\textwidth]{./Pictures/capitolo8/fig_block_bootstrap_latente.png}
 \caption{Illustrazione della procedura di block-bootstrap per uno scenario sintetico (\emph{Scenario 63} tra i 1000 generati): in alto, la composizione del salto latente cumulato sulle 20 dimensioni; in basso, il confronto tra lo stato attuale $\mathbf{z}_{\text{oggi}}$ e lo stato simulato a un mese $\mathbf{z}_{\text{futuro}}$.}
@@ -63,10 +63,10 @@ Il rapporto $R$ traduce in un numero ciò che il dendrogramma mostra a colpo d'o
 
 Il criterio di conformità adottato per la validazione delle capacità generative del VAE consiste quindi in: spostamento marcato della distribuzione \emph{pairwise} verso valori positivi, uniformità di segno del \emph{market mode}, dominanza di $\lambda_1$ accompagnata da almeno un modo settoriale oltre il \emph{bulk}, presenza di blocchi settoriali ed esponente $2 < \gamma < 3$. Accanto agli intervalli degli scenari sintetici, la tabella riporta il valore che ciascun indicatore assume sulla \textbf{matrice odierna}, ossia l'ultima matrice di correlazione reale del dataset: quella calcolata sulla finestra di 724 giorni lavorativi che va dal 28 febbraio 2018 al \textbf{12 gennaio 2021}, ultima data di quotazione disponibile nella serie storica, e da cui è ricavato lo stato latente $\mathbf{z}_{\text{oggi}}$ di partenza della procedura di generazione (Sezione~\ref{sec:block_bootstrap}). La ``data odierna'' cui il termine fa riferimento in tutto il capitolo è dunque il 12 gennaio 2021, e non la data di stesura del presente lavoro. Come termine di paragone quantitativo si riporta inoltre, per ciascun indicatore, l'intervallo empiricamente osservato sulle 412 matrici di correlazione reali del bacino epurato descritto nel Capitolo~\ref{ch:preprocessing} (Sezione~\ref{sec:purging}): scegliamo questo come riferimento naturale là dove la letteratura non fissa alcuna soglia assoluta, come nel caso del numero di modi settoriali e dell'intensità dei blocchi.
 
-\begin{table}[h!]
+\begin{table}[!ht]
 \centering
 \footnotesize
-\begin{tabular}{@{}p{2.6cm} p{2.0cm} p{2.4cm} p{1.4cm} p{2.4cm} p{1.7cm}@{}}
+\begin{tabular}{@{}L{2.6cm} L{2.0cm} L{2.4cm} L{1.4cm} L{2.4cm} L{1.7cm}@{}}
 \hline
 \textbf{Fatto stilizzato \newline (indicatore)} & \textbf{Criterio} & \textbf{Scenari \newline sintetici \newline (1000)} & \textbf{Matrice \newline odierna} & \textbf{Matrici \newline reali \newline (412)} & \textbf{Scenari \newline conformi} \\
 \hline
@@ -98,7 +98,7 @@ La verifica aggregata appena presentata riassume ciascun fatto stilizzato in un 
 
 \paragraph{Distribuzione pairwise.} La distribuzione dei coefficienti di correlazione dello scenario sintetico (Figura~\ref{fig:pairwise_generato}) mantiene lo spostamento verso valori positivi osservato nel mercato reale: media $0.4635$ e mediana $0.4711$ per lo scenario generato, contro $0.4512$ e $0.4593$ della matrice odierna --- coerenti, per ordine di grandezza, con quanto verificato sulla matrice di esempio analizzata nel Capitolo~\ref{ch:stylized_facts}.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo8/fig_pairwise_distribution_generato.png}
 \caption{Confronto tra la distribuzione dei coefficienti \emph{pairwise} della matrice odierna (sinistra) e della matrice sintetica a un mese (destra).}
@@ -107,7 +107,7 @@ La verifica aggregata appena presentata riassume ciascun fatto stilizzato in un 
 
 \paragraph{Spettro e distribuzione di Marchenko-Pastur.} Lo spettro della matrice generata (Figura~\ref{fig:mp_generato}) preserva la struttura a tre componenti descritta nel Capitolo~\ref{ch:stylized_facts}: l'autovalore di mercato rimane dominante e di ordine di grandezza confrontabile ($169.1$ per la matrice odierna, $173.2$ per lo scenario generato), e lo stesso numero di autovalori settoriali (nove) supera il limite superiore teorico di Marchenko-Pastur in entrambe le matrici.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo8/fig_marchenko_pastur_generato.png}
 \caption{Spettro degli autovalori della matrice odierna (in alto) e della matrice sintetica (in basso) confrontato con la distribuzione teorica di Marchenko-Pastur.}
@@ -116,7 +116,7 @@ La verifica aggregata appena presentata riassume ciascun fatto stilizzato in un 
 
 \paragraph{Proprietà di Perron-Frobenius.} Il primo autovettore (\emph{market mode}) della matrice sintetica presenta componenti tutte dello stesso segno, in accordo con la proprietà di Perron-Frobenius, con una similarità coseno\footnote{La \emph{similarità coseno} tra due vettori $\mathbf{u}, \mathbf{v} \in \mathbb{R}^N$ è definita come $\cos(\mathbf{u}, \mathbf{v}) = \mathbf{u}^{\top}\mathbf{v} \,/\, (\|\mathbf{u}\|\,\|\mathbf{v}\|)$, ossia il coseno dell'angolo compreso tra i due vettori: assume valori in $[-1, 1]$, vale $1$ quando i vettori sono paralleli e concordi, $0$ quando sono ortogonali e $-1$ quando sono opposti. Per autovettori normalizzati a norma unitaria essa coincide con il semplice prodotto scalare $\mathbf{u}^{\top}\mathbf{v}$. Poiché un autovettore è definito a meno del segno, prima del calcolo il segno dell'autovettore della matrice sintetica viene allineato a quello del corrispondente autovettore della matrice odierna, così che il confronto misuri unicamente la coincidenza di direzione.} rispetto all'autovettore della matrice odierna pari a $0.9999$ (Figura~\ref{fig:pf_generato}); anche il secondo e il terzo autovettore (\emph{sector mode}) risultano preservati con similarità coseno rispettivamente di $0.9893$ e $0.9883$.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.85\textwidth]{./Pictures/capitolo8/fig_perron_frobenius_generato.png}
 \caption{Confronto dei primi tre autovettori tra matrice odierna e matrice sintetica: le componenti del \emph{market mode} (in alto) sono tutte dello stesso segno in entrambe le matrici.}
@@ -125,7 +125,7 @@ La verifica aggregata appena presentata riassume ciascun fatto stilizzato in un 
 
 \paragraph{Struttura gerarchica.} Il dendrogramma ottenuto per clustering gerarchico sulla matrice sintetica (Figura~\ref{fig:dendrogram_generato}) riproduce visivamente un'organizzazione a blocchi molto simile a quella della matrice odierna. Colorando la linea verticale di ciascun asset in base al proprio settore GICS, si osserva come gli stessi blocchi cromatici settoriali presenti nella matrice odierna si ripresentino nella matrice sintetica, fondendosi a bassa distanza di aggregazione: il VAE preserva quindi i principali raggruppamenti settoriali della reale tassonomia economica.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo8/fig_dendrogram_generato.png}
 \caption{Dendrogrammi comparativi con le foglie colorate per settore GICS e asse verticale condiviso: matrice odierna (in alto) e matrice sintetica a un mese (in basso). In entrambi i pannelli i titoli dello stesso settore formano blocchi cromatici compatti che si fondono a bassa distanza, a indicare che il VAE preserva i cluster settoriali della struttura gerarchica reale.}
@@ -134,7 +134,7 @@ La verifica aggregata appena presentata riassume ciascun fatto stilizzato in un 
 
 \paragraph{Topologia scale-free del MST.} L'esponente della legge di potenza $P(k) \propto k^{-\gamma}$ stimato sulla distribuzione di grado del Minimum Spanning Tree (Figura~\ref{fig:mst_generato}) risulta $\gamma_{\text{oggi}} = 2.119$ per la matrice odierna e $\gamma_{\text{futuro}} = 2.227$ per lo scenario sintetico --- corrispondenti a una pendenza del fit log-log rispettivamente di $-2.119$ e $-2.227$. Entrambi i valori sono interni all'intervallo $2 < \gamma < 3$ tipicamente riportato in letteratura (Capitolo~\ref{ch:stylized_facts}, Sezione~\ref{sec:mst_scalefree}) e risultano coerenti con la natura \emph{scale-free} della topologia di rete, con un grado massimo di 15 e 14 connessioni rispettivamente.
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.75\textwidth]{./Pictures/capitolo8/fig_mst_degree_generato.png}
 \caption{Distribuzione di grado del Minimum Spanning Tree in scala log-log, matrice odierna vs matrice sintetica a un mese.}

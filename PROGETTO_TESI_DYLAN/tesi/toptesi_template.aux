@@ -244,18 +244,20 @@
 \newlabel{subsec:addestramento_vae}{{7.2.4}{72}{L'addestramento del VAE definitivo}{subsection.7.2.4}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7.9}{\ignorespaces Curva di addestramento del VAE definitivo ($K=20$, dominio Cholesky): \emph  {loss} totale (scala logaritmica) su \emph  {Training} e \emph  {Validation Set} lungo 1000 epoche. La \emph  {Validation Loss} si stabilizza su un \emph  {plateau} oltre l'epoca 600, punto in cui interviene il \emph  {Model Checkpointing}.}}{73}{figure.7.9}\protected@file@percent }
 \newlabel{fig:vae_loss_curve}{{7.9}{73}{Curva di addestramento del VAE definitivo ($K=20$, dominio Cholesky): \emph {loss} totale (scala logaritmica) su \emph {Training} e \emph {Validation Set} lungo 1000 epoche. La \emph {Validation Loss} si stabilizza su un \emph {plateau} oltre l'epoca 600, punto in cui interviene il \emph {Model Checkpointing}}{figure.7.9}{}}
+\citation{burgess2018understanding}
 \@writefile{lof}{\contentsline {figure}{\numberline {7.10}{\ignorespaces Decomposizione della \emph  {loss} del VAE definitivo nelle componenti di ricostruzione (asse sinistro, Divergenza di Jeffreys) e di Divergenza di Kullback-Leibler (asse destro), su \emph  {Training} e \emph  {Validation Set}. Le due componenti sono riportate su scale distinte e non vanno confrontate direttamente.}}{74}{figure.7.10}\protected@file@percent }
 \newlabel{fig:vae_recon_kl}{{7.10}{74}{Decomposizione della \emph {loss} del VAE definitivo nelle componenti di ricostruzione (asse sinistro, Divergenza di Jeffreys) e di Divergenza di Kullback-Leibler (asse destro), su \emph {Training} e \emph {Validation Set}. Le due componenti sono riportate su scale distinte e non vanno confrontate direttamente}{figure.7.10}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {7.3}Il trade-off tra compressione esatta e flessibilità generativa}{74}{section.7.3}\protected@file@percent }
 \newlabel{sec:tradeoff_generazione}{{7.3}{74}{Il trade-off tra compressione esatta e flessibilità generativa}{section.7.3}{}}
+\@writefile{brf}{\backcite{burgess2018understanding}{{75}{7.3}{section.7.3}}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {7.3.1}La struttura dello spazio latente del VAE definitivo}{75}{subsection.7.3.1}\protected@file@percent }
 \newlabel{subsec:struttura_latente}{{7.3.1}{75}{La struttura dello spazio latente del VAE definitivo}{subsection.7.3.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {7.11}{\ignorespaces Spettro di attività dello spazio latente del VAE definitivo: varianza empirica delle 20 dimensioni latenti sui codici $\mathbf  {z}=\boldsymbol  {\mu }$. Poche dimensioni si avvicinano alla varianza unitaria del \emph  {prior}, mentre la maggioranza collassa verso lo zero.}}{75}{figure.7.11}\protected@file@percent }
 \newlabel{fig:vae_latent_spectrum}{{7.11}{75}{Spettro di attività dello spazio latente del VAE definitivo: varianza empirica delle 20 dimensioni latenti sui codici $\mathbf {z}=\boldsymbol {\mu }$. Poche dimensioni si avvicinano alla varianza unitaria del \emph {prior}, mentre la maggioranza collassa verso lo zero}{figure.7.11}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7.12}{\ignorespaces Proiezioni bidimensionali a coppie delle quattro dimensioni latenti a maggiore varianza ($Z_{18}, Z_9, Z_7, Z_1$) del VAE definitivo. I codici tracciano un \emph  {manifold} continuo e strutturato; \emph  {Training}, \emph  {Validation} e \emph  {Test Set} si sovrappongono coerentemente.}}{76}{figure.7.12}\protected@file@percent }
-\newlabel{fig:vae_latent_active}{{7.12}{76}{Proiezioni bidimensionali a coppie delle quattro dimensioni latenti a maggiore varianza ($Z_{18}, Z_9, Z_7, Z_1$) del VAE definitivo. I codici tracciano un \emph {manifold} continuo e strutturato; \emph {Training}, \emph {Validation} e \emph {Test Set} si sovrappongono coerentemente}{figure.7.12}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7.13}{\ignorespaces Proiezioni bidimensionali a coppie delle quattro dimensioni latenti più inattive ($Z_{14}, Z_{19}, Z_{20}, Z_{15}$) del VAE definitivo. Si noti la scala degli assi ($\pm 0.1$): i codici collassano in una nube puntiforme attorno all'origine, priva di struttura.}}{77}{figure.7.13}\protected@file@percent }
-\newlabel{fig:vae_latent_inactive}{{7.13}{77}{Proiezioni bidimensionali a coppie delle quattro dimensioni latenti più inattive ($Z_{14}, Z_{19}, Z_{20}, Z_{15}$) del VAE definitivo. Si noti la scala degli assi ($\pm 0.1$): i codici collassano in una nube puntiforme attorno all'origine, priva di struttura}{figure.7.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.12}{\ignorespaces Proiezioni bidimensionali a coppie delle quattro dimensioni latenti a maggiore varianza ($Z_{18}, Z_9, Z_7, Z_1$) del VAE definitivo. I codici tracciano un \emph  {manifold} continuo e strutturato.}}{76}{figure.7.12}\protected@file@percent }
+\newlabel{fig:vae_latent_active}{{7.12}{76}{Proiezioni bidimensionali a coppie delle quattro dimensioni latenti a maggiore varianza ($Z_{18}, Z_9, Z_7, Z_1$) del VAE definitivo. I codici tracciano un \emph {manifold} continuo e strutturato}{figure.7.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.13}{\ignorespaces Proiezioni bidimensionali a coppie delle quattro dimensioni latenti più inattive ($Z_{14}, Z_{19}, Z_{20}, Z_{15}$) del VAE definitivo. Si noti la scala degli assi ($\pm 0.1$): i codici collassano in una nube puntiforme attorno all'origine, sostanzialmente meno strutturata che nelle "dimensioni attive" mostrate nella figura precedente.}}{77}{figure.7.13}\protected@file@percent }
+\newlabel{fig:vae_latent_inactive}{{7.13}{77}{Proiezioni bidimensionali a coppie delle quattro dimensioni latenti più inattive ($Z_{14}, Z_{19}, Z_{20}, Z_{15}$) del VAE definitivo. Si noti la scala degli assi ($\pm 0.1$): i codici collassano in una nube puntiforme attorno all'origine, sostanzialmente meno strutturata che nelle "dimensioni attive" mostrate nella figura precedente}{figure.7.13}{}}
 \@writefile{toc}{\contentsline {chapter}{\numberline {8}Generazione Stocastica di Nuovi Scenari (Validazione del VAE)}{79}{chapter.8}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -313,21 +315,22 @@
 \bibcite{bouchaud2009rmt}{{3}{2011}{{Bouchaud e Potters}}{{}}}
 \bibcite{bourlard1988autoassociation}{{4}{1988}{{Bourlard e Kamp}}{{}}}
 \bibcite{boyle1977options}{{5}{1977}{{Boyle}}{{}}}
-\bibcite{caprioli2024ptfvae}{{6}{2024}{{Caprioli et~al.}}{{Caprioli, Cagliero e Crupi}}}
-\bibcite{cont2001stylizedfacts}{{7}{2001}{{Cont}}{{}}}
-\bibcite{doersch2016vae}{{8}{2016}{{Doersch}}{{}}}
-\bibcite{glasserman2003montecarlo}{{9}{2003}{{Glasserman}}{{}}}
-\bibcite{goodfellow2016gantutorial}{{10}{2016}{{Goodfellow}}{{}}}
-\bibcite{huttner2019simulating}{{11}{2019}{{H{\"u}ttner e Mai}}{{}}}
-\bibcite{jolliffe2016pca}{{12}{2016}{{Jolliffe e Cadima}}{{}}}
-\bibcite{jorion2007var}{{13}{2007}{{Jorion}}{{}}}
-\bibcite{kingma2013vae}{{14}{2013}{{Kingma e Welling}}{{}}}
-\bibcite{longin2001extreme}{{15}{2001}{{Longin e Solnik}}{{}}}
-\bibcite{mantegna1998hierarchical}{{16}{1999}{{Mantegna}}{{}}}
-\bibcite{markowitz1952portfolio}{{17}{1952}{{Markowitz}}{{}}}
-\bibcite{marti2019corrgan}{{18}{2020}{{Marti}}{{}}}
-\bibcite{mcneil2015qrm}{{19}{2015}{{McNeil et~al.}}{{McNeil, Frey e Embrechts}}}
-\bibcite{plaut2018principal}{{20}{2018}{{Plaut}}{{}}}
-\bibcite{plerou1999universal}{{21}{1999}{{Plerou et~al.}}{{Plerou, Gopikrishnan, Rosenow, Amaral e Stanley}}}
-\bibcite{plerou2002randommatrix}{{22}{2002}{{Plerou et~al.}}{{Plerou, Gopikrishnan, Rosenow, Amaral, Guhr e Stanley}}}
-\gdef \@abspage@last{94}
+\bibcite{burgess2018understanding}{{6}{2018}{{Burgess et~al.}}{{Burgess, Higgins, Pal, Matthey, Watters, Desjardins e Lerchner}}}
+\bibcite{caprioli2024ptfvae}{{7}{2024}{{Caprioli et~al.}}{{Caprioli, Cagliero e Crupi}}}
+\bibcite{cont2001stylizedfacts}{{8}{2001}{{Cont}}{{}}}
+\bibcite{doersch2016vae}{{9}{2016}{{Doersch}}{{}}}
+\bibcite{glasserman2003montecarlo}{{10}{2003}{{Glasserman}}{{}}}
+\bibcite{goodfellow2016gantutorial}{{11}{2016}{{Goodfellow}}{{}}}
+\bibcite{huttner2019simulating}{{12}{2019}{{H{\"u}ttner e Mai}}{{}}}
+\bibcite{jolliffe2016pca}{{13}{2016}{{Jolliffe e Cadima}}{{}}}
+\bibcite{jorion2007var}{{14}{2007}{{Jorion}}{{}}}
+\bibcite{kingma2013vae}{{15}{2013}{{Kingma e Welling}}{{}}}
+\bibcite{longin2001extreme}{{16}{2001}{{Longin e Solnik}}{{}}}
+\bibcite{mantegna1998hierarchical}{{17}{1999}{{Mantegna}}{{}}}
+\bibcite{markowitz1952portfolio}{{18}{1952}{{Markowitz}}{{}}}
+\bibcite{marti2019corrgan}{{19}{2020}{{Marti}}{{}}}
+\bibcite{mcneil2015qrm}{{20}{2015}{{McNeil et~al.}}{{McNeil, Frey e Embrechts}}}
+\bibcite{plaut2018principal}{{21}{2018}{{Plaut}}{{}}}
+\bibcite{plerou1999universal}{{22}{1999}{{Plerou et~al.}}{{Plerou, Gopikrishnan, Rosenow, Amaral e Stanley}}}
+\bibcite{plerou2002randommatrix}{{23}{2002}{{Plerou et~al.}}{{Plerou, Gopikrishnan, Rosenow, Amaral, Guhr e Stanley}}}
+\gdef \@abspage@last{95}

@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex toptesi_template"] 1786975349.37076 "toptesi_template.aux" "toptesi_template.bbl" "toptesi_template" 1786975387.42261 0
+["bibtex toptesi_template"] 1786976997.52525 "toptesi_template.aux" "toptesi_template.bbl" "toptesi_template" 1786977237.11888 0
   "./plainnat-it.bst" 1786547477 29503 e1133e4b8a429408f01f61c191f03162 ""
   "./references.bib" 1786972101 8865 844a0e35b95aba91bd6023329151d900 ""
-  "toptesi_template.aux" 1786975385 55444 009b4e1e15fab7ceaa1fd65809fe6dae "pdflatex"
+  "toptesi_template.aux" 1786977235 56000 42d18591602af76ef9bf385ad1c7b7f1 "pdflatex"
   (generated)
   "toptesi_template.bbl"
   "toptesi_template.blg"
   (rewritten before read)
-["pdflatex"] 1786975350.00589 "c:/Users/dylan/Desktop/SyntheticCorrelationVAE/PROGETTO_TESI_DYLAN/tesi/toptesi_template.tex" "toptesi_template.pdf" "toptesi_template" 1786975387.42351 0
+["pdflatex"] 1786977180.68508 "c:/Users/dylan/Desktop/SyntheticCorrelationVAE/PROGETTO_TESI_DYLAN/tesi/toptesi_template.tex" "toptesi_template.pdf" "toptesi_template" 1786977237.12032 0
   "C:/Users/dylan/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1786549400 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/dylan/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1786549741 13333528 56ceb0e19e431fef9832261ba03e0618 ""
   "C:/Users/dylan/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc" 1256929440 2375 baa924870cfb487815765f9094cf3728 ""
@@ -216,15 +216,15 @@
   "C:/Users/dylan/AppData/Local/Programs/MiKTeX/tex/latex/toptesi/toptesi.sty" 1737287653 30653 94c3591560c8ffe1ae08a022ba9a49ee ""
   "C:/Users/dylan/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/dylan/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
-  "Parte_I/capitolo1.tex" 1786954599 8820 ea43f64417b92819bddf538523881af8 ""
+  "Parte_I/capitolo1.tex" 1786977114 8820 e6a496f378682faeb96609dd5abec805 ""
   "Parte_I/capitolo2.tex" 1786552640 8128 516538480af7f2f43d062dc5f96e15fd ""
   "Parte_I/capitolo3.tex" 1786954037 34503 4fcb6f58e49e599dc10c537ca8a0765f ""
-  "Parte_I/capitolo4.tex" 1786954962 14381 1d22044482b2d23850c36d732f63ac17 ""
-  "Parte_II/capitolo5.tex" 1786957254 21797 beca1e64ead0a066530efac15ea97a5e ""
+  "Parte_I/capitolo4.tex" 1786976277 14471 e9ec99b4b718607263670110a78d0c8e ""
+  "Parte_II/capitolo5.tex" 1786976543 23295 b57fcff9a7bee560e5479c7111e6cb40 ""
   "Parte_II/capitolo6.tex" 1786965819 17347 29ce21f84b5f33b265c822870ad71c66 ""
   "Parte_III/capitolo7.tex" 1786972708 39288 5ead6fbe68391a206ebc89e581d472d4 ""
   "Parte_III/capitolo8.tex" 1786975131 25126 f4114404c9d70afc426e3c3d14db0c2e ""
-  "Parte_III/capitolo9_conclusioni.tex" 1786965826 10470 1e92141b62b52b86116465b70bf94ee1 ""
+  "Parte_III/capitolo9_conclusioni.tex" 1786977200 11803 75b70b192ffd3d465802c7c866ca76f1 ""
   "Pictures/capitolo3/fig_dendrogram.png" 1786547476 194523 2ac872c78c4cf72ed7f5db707bb4633b ""
   "Pictures/capitolo3/fig_dendrogram_rmt_comparison.png" 1786547476 189766 c81fc45a2498d5e4c84a1e4408639b50 ""
   "Pictures/capitolo3/fig_esempio_heatmap_100.png" 1786547476 383589 aff42045fdac4624ae7f5cc4b0deb060 ""
@@ -265,12 +265,12 @@
   "Pictures/logo_polito_2021.jpg" 1786547477 1024395 534036d9fd285781e413fd1992dfceb3 ""
   "c:/Users/dylan/Desktop/SyntheticCorrelationVAE/PROGETTO_TESI_DYLAN/tesi/toptesi_template.tex" 1786548850 9518 e06f0a569e10685428ae18b471e9ff2d ""
   "title.tex" 1786547477 1055 ede25d992d1d50b1a1e961f19f64cd7a ""
-  "toptesi_template.aux" 1786975385 55444 009b4e1e15fab7ceaa1fd65809fe6dae "pdflatex"
-  "toptesi_template.bbl" 1786975349 7630 dab917bd0b05c29614879cd5407086c1 "bibtex toptesi_template"
-  "toptesi_template.brf" 1786975385 2376 b4a275be265f27995e823cd94e05ff00 "pdflatex"
-  "toptesi_template.out" 1786975385 16609 34f776a7ba9984ff8dfc520ffddafd86 "pdflatex"
+  "toptesi_template.aux" 1786977235 56000 42d18591602af76ef9bf385ad1c7b7f1 "pdflatex"
+  "toptesi_template.bbl" 1786976997 7630 dab917bd0b05c29614879cd5407086c1 "bibtex toptesi_template"
+  "toptesi_template.brf" 1786977235 2700 86a2f6f75af9647368d6883e56d79059 "pdflatex"
+  "toptesi_template.out" 1786977235 16609 34f776a7ba9984ff8dfc520ffddafd86 "pdflatex"
   "toptesi_template.tex" 1786548850 9518 e06f0a569e10685428ae18b471e9ff2d ""
-  "toptesi_template.toc" 1786975385 7234 03bb3361356d9fd3a0ed4d67fb757502 "pdflatex"
+  "toptesi_template.toc" 1786977235 7234 eae0728ff3a99406f8fd0e036eaa8ced "pdflatex"
   (generated)
   "toptesi_template.aux"
   "toptesi_template.brf"

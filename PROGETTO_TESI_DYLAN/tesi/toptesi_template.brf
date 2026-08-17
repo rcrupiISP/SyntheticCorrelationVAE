@@ -29,7 +29,10 @@
 \backcite {bourlard1988autoassociation}{{36}{4.2}{equation.4.3}}
 \backcite {baldi1989neural}{{36}{4.2}{equation.4.3}}
 \backcite {plaut2018principal}{{37}{4.2}{equation.4.3}}
-\backcite {kingma2013vae}{{37}{4.4}{section.4.4}}
+\backcite {kingma2013vae}{{37}{4.3}{section.4.3}}
+\backcite {doersch2016vae}{{37}{4.3}{section.4.3}}
+\backcite {burgess2018understanding}{{37}{4.3}{section.4.3}}
+\backcite {kingma2013vae}{{38}{4.4}{section.4.4}}
 \backcite {doersch2016vae}{{38}{4.4}{section.4.4}}
 \backcite {goodfellow2016gantutorial}{{38}{4.4}{section.4.4}}
 \backcite {marti2019corrgan}{{38}{4.4}{section.4.4}}
@@ -39,4 +42,7 @@
 \backcite {bourlard1988autoassociation}{{63}{7.2.1}{figure.7.3}}
 \backcite {burgess2018understanding}{{75}{7.3}{section.7.3}}
 \backcite {bourlard1988autoassociation}{{91}{9.1}{section.9.1}}
+\backcite {kingma2013vae}{{92}{9.1}{section.9.1}}
+\backcite {doersch2016vae}{{92}{9.1}{section.9.1}}
+\backcite {burgess2018understanding}{{92}{9.1}{section.9.1}}
 \backcite {marti2019corrgan}{{93}{9.3}{section.9.3}}

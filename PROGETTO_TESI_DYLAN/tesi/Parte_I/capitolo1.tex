@@ -8,6 +8,7 @@ Nell'analisi dei dati e nella modellizzazione di sistemi complessi, la disponibi
 Questa limitatezza campionaria impedisce di esplorare configurazioni alternative o eventi estremi che, pur non essendosi mai verificati nello specifico campione a disposizione, risultano statisticamente plausibili. Per superare questo ostacolo, l'analisi moderna si affida ampiamente a metodologie di simulazione che necessitano di generatori di dati capaci di produrre scenari sintetici. L'efficacia e l'affidabilità di tali simulazioni dipendono in maniera critica dal realismo delle matrici generate: se i modelli matematici sottostanti non riescono a catturare fedelmente le interdipendenze dei dati reali, gli scenari prodotti risultano distorti e di scarsa utilità pratica.
 
 \section{Definizione del problema di ricerca e motivazione dell'uso dei modelli generativi profondi}
+\label{sec:problema_ricerca}
 
 Il principale ostacolo nell'applicazione pratica e nella generazione di scenari risiede nella natura intrinseca delle matrici di correlazione empiriche. Quando stimata a partire da serie storiche, la matrice soffre in modo significativo del problema del rumore statistico. Quando il numero di variabili analizzate ($N$) è dello stesso ordine di grandezza della lunghezza della serie storica ($T$), la matrice empirica diventa instabile, introducendo autovalori spuri che ne degradano l'affidabilità informativa, un fenomeno ampiamente studiato nell'ambito della \emph{Random Matrix Theory} (RMT) \citep{bouchaud2009rmt, plerou2002randommatrix}.
 

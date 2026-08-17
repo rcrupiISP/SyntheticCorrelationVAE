@@ -155,28 +155,28 @@
 \@writefile{brf}{\backcite{marti2019corrgan}{{38}{4.4}{section.4.4}}}
 \@writefile{brf}{\backcite{caprioli2024ptfvae}{{38}{4.4}{section.4.4}}}
 \@writefile{toc}{\contentsline {part}{\EnsureStandardFontEncoding {II}\hspace  {1em}Metodologia e Pipeline di Analisi}{41}{part.2}\protected@file@percent }
+\citation{cont2001stylizedfacts}
 \@writefile{toc}{\contentsline {chapter}{\numberline {5}Pre-processing e Costruzione del Dataset}{43}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \newlabel{ch:preprocessing}{{5}{43}{Metodologia e Pipeline di Analisi}{chapter.5}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.1}Descrizione del dataset}{43}{section.5.1}\protected@file@percent }
 \newlabel{sec:dataset_desc}{{5.1}{43}{Descrizione del dataset}{section.5.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Calcolo dei rendimenti e stima delle matrici empiriche}{43}{section.5.2}\protected@file@percent }
+\newlabel{sec:rendimenti_finestre}{{5.2}{43}{Calcolo dei rendimenti e stima delle matrici empiriche}{section.5.2}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Distribuzione settoriale GICS dei 362 titoli del dataset finale.}}{44}{table.5.1}\protected@file@percent }
 \newlabel{tab:gics_distribution}{{5.1}{44}{Distribuzione settoriale GICS dei 362 titoli del dataset finale}{table.5.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Calcolo dei rendimenti e stima delle matrici empiriche}{44}{section.5.2}\protected@file@percent }
-\newlabel{sec:rendimenti_finestre}{{5.2}{44}{Calcolo dei rendimenti e stima delle matrici empiriche}{section.5.2}{}}
+\@writefile{brf}{\backcite{cont2001stylizedfacts}{{44}{5.2}{equation.5.1}}}
 \@writefile{toc}{\contentsline {section}{\numberline {5.3}Tecnica di campionamento: il Random Shuffle per la stazionarietà}{45}{section.5.3}\protected@file@percent }
 \newlabel{sec:purging}{{5.3}{45}{Tecnica di campionamento: il Random Shuffle per la stazionarietà}{section.5.3}{}}
 \@writefile{toc}{\contentsline {paragraph}{Conteggio delle matrici prodotte dalla finestra mobile.}{45}{section*.1}\protected@file@percent }
-\citation{huttner2019simulating}
 \@writefile{toc}{\contentsline {paragraph}{Filtro di validità strutturale: la proprietà di Perron-Frobenius.}{46}{section*.2}\protected@file@percent }
-\@writefile{brf}{\backcite{huttner2019simulating}{{46}{5.3}{equation.5.4}}}
 \@writefile{toc}{\contentsline {paragraph}{Mescolamento e ripartizione.}{47}{section*.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Estrazione e flattening del fattore triangolare inferiore di Cholesky}{48}{section.5.4}\protected@file@percent }
-\newlabel{sec:flattening}{{5.4}{48}{Estrazione e flattening del fattore triangolare inferiore di Cholesky}{section.5.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Estrazione e flattening del fattore triangolare inferiore di Cholesky}{47}{section.5.4}\protected@file@percent }
+\newlabel{sec:flattening}{{5.4}{47}{Estrazione e flattening del fattore triangolare inferiore di Cholesky}{section.5.4}{}}
 \@writefile{toc}{\contentsline {paragraph}{Primo approccio (abbandonato): il triangolo inferiore della matrice di correlazione.}{48}{section*.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Il motivo dell'abbandono: nessuna garanzia di semidefinita positività.}{49}{section*.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Parametrizzazione definitiva: il \emph  {flattening} del fattore di Cholesky.}{49}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Il motivo dell'abbandono: nessuna garanzia di semidefinita positività.}{48}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Parametrizzazione definitiva: il \emph  {flattening} del fattore di Cholesky.}{48}{section*.6}\protected@file@percent }
 \@writefile{toc}{\contentsline {chapter}{\numberline {6}Architetture dei Modelli e Setup Sperimentale}{51}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -189,16 +189,16 @@
 \newlabel{fig:architettura_linear_ae}{{6.1}{52}{Architettura dell'Autoencoder Lineare: un singolo layer denso lineare, privo di bias, per l'Encoder e per il Decoder, con spazio latente di dimensione $K$}{figure.6.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {6.3}Design e iperparametri dell'Autoencoder Non-Lineare}{52}{section.6.3}\protected@file@percent }
 \newlabel{sec:setup_deep_ae}{{6.3}{52}{Design e iperparametri dell'Autoencoder Non-Lineare}{section.6.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{53}{section.6.4}\protected@file@percent }
+\newlabel{sec:setup_vae}{{6.4}{53}{Design e iperparametri del VAE}{section.6.4}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Architettura dell'Autoencoder Profondo (Deep AE): design a imbuto simmetrico con attivazione LeakyReLU sugli strati nascosti intermedi e nessuna attivazione sul layer di \emph  {bottleneck} e sull'ultimo layer del Decoder.}}{54}{figure.6.2}\protected@file@percent }
 \newlabel{fig:architettura_deep_ae}{{6.2}{54}{Architettura dell'Autoencoder Profondo (Deep AE): design a imbuto simmetrico con attivazione LeakyReLU sugli strati nascosti intermedi e nessuna attivazione sul layer di \emph {bottleneck} e sull'ultimo layer del Decoder}{figure.6.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{54}{section.6.4}\protected@file@percent }
-\newlabel{sec:setup_vae}{{6.4}{54}{Design e iperparametri del VAE}{section.6.4}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Architettura del VAE: encoder a imbuto condiviso con il Deep AE, biforcazione in $\boldsymbol  {\mu }$ e $\log \boldsymbol  {\sigma }^2$, campionamento di $\mathbf  {z}$ tramite \emph  {reparameterization trick} e decoder speculare.}}{55}{figure.6.3}\protected@file@percent }
 \newlabel{fig:architettura_vae}{{6.3}{55}{Architettura del VAE: encoder a imbuto condiviso con il Deep AE, biforcazione in $\boldsymbol {\mu }$ e $\log \boldsymbol {\sigma }^2$, campionamento di $\mathbf {z}$ tramite \emph {reparameterization trick} e decoder speculare}{figure.6.3}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Iperparametri di addestramento del VAE. I valori riportati sono comuni a tutte e tre le run condotte ($K=10$, $K=20$, $K=30$), che differiscono unicamente per la dimensione latente; il modello definitivo impiegato per la generazione degli scenari (Capitolo~\ref {ch:generazione_stocastica}) è quello a $K=20$.}}{56}{table.6.1}\protected@file@percent }
 \newlabel{tab:vae_iperparametri}{{6.1}{56}{Iperparametri di addestramento del VAE. I valori riportati sono comuni a tutte e tre le run condotte ($K=10$, $K=20$, $K=30$), che differiscono unicamente per la dimensione latente; il modello definitivo impiegato per la generazione degli scenari (Capitolo~\ref {ch:generazione_stocastica}) è quello a $K=20$}{table.6.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{57}{section.6.5}\protected@file@percent }
-\newlabel{sec:metriche_convergenza}{{6.5}{57}{Metriche di valutazione e criteri di convergenza}{section.6.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{56}{section.6.5}\protected@file@percent }
+\newlabel{sec:metriche_convergenza}{{6.5}{56}{Metriche di valutazione e criteri di convergenza}{section.6.5}{}}
 \@writefile{toc}{\contentsline {part}{\EnsureStandardFontEncoding {III}\hspace  {1em}Risultati, Validazione e Applicazioni}{59}{part.3}\protected@file@percent }
 \citation{bourlard1988autoassociation}
 \@writefile{toc}{\contentsline {chapter}{\numberline {7}Analisi della Compressione e Ricostruzione Storica}{61}{chapter.7}\protected@file@percent }

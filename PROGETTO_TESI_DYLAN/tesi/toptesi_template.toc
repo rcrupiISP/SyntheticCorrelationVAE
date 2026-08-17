@@ -26,21 +26,21 @@
 \contentsline {part}{\EnsureStandardFontEncoding {II}\hspace {1em}Metodologia e Pipeline di Analisi}{41}{part.2}%
 \contentsline {chapter}{\numberline {5}Pre-processing e Costruzione del Dataset}{43}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Descrizione del dataset}{43}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Calcolo dei rendimenti e stima delle matrici empiriche}{44}{section.5.2}%
+\contentsline {section}{\numberline {5.2}Calcolo dei rendimenti e stima delle matrici empiriche}{43}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Tecnica di campionamento: il Random Shuffle per la stazionarietà}{45}{section.5.3}%
 \contentsline {paragraph}{Conteggio delle matrici prodotte dalla finestra mobile.}{45}{section*.1}%
 \contentsline {paragraph}{Filtro di validità strutturale: la proprietà di Perron-Frobenius.}{46}{section*.2}%
 \contentsline {paragraph}{Mescolamento e ripartizione.}{47}{section*.3}%
-\contentsline {section}{\numberline {5.4}Estrazione e flattening del fattore triangolare inferiore di Cholesky}{48}{section.5.4}%
+\contentsline {section}{\numberline {5.4}Estrazione e flattening del fattore triangolare inferiore di Cholesky}{47}{section.5.4}%
 \contentsline {paragraph}{Primo approccio (abbandonato): il triangolo inferiore della matrice di correlazione.}{48}{section*.4}%
-\contentsline {paragraph}{Il motivo dell'abbandono: nessuna garanzia di semidefinita positività.}{49}{section*.5}%
-\contentsline {paragraph}{Parametrizzazione definitiva: il \emph {flattening} del fattore di Cholesky.}{49}{section*.6}%
+\contentsline {paragraph}{Il motivo dell'abbandono: nessuna garanzia di semidefinita positività.}{48}{section*.5}%
+\contentsline {paragraph}{Parametrizzazione definitiva: il \emph {flattening} del fattore di Cholesky.}{48}{section*.6}%
 \contentsline {chapter}{\numberline {6}Architetture dei Modelli e Setup Sperimentale}{51}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Implementazione della PCA come baseline}{51}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Design e iperparametri dell'Autoencoder Lineare}{51}{section.6.2}%
 \contentsline {section}{\numberline {6.3}Design e iperparametri dell'Autoencoder Non-Lineare}{52}{section.6.3}%
-\contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{54}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{57}{section.6.5}%
+\contentsline {section}{\numberline {6.4}Design e iperparametri del VAE}{53}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Metriche di valutazione e criteri di convergenza}{56}{section.6.5}%
 \contentsline {part}{\EnsureStandardFontEncoding {III}\hspace {1em}Risultati, Validazione e Applicazioni}{59}{part.3}%
 \contentsline {chapter}{\numberline {7}Analisi della Compressione e Ricostruzione Storica}{61}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Valutazione della PCA e dell'AE Lineare: il benchmark della linearità}{61}{section.7.1}%

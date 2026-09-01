@@ -34,7 +34,8 @@
    realistic market scenarios with variational autoencoders}\\[0.7em]
   {\normalsize\bfseries Thesis summary}\\[0.5em]
   {\small Candidate: Dylan Magliano (s337915) \quad---\quad
-   Supervisors: prof. Flavio Giobergia, prof. Sergio Caprioli}\\
+   Supervisors: prof. Flavio Giobergia, Dr. Sergio Caprioli,
+   Dr. Emanuele Cagliero}\\
   {\small Thesis carried out in collaboration with Intesa Sanpaolo
    \quad---\quad Academic Year 2025--2026}
 \end{center}
@@ -154,8 +155,10 @@ spectrum --- precisely those that identify minimum-variance portfolios. The
 inverse matrices in the Jeffreys formulation reverse this hierarchy and weigh
 the error in relative terms along every direction of the spectrum. Because the
 reconstruction term is itself a divergence, it is homogeneous with the
-Kullback--Leibler regularisation term and the weight $\beta$ remains fixed at
-1: the formulation used is therefore the canonical ELBO.
+Kullback--Leibler regularisation term: the objective used is a VAE-type
+objective, composed of the Jeffreys divergence in the matrix domain and the
+Kullback--Leibler divergence in the latent space, with unit weight
+($\beta = 1$).
 
 Evaluation combines two families of metrics: spatial errors (MSE, MAE,
 Frobenius norm) and topological metrics built on the \emph{Minimum Spanning
@@ -194,8 +197,11 @@ about six dimensions are effectively active, while the remaining ones undergo
 manifold therefore appears not to be a hyperparameter to be tuned but rather a property of the
 data that the model discovers on its own; adding nominal dimensions does not
 increase the capacity actually used and merely widens the space over which
-conformity to the prior must be satisfied. The choice of $K = 20$ for the final
-model --- the elbow of the reconstruction curve --- is thus robust.
+conformity to the prior must be satisfied. The choice of $K = 20$ --- made
+before the two supplementary runs, at the elbow of the deterministic models'
+reconstruction curve --- is therefore not an empirical optimum for the VAE (at
+$K = 10$ the reconstruction error is in fact slightly lower) but a
+methodological compromise which these runs show to be of little consequence.
 
 \section{Stochastic scenario generation and validation}
 
@@ -211,9 +217,10 @@ complementarity: \emph{the AE to remember, the VAE to imagine}.
 The generation procedure actually adopted, however, is not a simple sampling
 from the prior $\mathcal{N}(\mathbf{0},\mathbf{I})$, which would produce some
 arbitrary plausible scenario, disconnected from the present. The objective is
-more specific: to build a distribution of realistic scenarios of the
-correlation structure \emph{at a one-month horizon starting from the market
-state observed today}, to be assessed from a risk perspective. The technique
+more specific: to build a distribution of synthetic scenarios of the
+correlation structure \emph{at a nominal 21-day horizon starting from the
+market state observed today}, with which to estimate the possible variability
+of correlations from a risk perspective. The technique
 used is a \textbf{historical block bootstrap in the latent space}, articulated
 in four steps: the encoder reconstructs the historical latent trajectory day by
 day; its daily increments are computed; a block of 21 consecutive increments
@@ -283,7 +290,7 @@ to international equity universes.
 
 The thesis has designed, implemented and empirically evaluated a complete framework for the
 compression, reconstruction and stochastic generation of realistic financial
-correlation matrices. The most significant result is that the Cholesky
+correlation matrices. The most important result is that the Cholesky
 parametrisation structurally resolves the positive semidefiniteness constraint,
 and that on this basis the Variational Autoencoder pays a contained cost in
 reconstruction fidelity --- indeed remaining superior to the linear benchmarks

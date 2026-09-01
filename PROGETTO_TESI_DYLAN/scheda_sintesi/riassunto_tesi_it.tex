@@ -34,7 +34,8 @@
    di mercato realistici tramite variational autoencoder}\\[0.7em]
   {\normalsize\bfseries Riassunto della tesi}\\[0.5em]
   {\small Candidato: Dylan Magliano (s337915) \quad---\quad
-   Relatori: prof. Flavio Giobergia, prof. Sergio Caprioli}\\
+   Relatori: prof. Flavio Giobergia, dott. Sergio Caprioli,
+   dott. Emanuele Cagliero}\\
   {\small Tesi svolta in collaborazione con Intesa Sanpaolo
    \quad---\quad Anno Accademico 2025--2026}
 \end{center}
@@ -159,8 +160,9 @@ i portafogli a varianza minima. Le matrici inverse presenti nella formulazione
 di Jeffreys ribaltano questa gerarchia e pesano l'errore in termini relativi
 lungo ogni direzione dello spettro. Poiché anche il termine di ricostruzione è
 così una divergenza, esso è omogeneo al termine di regolarizzazione di
-Kullback--Leibler e il peso $\beta$ resta fissato a 1: la formulazione
-impiegata è quella dell'ELBO canonico.
+Kullback--Leibler: l'obiettivo impiegato è di tipo VAE, composto dalla
+divergenza di Jeffreys nel dominio delle matrici e dalla divergenza di
+Kullback--Leibler nello spazio latente, con peso unitario ($\beta = 1$).
 
 La valutazione combina due famiglie di metriche: errori spaziali (MSE, MAE,
 norma di Frobenius) e metriche topologiche costruite sul \emph{Minimum
@@ -205,8 +207,11 @@ delle correlazioni emerge dunque non come un iperparametro da calibrare, ma come
 proprietà dei dati che il modello individua da sé; aggiungere dimensioni
 nominali non accresce la capacità utilizzata e amplia soltanto lo spazio su
 cui il vincolo di conformità al \emph{prior} deve essere soddisfatto. La
-scelta di $K = 20$ come modello definitivo --- il gomito della curva di
-ricostruzione --- risulta perciò robusta.
+scelta di $K = 20$ --- compiuta prima delle due run supplementari, sul gomito
+della curva di ricostruzione dei modelli deterministici --- non è dunque un
+\emph{optimum} empirico del VAE (a $K = 10$ l'errore di ricostruzione è anzi
+lievemente inferiore), ma un compromesso metodologico che queste prove
+mostrano essere poco critico.
 
 \section{Generazione stocastica di scenari e validazione}
 
@@ -223,9 +228,10 @@ significativo. La sintesi più efficace dei risultati è questa complementarità
 La procedura di generazione effettivamente adottata non è però un semplice
 campionamento dal \emph{prior} $\mathcal{N}(\mathbf{0},\mathbf{I})$, che
 produrrebbe uno scenario plausibile qualsiasi, scollegato dal presente.
-L'obiettivo è più specifico: costruire una distribuzione di scenari realistici
-della struttura di correlazione \emph{a un orizzonte di un mese a partire
-dallo stato di mercato osservato oggi}, da valutare in ottica di rischiosità.
+L'obiettivo è più specifico: costruire una distribuzione di scenari sintetici
+della struttura di correlazione \emph{a un orizzonte nominale di 21 giorni a
+partire dallo stato di mercato osservato oggi}, con cui stimare la possibile
+variabilità delle correlazioni in ottica di rischiosità.
 La tecnica impiegata è un \textbf{block-bootstrap storico nello spazio
 latente}, articolato in quattro passaggi: l'encoder ricostruisce la traiettoria
 latente storica giorno per giorno; se ne calcolano gli incrementi giornalieri;

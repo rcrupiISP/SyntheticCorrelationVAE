@@ -26,7 +26,7 @@ La prima proprietà macroscopica di una matrice di correlazione finanziaria real
 
 In un mercato teorico puramente casuale, in cui i rendimenti dei titoli fossero ortogonali e statisticamente indipendenti, la distribuzione empirica dei coefficienti di correlazione si presenterebbe come una curva simmetrica centrata esattamente sullo zero, le cui fluttuazioni campionarie attorno al valore nullo dipenderebbero unicamente dalla limitatezza della serie storica $T$. 
 
-Al contrario, nei mercati finanziari reali si osserva un fenomeno sistematico di deviazione statistica (\emph{distribution shift}). La distribuzione delle correlazioni \emph{pairwise} è marcatamente asimmetrica e significativamente spostata verso valori positivi, con una media campionaria stabilmente superiore allo zero, tipicamente confinata nell'intervallo $[0.2, 0.5]$. Questo spostamento globale riflette l'esistenza del cosiddetto ``effetto mercato'' o fattore di rischio sistematico: in condizioni macroeconomiche ordinarie, e in modo ancora più accentuato durante i crolli finanziari, la quasi totalità degli asset tende a muoversi nella medesima direzione, spinta da shock sistemici globali che dominano sulle componenti idiosincratiche dei singoli titoli.
+Al contrario, nei mercati finanziari reali si osserva un fenomeno sistematico di deviazione statistica (\emph{distribution shift}). La distribuzione delle correlazioni \emph{pairwise} è marcatamente asimmetrica e sistematicamente spostata verso valori positivi, con una media campionaria stabilmente superiore allo zero, tipicamente confinata nell'intervallo $[0.2, 0.5]$. Questo spostamento globale riflette l'esistenza del cosiddetto ``effetto mercato'' o fattore di rischio sistematico: in condizioni macroeconomiche ordinarie, e in modo ancora più accentuato durante i crolli finanziari, la quasi totalità degli asset tende a muoversi nella medesima direzione, spinta da shock sistemici globali che dominano sulle componenti idiosincratiche dei singoli titoli.
 
 \begin{figure}[h!]
 \centering
@@ -96,7 +96,7 @@ Verificando empiricamente questa proprietà sulla matrice n.\,100 del dataset fi
 \section{Struttura gerarchica delle correlazioni}
 \label{sec:struttura_gerarchica}
 
-Un'altra proprietà fondamentale dei mercati reali è l'organizzazione sub-strutturale delle correlazioni secondo un principio gerarchico. All'interno del tessuto economico, le aziende non interagiscono in modo uniforme: imprese appartenenti alla medesima filiera o al medesimo comparto industriale (es. \emph{Information Technology} o \emph{Energy}) manifestano livelli di co-movimento mutuo significativamente più intensi rispetto a quelli registrati tra aziende operanti in settori ortogonali.
+Un'altra proprietà fondamentale dei mercati reali è l'organizzazione sub-strutturale delle correlazioni secondo un principio gerarchico. All'interno del tessuto economico, le aziende non interagiscono in modo uniforme: imprese appartenenti alla medesima filiera o al medesimo comparto industriale (es. \emph{Information Technology} o \emph{Energy}) manifestano livelli di co-movimento mutuo sistematicamente più intensi rispetto a quelli registrati tra aziende operanti in settori ortogonali.
 
 Se si applica un algoritmo di ordinamento ottimale basato su metriche di clustering gerarchico sulla matrice $\hat{\mathbf{C}}$, l'organizzazione interna si palesa visivamente sotto forma di blocchi densi disposti lungo la diagonale principale. Questa struttura ad albero (esprimibile analiticamente mediante dendrogrammi) evidenzia che il mercato è organizzato secondo un'architettura multi-scala: un livello globale (effetto mercato), macro-cluster stabili (i settori GICS) e micro-aggregazioni locali (le sotto-industrie), un risultato osservato per la prima volta da \citet{mantegna1998hierarchical} sui titoli del Dow Jones e dell'S\&P 500. La preservazione di tale gerarchia è un test fondamentale per determinare se un modello architetturale profondo stia apprendendo la reale tassonomia economica dei dati.
 
@@ -147,7 +147,7 @@ Sulla matrice n.\,100 (Figura~\ref{fig:mst_scalefree} e Figura~\ref{fig:mst_grap
 \section{Benchmark test: fallimento strutturale della Random Matrix Theory}
 \label{sec:benchmark_rmt}
 
-Al fine di valutare la significatività statistica dei cinque fatti stilizzati descritti, viene definito un protocollo di \emph{benchmark test} basato sul confronto diretto tra le matrici finanziarie reali e le matrici puramente casuali generate sinteticamente tramite i teoremi della Random Matrix Theory.
+Al fine di verificare che i cinque fatti stilizzati descritti non siano artefatti del caso, viene definito un protocollo di \emph{benchmark test} basato sul confronto diretto tra le matrici finanziarie reali e le matrici puramente casuali generate sinteticamente tramite i teoremi della Random Matrix Theory.
 
 Generando una matrice di controllo mediante l'estrazione di $N$ serie temporali di puro rumore gaussiano bianco i.i.d., si costruisce la corrispondente matrice di correlazione casuale. Sottoponendo tale matrice al medesimo protocollo di analisi qualitativo e quantitativo, si registra un fallimento sistematico nell'adempimento delle proprietà del mercato reale:
 

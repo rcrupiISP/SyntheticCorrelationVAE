@@ -11,14 +11,14 @@ Come tutti i modelli di questa pipeline (Sezioni~\ref{sec:setup_linear_ae}--\ref
 \section{Design e iperparametri dell'Autoencoder Lineare}
 \label{sec:setup_linear_ae}
 
-L'Autoencoder Lineare (Linear AE) è stato progettato per fungere da ponte analitico tra l'apprendimento profondo e l'algebra lineare. Per consentire la replicabilità del sottospazio della PCA, l'architettura è stata sottoposta a vincoli ingegneristici stringenti:
+L'Autoencoder Lineare (Linear AE) è stato progettato per fungere da ponte analitico tra l'apprendimento profondo e l'algebra lineare. Per consentire la replicabilità del sottospazio della PCA, l'architettura è stata sottoposta ai seguenti vincoli:
 \begin{itemize}
     \item \textbf{Struttura:} Un singolo \emph{layer} denso per l'Encoder ($\mathbb{R}^{D} \to \mathbb{R}^K$) e uno speculare per il Decoder ($\mathbb{R}^K \to \mathbb{R}^{D}$), con $D=65703$ nella parametrizzazione Cholesky definitiva.
     \item \textbf{Funzioni di attivazione:} Identità (lineari) in ogni nodo della rete.
     \item \textbf{Assenza di Bias e Regolarizzazione:} I termini di \emph{bias} sono stati disabilitati in tutti i \emph{layer} ($\mathbf{b} = 0$) e non è stata applicata alcuna penalizzazione di tipo \emph{weight decay} (L2) per non alterare la magnitudo della scomposizione spettrale appresa.
 \end{itemize}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.85\textwidth]{./Pictures/capitolo6/fig_architettura_linear_ae.png}
 \caption{Architettura dell'Autoencoder Lineare: un singolo layer denso lineare, privo di bias, per l'Encoder e per il Decoder, con spazio latente di dimensione $K$.}
@@ -30,7 +30,7 @@ L'ottimizzazione dei pesi è stata condotta minimizzando esclusivamente la funzi
 \section{Design e iperparametri dell'Autoencoder Non-Lineare}
 \label{sec:setup_deep_ae}
 
-Per superare la rigidità geometrica dei modelli precedenti e catturare le interdipendenze gerarchiche e asimmetriche del mercato reale, è stato sviluppato un Autoencoder Profondo (AE). L'inclusione di strati multipli e funzioni non lineari dota il modello della flessibilità necessaria per piegare lo spazio latente e fittare la \emph{manifold} complessa dei dati finanziari.
+Per superare la rigidità geometrica dei modelli precedenti e catturare le interdipendenze gerarchiche e asimmetriche del mercato reale, è stato sviluppato un Autoencoder Profondo (AE). L'inclusione di strati multipli e funzioni non lineari dota il modello della flessibilità necessaria per piegare lo spazio latente e fittare una \emph{manifold} generalmente non-lineare ai dati finanziari.
 
 L'architettura è strutturata con un \emph{design} a imbuto (simmetrico), condiviso con il VAE (Sezione~\ref{sec:setup_vae}):
 \begin{itemize}
@@ -39,7 +39,7 @@ L'architettura è strutturata con un \emph{design} a imbuto (simmetrico), condiv
     \item \textbf{Funzioni di attivazione:} Per gli strati nascosti intermedi ($2048 \to 1024 \to 512$, sia nell'Encoder sia nel Decoder) è stata adottata la funzione di attivazione LeakyReLU (con parametro di pendenza $\alpha$ fissato a 0.01) per mitigare il problema del \emph{vanishing gradient} e garantire un flusso di gradiente non nullo anche per valori di input negativi. Restano invece puramente lineari (privi di attivazione) i due \emph{layer} terminali dei due rami: la proiezione dell'Encoder sullo spazio latente ($512 \to \mathbb{R}^K$), per non vincolare il segno delle coordinate del codice latente, e il \emph{layer} di output del Decoder. Su quest'ultimo, a differenza di quanto inizialmente previsto in fase di progettazione, l'opzione Tanh, valutata per vincolare i valori ricostruiti al dominio $[-1,1]$ coerente con i coefficienti di correlazione di Pearson, è stata infine disattivata in tutte le run utilizzate per i risultati poiché la sua saturazione asintotica agli estremi $\pm 1$ avrebbe potuto azzerare il gradiente in fase di \emph{backpropagation} (\emph{vanishing gradient}), rallentando o bloccando l'apprendimento; si è quindi preferito lasciare che sia il \emph{clipping} finale in fase di ricostruzione della matrice a imporre tale vincolo.
 \end{itemize}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{./Pictures/capitolo6/fig_architettura_deep_ae.png}
 \caption{Architettura dell'Autoencoder Profondo (Deep AE): design a imbuto simmetrico con attivazione LeakyReLU sugli strati nascosti intermedi e nessuna attivazione sul layer di \emph{bottleneck} e sull'ultimo layer del Decoder.}
@@ -48,14 +48,14 @@ L'architettura è strutturata con un \emph{design} a imbuto (simmetrico), condiv
 
 Al fine di prevenire l'\emph{overfitting} e selezionare la configurazione ottimale, il protocollo di addestramento prevede l'esecuzione per un numero prefissato di epoche (tipicamente 1000), monitorando costantemente il \emph{Validation Set} (generato tramite la tecnica del \emph{random shuffle}), con ottimizzatore Adam, \emph{scheduler} \emph{Cosine Annealing} e \emph{batch size} pari a 64. La strategia di salvataggio dei pesi (\emph{Model Checkpointing}) è impostata per conservare esclusivamente il modello in corrispondenza del valore minimo assoluto della \emph{Validation Loss}.
 
-Grazie all'omogeneità statistica indotta dal campionamento casuale, che attenua il problema del \emph{distribution shift} temporale, il Deep AE mostra un'elevata capacità espressiva: la \emph{Training Loss} e la \emph{Validation Loss} risultano stabilmente decrescenti, scendendo al di sotto del limite rigido fissato dal \emph{benchmark} della PCA per medesimi valori di $K$. Questo risultato empirico indica la capacità della rete di superare i limiti dell'algebra lineare, generalizzando efficacemente sulle dinamiche non lineari del mercato.
+Grazie all'omogeneità statistica indotta dal campionamento casuale, che attenua il problema del \emph{distribution shift} temporale, il Deep AE dimostra \emph{Training Loss} e \emph{Validation Loss} stabilmente decrescenti, scendendo al di sotto del limite rigido fissato dal \emph{benchmark} della PCA per medesimi valori di $K$. Questo risultato empirico indica la capacità della rete di superare i limiti dell'algebra lineare, generalizzando efficacemente sulle dinamiche non lineari del mercato.
 
-Tuttavia, l'elevato potere ricostruttivo del Deep AE porta alla luce un limite strutturale di diversa natura: l'incapacità generativa. Trattandosi di un modello puramente deterministico, l'Encoder mappa l'input in vettori latenti $\mathbf{z}$ puntuali, creando uno spazio disaggregato e privo di organizzazione probabilistica. Estrapolare nuovi scenari campionando vettori casuali da questo dominio tenderebbe a produrre matrici prive di validità macroeconomica. Tale ostacolo evidenzia la necessità di transitare verso il paradigma variazionale (VAE), progettato per superare il determinismo e abilitare la simulazione stocastica.
+Tuttavia, come già discusso nel Capitolo~\ref{ch:modelli_generativi}, \S\ref{sec:deep_ae}, al potere ricostruttivo del Deep AE non corrisponde una capacità generativa: essendo il modello deterministico, il suo spazio latente resta privo di organizzazione probabilistica e il campionamento di vettori casuali al suo interno non produrrebbe matrici dotate di validità macroeconomica. Da qui il passaggio al paradigma variazionale (VAE), oggetto della sezione seguente.
 
 \section{Design e iperparametri del VAE}
 \label{sec:setup_vae}
 
-Il Variational Autoencoder (VAE) rappresenta lo stadio conclusivo della pipeline, deputato non solo alla compressione, ma alla generazione stocastica. L'architettura condivide l'\emph{encoder}/\emph{decoder} a imbuto ($2048 \to 1024 \to 512$, LeakyReLU) del Deep AE (Sezione~\ref{sec:setup_deep_ae}), espandendone la topologia trasformando lo strato di \emph{bottleneck} deterministico in un modulo di inferenza probabilistica.
+Il Variational Autoencoder (VAE) è deputato non solo alla compressione, ma alla generazione stocastica. L'architettura condivide l'\emph{encoder}/\emph{decoder} a imbuto ($2048 \to 1024 \to 512$, LeakyReLU) del Deep AE (Sezione~\ref{sec:setup_deep_ae}), trasformando però lo strato di \emph{bottleneck} deterministico in un modulo di inferenza probabilistica.
 
 \begin{itemize}
     \item \textbf{Rete di Inferenza (Encoder):} Al termine degli strati nascosti, la rete si biforca in due layer paralleli che emettono, rispettivamente, il vettore delle medie $\boldsymbol{\mu}$ e il vettore delle varianze logaritmiche $\log(\boldsymbol{\sigma}^2)$ della distribuzione latente, per favorire la stabilità numerica.
@@ -63,14 +63,14 @@ Il Variational Autoencoder (VAE) rappresenta lo stadio conclusivo della pipeline
     \item \textbf{Rete Generativa (Decoder):} Il Decoder speculare riceve $\mathbf{z}$ e procede alla ricostruzione, garantendo la PSD della matrice di correlazione tramite la stessa procedura basata su Cholesky descritta per l'Autoencoder Profondo.
 \end{itemize}
 
-\begin{figure}[h!]
+\begin{figure}[!ht]
 \centering
 \includegraphics[width=0.98\textwidth]{./Pictures/capitolo6/fig_architettura_vae.png}
 \caption{Architettura del VAE: encoder a imbuto condiviso con il Deep AE, biforcazione in $\boldsymbol{\mu}$ e $\log\boldsymbol{\sigma}^2$, campionamento di $\mathbf{z}$ tramite \emph{reparameterization trick} e decoder speculare.}
 \label{fig:architettura_vae}
 \end{figure}
 
-Il bilanciamento tra l'errore di ricostruzione e il vincolo topologico imposto dalla Divergenza di Kullback-Leibler (KL) è governato, secondo il framework $\beta$-VAE, dal peso $\beta$ nella \emph{loss} complessiva $\mathcal{L} = \mathcal{L}_{\text{Recon}} + \beta \, \mathcal{L}_{\text{KL}}$. In tutte le run riportate in questa tesi è stato utilizzato un obiettivo di tipo VAE composto dalla Divergenza di Jeffreys nel dominio delle matrici di correlazione (descritta qui di seguito) e dalla divergenza KL nello spazio latente, con peso unitario ($\beta = 1$): una formulazione che conserva la struttura a due termini antagonisti del VAE standard, pur non coincidendo alla lettera con l'ELBO canonico, dal momento che il termine di verosimiglianza è sostituito da una divergenza fra matrici. La scelta del peso unitario discende dalla natura della \emph{loss} di ricostruzione adottata: essendo anch'essa costruita da divergenze di Kullback-Leibler --- calcolate fra le distribuzioni associate alle matrici di correlazione anziché nello spazio latente --- i due addendi sono grandezze omogenee, espresse nella medesima unità di misura, e un coefficiente $\beta \neq 1$ introdurrebbe un fattore di scala fra due quantità già commensurabili senza una giustificazione statistica che lo imponga.
+Il bilanciamento tra l'errore di ricostruzione e il vincolo imposto dalla Divergenza di Kullback-Leibler (KL) è governato, secondo il framework $\beta$-VAE, dal peso $\beta$ nella \emph{loss} complessiva $\mathcal{L} = \mathcal{L}_{\text{Recon}} + \beta \, \mathcal{L}_{\text{KL}}$. In tutte le run riportate in questa tesi è stato utilizzato un obiettivo di tipo VAE composto dalla Divergenza di Jeffreys nel dominio delle matrici di correlazione (descritta qui di seguito) e dalla divergenza KL nello spazio latente, con peso unitario ($\beta = 1$): una formulazione che conserva la struttura a due termini antagonisti del VAE standard, pur non coincidendo alla lettera con l'ELBO canonico, dal momento che il termine di verosimiglianza è sostituito da una divergenza fra matrici. La scelta del peso unitario discende dalla natura della \emph{loss} di ricostruzione adottata: essendo anch'essa costruita da divergenze di Kullback-Leibler --- calcolate fra le distribuzioni associate alle matrici di correlazione anziché nello spazio latente --- i due addendi sono grandezze omogenee, espresse nella medesima unità di misura, e un coefficiente $\beta \neq 1$ introdurrebbe un fattore di scala fra due quantità già commensurabili senza una giustificazione statistica che lo imponga.
 
 La \emph{Reconstruction Loss} adottata in questa pipeline non è però il consueto errore quadratico medio: viene valutata direttamente nel dominio delle matrici di correlazione e confronta due oggetti. Il \emph{target} è $\mathbf{R}_{\text{orig}} \in \mathbb{R}^{N \times N}$, la matrice di correlazione empirica della finestra temporale in ingresso ($N=362$ titoli, Capitolo~\ref{ch:preprocessing}). La ricostruzione è $\mathbf{R}_{\text{recon}} \in \mathbb{R}^{N \times N}$, ottenuta dall'output del Decoder $\hat{\mathbf{x}} \in \mathbb{R}^{D}$ ri-disponendone le componenti nel triangolo inferiore del fattore $\hat{\mathbf{L}}$, calcolando il prodotto $\hat{\mathbf{L}}\hat{\mathbf{L}}^{T}$ --- semidefinito positivo per costruzione --- e rinormalizzandolo a diagonale unitaria; l'intera catena resta all'interno del grafo computazionale differenziabile, cosicché il gradiente si propaghi fino ai pesi del Decoder. Associando alle due matrici le distribuzioni gaussiane centrate $P \sim \mathcal{N}(\mathbf{0}, \mathbf{R}_{\text{orig}})$ e $Q \sim \mathcal{N}(\mathbf{0}, \mathbf{R}_{\text{recon}})$, la \emph{loss} è la \textbf{Divergenza di Jeffreys}, ossia la somma delle due divergenze KL direzionali:
 \begin{equation}
@@ -115,14 +115,14 @@ Seme casuale & $42$ \\
 \section{Metriche di valutazione e criteri di convergenza}
 \label{sec:metriche_convergenza}
 
-L'addestramento dei modelli neurali è stato governato monitorando un set di metriche oggettive e applicando policy di ottimizzazione volte a favorire la stabilità dell'apprendimento e la capacità di estrapolazione fuori campionario:
+L'addestramento dei modelli neurali è stato governato monitorando un set di metriche oggettive e applicando policy di ottimizzazione volte a favorire la stabilità dell'apprendimento:
 
 \begin{enumerate}
-    \item \textbf{Metriche Spaziali:} La valutazione quantitativa puntuale si basa sul \emph{Mean Squared Error} (MSE), impiegato direttamente come funzione di costo e indicatore primario. A questo si affiancano il \emph{Mean Absolute Error} (MAE), più resistente agli \emph{outlier}, e la Norma di Frobenius, che quantifica l'energia complessiva residua tra la matrice empirica originale e la sua approssimazione ricostruita o generata.
+    \item \textbf{Metriche Spaziali:} La valutazione quantitativa puntuale si basa sul \emph{Mean Squared Error} (MSE), impiegato direttamente come funzione di costo e indicatore primario. A questo si affiancano il \emph{Mean Absolute Error} (MAE), più resistente agli \emph{outlier}, e la Norma di Frobenius.
 
     \item \textbf{Metriche Topologiche:} Per verificare che la fedeltà di ricostruzione non sia solo puntuale ma preservi anche la struttura di rete (Capitolo~\ref{ch:stylized_facts}), ogni matrice ricostruita viene confrontata con l'originale attraverso il rispettivo \emph{Minimum Spanning Tree}: percentuale di archi in comune (\emph{edge overlap} e indice di Jaccard), differenza nella \emph{average path length} (pesata e non) e sovrapposizione dei nodi a più alta \emph{betweenness centrality}.
 
-    \item \textbf{Ottimizzatore e Learning Rate Policy:} È stato impiegato l'algoritmo di ottimizzazione Adam, noto per la gestione dinamica del momento del gradiente. Per agevolare la convergenza dell'ottimizzazione, è stato implementato uno \emph{scheduler} per il \emph{Learning Rate} basato sulla tecnica del \emph{Cosine Annealing}. Questa strategia riduce il tasso di apprendimento seguendo il decadimento morbido e continuo della funzione coseno, permettendo esplorazioni ampie nelle fasi iniziali e un'ottimizzazione fine, priva dei bruschi salti tipici degli approcci \emph{step-based}, man mano che la rete si avvicina al \emph{plateau} di convergenza.
+    \item \textbf{Ottimizzatore e Learning Rate Policy:} È stato impiegato l'algoritmo di ottimizzazione Adam, che gestisce dinamicamente il momentum del gradiente. Per agevolare la convergenza dell'ottimizzazione, è stato implementato uno \emph{scheduler} per il \emph{Learning Rate} basato sulla tecnica del \emph{Cosine Annealing}. Questa strategia riduce il tasso di apprendimento seguendo il decadimento morbido e continuo della funzione coseno, permettendo esplorazioni ampie nelle fasi iniziali e un'ottimizzazione fine, priva dei bruschi salti tipici degli approcci \emph{step-based}, man mano che la rete si avvicina al \emph{plateau} di convergenza.
     
-    \item \textbf{Monitoraggio della Convergenza:} La gestione a epoche (\emph{epochs}) tramite \emph{mini-batches} è stata affiancata dall'impiego del \emph{Validation Set} come arbitro indipendente per il \emph{Model Checkpointing}. L'algoritmo valuta l'intero ciclo di epoche prefissato e salva i pesi architetturali esclusivamente in corrispondenza del valore minimo assoluto raggiunto dalla \emph{Validation Loss}. Questo protocollo mira a far sì che le prestazioni valutate in sede finale sul \emph{Test Set} costituiscano una stima imparziale e robusta delle performance del modello.
+    \item \textbf{Monitoraggio della Convergenza:} La gestione a epoche (\emph{epochs}) tramite \emph{mini-batches} è stata affiancata dall'impiego del \emph{Validation Set} come arbitro indipendente per il \emph{Model Checkpointing}. L'algoritmo valuta l'intero ciclo di epoche prefissato e salva i pesi architetturali esclusivamente in corrispondenza del valore minimo assoluto raggiunto dalla \emph{Validation Loss}.
 \end{enumerate}

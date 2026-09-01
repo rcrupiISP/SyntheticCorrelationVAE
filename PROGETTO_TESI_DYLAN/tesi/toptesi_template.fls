@@ -2,6 +2,7 @@ PWD C:\Users\dylan\Desktop\TESI\SyntheticCorrelationVAE\PROGETTO_TESI_DYLAN\tesi
 INPUT C:\Users\dylan\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
 INPUT toptesi_template.tex
 OUTPUT toptesi_template.log
+INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\toptesi\toptesi.sty
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\toptesi\toptesi.cls
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\toptesi\toptesi.cls
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\fancyvrb\fancyvrb.sty
@@ -59,7 +60,6 @@ INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\babel-italian\itali
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\babel-italian\italian.ldf
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\etoolbox\etoolbox.sty
-INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\toptesi\toptesi.sty
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\toptesi\toptesi.sty
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\koma-script\scrextend.sty
 INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\tex\latex\koma-script\scrextend.sty
@@ -651,6 +651,7 @@ INPUT .\Pictures\capitolo8\fig_marchenko_pastur_generato.png
 INPUT .\Pictures\capitolo8\fig_marchenko_pastur_generato.png
 INPUT .\Pictures\capitolo8\fig_marchenko_pastur_generato.png
 INPUT .\Pictures\capitolo8\fig_marchenko_pastur_generato.png
+INPUT C:\Users\dylan\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ec-lmr6.tfm
 INPUT .\Pictures\capitolo8\fig_perron_frobenius_generato.png
 INPUT .\Pictures\capitolo8\fig_perron_frobenius_generato.png
 INPUT .\Pictures\capitolo8\fig_perron_frobenius_generato.png

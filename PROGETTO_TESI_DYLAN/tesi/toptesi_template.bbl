@@ -1,4 +1,4 @@
-\begin{thebibliography}{22}
+\begin{thebibliography}{23}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -41,6 +41,15 @@ Phelim~P. Boyle.
 \newblock \emph{Journal of Financial Economics}, 4\penalty0 (3):\penalty0
   323--338, 1977.
 \newblock \doi{10.1016/0304-405X(77)90005-8}.
+
+\bibitem[Burgess et~al.(2018)Burgess, Higgins, Pal, Matthey, Watters,
+  Desjardins e Lerchner]{burgess2018understanding}
+Christopher~P. Burgess, Irina Higgins, Arka Pal, Loic Matthey, Nick Watters,
+  Guillaume Desjardins e Alexander Lerchner.
+\newblock Understanding disentangling in $\beta$-{VAE}, 2018.
+\newblock URL \url{https://arxiv.org/abs/1804.03599}.
+\newblock Presentato al \emph{2017 NIPS Workshop on Learning Disentangled
+  Representations}.
 
 \bibitem[Caprioli et~al.(2024)Caprioli, Cagliero e Crupi]{caprioli2024ptfvae}
 Sergio Caprioli, Emanuele Cagliero e Riccardo Crupi.

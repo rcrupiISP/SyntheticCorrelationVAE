@@ -62,7 +62,7 @@ Nel VAE, per ogni campione di input $\mathbf{x}$ --- che resta il vettore appiat
 \mathbf{z} = \boldsymbol{\mu} + \boldsymbol{\sigma} \odot \boldsymbol{\epsilon} \quad \text{con} \quad \boldsymbol{\epsilon} \sim \mathcal{N}(\mathbf{0}, \mathbf{I})
 \end{equation}
 
-L'elemento distintivo del VAE risiede nella sua funzione di \emph{loss}, che massimizza il limite inferiore dell'evidenza (ELBO). Essa è composta da due termini antagonisti:
+L'elemento distintivo del VAE risiede nella sua funzione di \emph{loss}, che massimizza il limite inferiore dell'evidenza (\emph{Evidence Lower Bound}, ELBO). Essa è composta da due termini antagonisti:
 \begin{equation}
 \mathcal{L}_{\text{VAE}} = \underbrace{\mathbb{E}_{q_{\phi}(\mathbf{z}|\mathbf{x})} [-\log p_{\theta}(\mathbf{x}|\mathbf{z})]}_{\text{Reconstruction Loss}} + \underbrace{\beta \, D_{KL}(q_{\phi}(\mathbf{z}|\mathbf{x}) \parallel p(\mathbf{z}))}_{\text{KL Divergence}}
 \end{equation}

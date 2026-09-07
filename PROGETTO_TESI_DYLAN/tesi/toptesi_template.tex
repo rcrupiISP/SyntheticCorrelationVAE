@@ -68,6 +68,32 @@
 %%%%%%% segnalazione per non sporcare il log; l'impaginazione resta invariata.
 \vbadness=10000
 
+%%%%%%% Dedica: l'ambiente "dedica" di toptesi e' una lista con margine
+%%%%%%% sinistro pari a meta' della gabbia, per cui al testo resta solo
+%%%%%%% meta' \textwidth e i versi piu' lunghi vanno a capo da soli
+%%%%%%% ("sodo," restava isolato). Si ridefinisce l'ambiente, identico
+%%%%%%% all'originale salvo il margine sinistro, calcolato in modo che il
+%%%%%%% verso piu' lungo (misurato qui sotto, nello stesso corpo e stile)
+%%%%%%% stia su una riga sola: il blocco resta accostato a destra come
+%%%%%%% nell'originale, spostato a sinistra solo del minimo necessario.
+%%%%%%% Se la dedica cambia, aggiornare il verso misurato.
+\newlength{\dedicalarghezza}
+\AtBeginDocument{\settowidth{\dedicalarghezza}{\LARGE\itshape anche quando sarebbe più facile smettere}}
+\makeatletter
+\renewenvironment{dedica}{\clearpage
+    \if@twoside
+        \ifodd\c@page\else\thispagestyle{empty}\null\clearpage\fi
+    \fi
+    \thispagestyle{empty}%
+    \list{}{\labelwidth\z@
+    \leftmargin\dimexpr\textwidth-\dedicalarghezza-1pt\relax
+    \parindent\z@
+    \raggedright\LARGE\itshape}\item[]
+}{%
+    \endlist\clearpage
+}
+\makeatother
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -1,0 +1,31 @@
+%% ---- sezione F: conclusioni ----
+\section{Conclusioni, limiti e sviluppi futuri}
+
+La sintesi dei risultati (cap.~9, \S9.1) si può condensare in quattro punti.
+\begin{itemize}[nosep]
+\item Il primo tentativo sulla matrice di correlazione grezza non rispettava in modo affidabile la semidefinita positività (PSD); da qui il passaggio definitivo al fattore di Cholesky, con matrice ricomposta come $L L^{\top}$ e PSD garantita per costruzione.
+\item PCA e autoencoder lineare (AE lineare) convergono, a parità di $K$, allo stesso errore, coerentemente con il teorema di Bourlard e Kamp (1988), e fissano il benchmark lineare.
+\item L'autoencoder profondo (AE) supera nettamente tale limite a ogni $K$, senza segni di overfitting; il VAE (\texttt{VAE\_20dim\_cholesky\_06\_loss}) è intermedio: meno accurato dell'AE, migliore di PCA e AE lineare a $K = 20$.
+\item Il valore distintivo del VAE è generativo: il block-bootstrap degli incrementi latenti produce, dallo stato di mercato osservato, una distribuzione di scenari sintetici a orizzonte nominale di 21 giorni, non come previsione puntuale ma come stima della possibile variabilità delle correlazioni a quell'orizzonte, in ottica di rischiosità. I 1000 scenari non mostrano violazioni dei cinque fatti stilizzati. L'AE deterministico non è stato impiegato per generare. Senza regolarizzazione variazionale il suo spazio latente non è vincolato ad alcuna distribuzione a priori e non ha la continuità e la densità necessarie a un campionamento significativo, che il suo obiettivo di addestramento non prevede (premessa metodologica non verificata empiricamente, \S4.3).
+\end{itemize}
+
+\paragraph{Rispetto al lavoro di riferimento.} Caprioli et al.\ (2024) addestrano un VAE con spazio latente bidimensionale su 206 matrici mensili di 44 indici (finestre di 100 mesi, 1997--2022, split 70\%/30\%) e stimano per bootstrap latente la distribuzione del Value at Risk di un portafoglio creditizio. Qui il paniere conta 362 titoli a frequenza giornaliera e ogni matrice 65\,703 coefficienti contro 946. Si aggiungono il sanity check sul benchmark lineare, l'architettura a imbuto e la loss di Jeffreys, la PSD incorporata nella rappresentazione, otto metriche di errore, l'analisi della dimensionalità effettiva, la classificazione GICS via LLM, la verifica quantitativa dei 1000 scenari e il block-bootstrap giornaliero. Restano fuori perimetro le misure di rischio di portafoglio e l'interpretazione economica delle coordinate latenti.
+
+\paragraph{Limiti (\S9.2).} Il capitolo ne dichiara sei.
+\begin{itemize}[nosep]
+\item Survivorship bias, il limite più forte perché agisce a monte: i risultati si riferiscono al ``mercato dei titoli sopravvissuti'' e gli scenari possono risultare conservativi nelle crisi.
+\item Verifica aggregata ridotta a indicatori scalari, ispezione visiva di un solo scenario, numerosità effettiva sotto 1000 per i blocchi sovrapposti, un solo stato iniziale.
+\item Sovrapposizione fra finestre fino al 98.6\% e assenza di separazione temporale fra i set: possibile ottimismo nelle metriche.
+\item VAE non testato a $K = 3$ e $K = 100$; errore che non decresce con $K$ (MSE da $1.26$ a $1.88 \times 10^{-4}$ fra $K = 10$ e $K = 30$), coerentemente con il posterior collapse.
+\item Perimetro ristretto al regime cooperativo (49 finestre escluse).
+\item Classificazione GICS via LLM non sottoposta a validazione incrociata con fonti ufficiali.
+\end{itemize}
+
+\paragraph{Sviluppi futuri (\S9.3).} Le direzioni sono cinque.
+\begin{itemize}[nosep]
+\item Applicazione degli scenari al rischio di portafogli reali.
+\item Verifica da più stati iniziali e test formali di aderenza distributiva.
+\item Confronto con CorrGAN (Marti, 2020) e modelli di diffusione.
+\item Rimozione del survivorship bias con un panel a composizione variabile.
+\item Altre asset class (valute, materie prime) e purging esplicito fra i set.
+\end{itemize}

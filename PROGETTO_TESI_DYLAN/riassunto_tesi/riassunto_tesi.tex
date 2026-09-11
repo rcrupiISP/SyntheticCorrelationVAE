@@ -1,0 +1,92 @@
+%% Riassunto della tesi di laurea magistrale di Dylan Magliano
+%% Compilare con: pdflatex -interaction=nonstopmode riassunto_tesi.tex (due passate)
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[italian]{babel}
+\usepackage[a4paper,top=2.4cm,bottom=2.4cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{caption}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={Riassunto della tesi - Dylan Magliano},pdfauthor={Dylan Magliano},pdfsubject={Dai pixel ai portafogli finanziari: generare scenari di mercato realistici tramite variational autoencoder}}
+
+\definecolor{polito}{RGB}{0,51,102}
+\definecolor{accent}{RGB}{127,63,0}
+\definecolor{grigio}{RGB}{95,95,95}
+
+\titleformat{\section}{\Large\bfseries\color{polito}}{\thesection}{0.7em}{}
+\titlespacing*{\section}{0pt}{1.6ex plus 0.6ex minus 0.3ex}{1.0ex plus 0.3ex}
+\titleformat{\subsection}{\large\bfseries\color{polito!85!black}}{\thesubsection}{0.6em}{}
+\titlespacing*{\subsection}{0pt}{1.2ex plus 0.4ex minus 0.2ex}{0.6ex plus 0.2ex}
+\titleformat{\paragraph}[runin]{\bfseries}{}{0em}{}
+\titlespacing*{\paragraph}{0pt}{0.8ex plus 0.3ex}{0.6em}
+
+\newtcolorbox{riquadro}[2][]{%
+  enhanced, breakable,
+  colback=polito!4, colframe=polito, boxrule=0.6pt, arc=2pt,
+  fonttitle=\bfseries, coltitle=white, colbacktitle=polito,
+  title={#2}, left=6pt, right=6pt, top=5pt, bottom=5pt,
+  before skip=8pt plus 2pt, after skip=8pt plus 2pt, #1}
+
+\captionsetup{font=small,labelfont={bf,color=polito},width=0.92\linewidth}
+\setlist{nosep, leftmargin=1.4em, itemsep=1.5pt}
+\setlength{\parskip}{3pt plus 1pt}
+\setlength{\parindent}{0pt}
+\renewcommand{\arraystretch}{1.12}
+\graphicspath{{./}}
+\renewcommand{\floatpagefraction}{0.8}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.6}
+\renewcommand{\textfraction}{0.1}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{grigio}Riassunto della tesi -- Dylan Magliano}
+\fancyhead[R]{\small\color{grigio}Politecnico di Torino, A.A. 2025-2026}
+\fancyfoot[C]{\small\color{grigio}\thepage\ / \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{polito!60}\leaders\hrule height \headrulewidth\hfill}}
+
+\hyphenation{auto-en-co-der va-ria-tio-nal Cho-le-sky Mar-chen-ko Fro-be-nius}
+
+\begin{document}
+
+%% ---------------------------------------------------------------- Testata
+\begin{center}
+  {\small\color{grigio}\textsc{Politecnico di Torino} \,$\cdot$\, Corso di Laurea Magistrale in Ingegneria Informatica\\
+  Orientamento Artificial Intelligence and Data Analytics \,$\cdot$\, Anno Accademico 2025-2026}\\[1.4ex]
+  {\LARGE\bfseries\color{polito}Dai pixel ai portafogli finanziari:\\[0.3ex] generare scenari di mercato realistici\\[0.3ex] tramite variational autoencoder\par}
+  \vspace{1.2ex}
+  {\large Riassunto della tesi di laurea magistrale\par}
+  \vspace{1.4ex}
+  \begin{tabular}{@{}r@{\hspace{0.8em}}l@{}}
+    \textcolor{grigio}{Candidato} & Dylan Magliano (matricola s337915)\\
+    \textcolor{grigio}{Relatore} & prof. Flavio Giobergia, Politecnico di Torino\\
+    \textcolor{grigio}{Correlatori} & dott. Sergio Caprioli e dott. Emanuele Cagliero, Intesa Sanpaolo\\
+  \end{tabular}
+  \vspace{0.8ex}
+  {\color{polito!60}\rule{0.6\linewidth}{0.4pt}}
+\end{center}
+
+{\small\color{grigio}Questo documento riassume la tesi (tre parti, nove capitoli) seguendone l'ordine. Le figure e le tabelle sono riprese o ricavate dalla tesi; i riferimenti tra parentesi rimandano ai suoi capitoli e sezioni.\par}
+
+\input{sec_A.tex}
+\input{sec_B.tex}
+\input{sec_C.tex}
+\input{sec_D.tex}
+\input{sec_E.tex}
+\input{sec_F.tex}
+
+\end{document}
